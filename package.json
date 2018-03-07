@@ -10,15 +10,27 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "test": "npm run test:watch",
+    "test:watch": "react-scripts test --env=jsdom",
+    "test:ci": "CI=true react-scripts test --env=jsdom",
+    "test:precommit": "npm run test:ci",
     "eject": "react-scripts eject",
     "lint": "npx eslint .",
-    "pretty": "npx prettier --write '**/*.{js,jsx,json,css,scss}'"
+    "pretty": "npx prettier --write '**/*.{js,jsx,json,css,scss}'",
+    "precommit": "lint-staged && npm run lint && npm run test:precommit"
+  },
+  "lint-staged": {
+    "**/*.{js,jsx,json,css,scss}": [
+      "prettier --write",
+      "git add"
+    ]
   },
   "devDependencies": {
     "eslint-config-airbnb": "^15.1.0",
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-prettier": "^2.6.0",
+    "husky": "^0.14.3",
+    "lint-staged": "^7.0.0",
     "prettier": "1.11.1"
   }
 }
