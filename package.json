@@ -12,9 +12,12 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
+    "lint": "npx eslint .",
     "pretty": "npx prettier --write '**/*.{js,jsx,json,css,scss}'"
   },
   "devDependencies": {
+    "eslint-config-airbnb": "^15.1.0",
+    "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-prettier": "^2.6.0",
     "prettier": "1.11.1"
   }

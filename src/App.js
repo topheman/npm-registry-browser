@@ -3,6 +3,9 @@ import logo from "./logo.svg";
 import "./App.css";
 
 class App extends Component {
+  componentWillMount() {
+    console.log("component did mount!");
+  }
   render() {
     return (
       <div className="App">
