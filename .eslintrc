@@ -4,6 +4,9 @@
   "rules": {
     "prettier/prettier": "error",
     "no-console": "off",
-    "react/jsx-filename-extension": "off"
+    "react/jsx-filename-extension": "off",
+    "react/forbid-prop-types": [2, { "forbid": ["any"] }],
+    "react/no-did-mount-set-state": "off",
+    "import/prefer-default-export": "off"
   }
 }

@@ -1,23 +1,25 @@
-import React, { Fragment } from "react";
-import { HashRouter, Route } from "react-router-dom";
+import React from "react";
+import { HashRouter, Route, Switch } from "react-router-dom";
 
 import MainLayout from "./containers/MainLayout/MainLayout";
 
 import Home from "./containers/Home/Home";
-
-const ucFirst = str =>
-  (str && str.charAt(0).toUpperCase() + str.slice(1)) || "";
+import Package from "./containers/Package/Package";
 
 const Routes = () => (
   <HashRouter>
     <MainLayout>
-      <Fragment>
+      <Switch>
         <Route exact path="/" component={Home} />
         <Route
-          path="/:page?"
-          render={({ match }) => <h1>{ucFirst(match.params.page)}</h1>}
+          exact
+          path="/package/@:scope/:name@:version"
+          component={Package}
         />
-      </Fragment>
+        <Route exact path="/package/@:scope/:name" component={Package} />
+        <Route exact path="/package/:name@:version" component={Package} />
+        <Route exact path="/package/:name" component={Package} />
+      </Switch>
     </MainLayout>
   </HashRouter>
 );

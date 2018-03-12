@@ -2,6 +2,13 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
+const packages = [
+  "react",
+  "react@16.2.0",
+  "@angular/core",
+  "@angular/core@5.2.8"
+];
+
 const MainLayout = ({ children }) => (
   <div className="layout">
     <header>
@@ -11,12 +18,11 @@ const MainLayout = ({ children }) => (
           <li>
             <Link to="/">Home</Link>
           </li>
-          <li>
-            <Link to="/foo">Foo</Link>
-          </li>
-          <li>
-            <Link to="/bar">Bar</Link>
-          </li>
+          {packages.map(name => (
+            <li key={name}>
+              <Link to={`/package/${name}`}>{name}</Link>
+            </li>
+          ))}
         </ul>
       </nav>
     </header>
