@@ -6,6 +6,8 @@
     "axios": "^0.18.0",
     "axios-cache-adapter": "^2.0.0",
     "invariant": "^2.2.3",
+    "material-ui": "^1.0.0-beta.37",
+    "material-ui-icons": "^1.0.0-beta.36",
     "prop-types": "^15.6.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
