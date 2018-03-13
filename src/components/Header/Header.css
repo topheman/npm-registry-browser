@@ -68,9 +68,15 @@ ul.site-networks li.github a span.icon {
   ul.site-networks {
     top: 12px;
   }
-} /** for extra-small devices */
-@media only screen and (max-width: 500px) {
+}
+@media only screen and (max-width: 600px) and (orientation: landscape) {
+  ul.site-networks {
+    top: 8px;
+  }
+}
+/** for extra-small devices */
+@media only screen and (max-width: 360px) {
   ul.site-networks li {
-    margin-left: 5px;
+    display: none;
   }
 }
