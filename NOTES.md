@@ -5,9 +5,14 @@ Bellow, you will find some notes I took along the way.
 ## Table of Contents
 
 * `create-react-app related`
-  * [Error npm test on MacOs Sierra](error-npm-test-on-macos-sierra)
+  * [Error npm test on MacOs Sierra](#error-npm-test-on-macos-sierra)
+* [React specific](#react-specific)
+* [Miscellaneous](#miscellaneous)
+  * [CORS anywhere development proxy](#cors-anywhere-development-proxy)
 
-## Error npm test on MacOs Sierra
+## create-react-app related
+
+### Error npm test on MacOs Sierra
 
 Due to the following error:
 
@@ -28,3 +33,15 @@ npm ERR! Test failed.  See above for more details.
 I installed [watchman](https://facebook.github.io/watchman/docs/install.html), which solved the problem ([known problem on MacOS](https://github.com/facebook/create-react-app/issues/871)).
 
 Note: `create-react-app` doesn't rely on the latest version `jest` (currently `jest@20.0.4`). This [should be resolved](https://github.com/amasad/sane/pull/91) for more recent versions.
+
+## React specific
+
+## Miscellaneous
+
+### CORS anywhere development proxy
+
+The npm registry doesn't return any CORS headers nor can it be called with jsonp. So any in-browser XHR request will be blocked.
+
+I made a little script that will proxy any request, adding those CORS headers to the response. It is automatically launched on `npm start`.
+
+Note: `./bin/cors-anywhere.js` is for development purpose only, it may not be suited for production.
