@@ -19,7 +19,7 @@
     "build": "react-scripts build",
     "test": "npm run test:watch",
     "test:watch": "react-scripts test --env=jsdom",
-    "test:ci": "CI=true react-scripts test --env=jsdom",
+    "test:ci": "cross-env CI=true react-scripts test --env=jsdom",
     "test:precommit": "npm run test:ci",
     "eject": "react-scripts eject",
     "lint": "npx eslint .",
@@ -32,6 +32,7 @@
   },
   "devDependencies": {
     "cors-anywhere": "^0.4.1",
+    "cross-env": "^5.1.4",
     "eslint-config-airbnb": "^15.1.0",
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-prettier": "^2.6.0",
