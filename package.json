@@ -11,6 +11,7 @@
     "react-dom": "^16.2.0",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.1",
+    "semver-match": "^0.1.1",
     "warning": "^3.0.0"
   },
   "scripts": {

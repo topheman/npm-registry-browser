@@ -1,13 +1,15 @@
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
+import { match as matchSemver } from "semver-match";
 
 import { formatPackageString } from "../../utils/string";
 import { getInstance as api } from "../../services/ApiManager";
 
-export default class Package extends Component {
+class Package extends Component {
   static propTypes = {
-    match: PropTypes.object.isRequired
+    match: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired
   };
   constructor(props) {
     super(props);
@@ -17,9 +19,15 @@ export default class Package extends Component {
     state: "loading"
   };
   async componentDidMount() {
-    const { scope, name } = this.props.match.params;
-    this.loadInfos(scope, name);
+    const { scope, name, version } = this.props.match.params;
+    this.loadInfos(scope, name, version);
   }
+  /**
+   * Once the container is mounted, we have to track for changes in the router
+   * to relaunch xhr to npm-registry, since componentDidMount won't be re-triggered
+   * That way, we trigger this.loadInfos with fresh props from the router
+   * @param {Object} newProps
+   */
   componentWillReceiveProps(newProps) {
     const { scope, name, version } = this.props.match.params;
     const {
@@ -28,17 +36,60 @@ export default class Package extends Component {
       version: newVersion
     } = newProps.match.params;
     if (scope !== newScope || name !== newName || version !== newVersion) {
-      this.loadInfos(newScope, newName);
+      this.loadInfos(newScope, newName, newVersion);
     }
   }
-  async loadInfos(scope, name) {
+  /**
+   * Redirect a final version is matched
+   * Returns the matched versions if matched (and redirects the router).
+   * If no need to redirect, returns false.
+   * @param {String} scope
+   * @param {String} name
+   * @param {String} range
+   * @param {Array} versions
+   * @param {Object} distTags
+   * @return {Boolean|String}
+   */
+  redirectUntilMatchVersion(scope, name, range, versions = [], distTags = {}) {
+    if (typeof range !== "undefined") {
+      const matchedVersion = matchSemver(range, versions, distTags) || "latest";
+      console.log({ range, versions, distTags, matchedVersion });
+      if (
+        matchedVersion &&
+        matchedVersion !== this.props.match.params.version
+      ) {
+        this.props.history.replace(
+          `/package/${formatPackageString({ scope, name })}@${matchedVersion}`
+        );
+      }
+      return matchedVersion;
+    }
+    return false;
+  }
+  /**
+   * Loads infos from the npm registry.
+   * @param {String} scope
+   * @param {String} name
+   * @param {String} range
+   */
+  async loadInfos(scope, name, range) {
     this.setState({ state: "loading" });
     try {
       const { data: packageInfos } = await api().packageInfos(
         formatPackageString({ scope, name })
       );
       console.log(packageInfos.name, { packageInfos });
-      this.setState({ packageInfos, state: "loaded" });
+      const matched = this.redirectUntilMatchVersion(
+        scope,
+        name,
+        range,
+        Object.keys(packageInfos.versions),
+        packageInfos["dist-tags"]
+      );
+      if (matched) {
+        console.log("matched", matched);
+        this.setState({ packageInfos, state: "loaded" });
+      }
     } catch (e) {
       console.error(e);
       this.setState({ packageInfos: null, state: "error" });
@@ -80,3 +131,8 @@ export default class Package extends Component {
     );
   }
 }
+
+/**
+ * Gives access to history/location/match in props from the router - https://github.com/ReactTraining/react-router/blob/master/packages/react-router/docs/api/withRouter.md
+ */
+export default withRouter(Package);

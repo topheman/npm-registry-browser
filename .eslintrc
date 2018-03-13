@@ -7,6 +7,7 @@
     "react/jsx-filename-extension": "off",
     "react/forbid-prop-types": [2, { "forbid": ["any"] }],
     "react/no-did-mount-set-state": "off",
-    "import/prefer-default-export": "off"
+    "import/prefer-default-export": "off",
+    "prefer-template": "off"
   }
 }
