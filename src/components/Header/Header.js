@@ -26,6 +26,9 @@ const styles = theme => ({
     },
     [theme.breakpoints.up("sm")]: {
       fontSize: "130%"
+    },
+    "&:hover": {
+      color: "white"
     }
   },
   menuButton: {
