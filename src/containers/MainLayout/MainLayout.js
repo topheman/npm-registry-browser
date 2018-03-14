@@ -13,6 +13,7 @@ import Header from "../../components/Header/Header";
 import MainDrawer, {
   positions as drawerPositions
 } from "../../components/MainDrawer/MainDrawer";
+import Footer from "../../components/Footer/Footer";
 
 import { ucFirst } from "../../utils/string";
 
@@ -94,7 +95,7 @@ class MainLayout extends Component {
             </div>
           </div>
           {children}
-          <footer>Some Footer</footer>
+          <Footer />
         </div>
       </MuiThemeProvider>
     );
