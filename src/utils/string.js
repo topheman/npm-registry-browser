@@ -5,3 +5,5 @@ export const formatPackageString = ({ scope, name, version }) => {
   }
   return result;
 };
+
+export const ucFirst = str => str.charAt(0).toUpperCase() + str.slice(1);
