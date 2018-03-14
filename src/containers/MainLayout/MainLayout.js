@@ -1,8 +1,11 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
 
-import { MuiThemeProvider, createMuiTheme } from "material-ui/styles";
+import {
+  MuiThemeProvider,
+  createMuiTheme,
+  withStyles
+} from "material-ui/styles";
 import Button from "material-ui/Button";
 import CssBaseline from "material-ui/CssBaseline";
 
@@ -13,6 +16,21 @@ import MainDrawer, {
 
 import { ucFirst } from "../../utils/string";
 
+const styles = theme => ({
+  root: {
+    margin: "0px 16px"
+  },
+  content: {
+    marginTop: "70px"
+  },
+  button: {
+    margin: theme.spacing.unit
+  },
+  buttonsRoot: {
+    textAlign: "center"
+  }
+});
+
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -22,13 +40,6 @@ const theme = createMuiTheme({
     secondary: { main: "#DDDDDD" }
   }
 });
-
-const packages = [
-  "react",
-  "react@16.2.0",
-  "@angular/core",
-  "@angular/core@5.2.8"
-];
 
 class MainLayout extends Component {
   constructor(props) {
@@ -45,7 +56,7 @@ class MainLayout extends Component {
     });
   };
   render() {
-    const { children } = this.props;
+    const { children, classes } = this.props;
     return (
       <MuiThemeProvider theme={theme}>
         <CssBaseline />
@@ -57,46 +68,30 @@ class MainLayout extends Component {
             onClose={this.toggleDrawer(position, false)}
           />
         ))}
-        <div className="layout">
+        <div className={classes.root}>
           <Header onClickMenuIcon={this.toggleDrawer("left", true)} />
-          <div style={{ marginTop: 70 }}>
-            <h2>Temporary page</h2>
-            <nav>
-              <ul>
-                <li>
-                  <Button
-                    color="primary"
-                    variant="raised"
-                    to="/"
-                    component={Link}
-                  >
-                    Home
-                  </Button>
-                </li>
-                {packages.map(name => (
-                  <li key={name}>
-                    <Button
-                      color="primary"
-                      to={`/package/${name}`}
-                      component={Link}
-                      key={name}
-                    >
-                      {name}
-                    </Button>
-                  </li>
-                ))}
-                {drawerPositions.map(position => (
-                  <li key={position}>
-                    <Button
-                      color="primary"
-                      onClick={this.toggleDrawer(position, true)}
-                    >
-                      {position}
-                    </Button>
-                  </li>
-                ))}
-              </ul>
-            </nav>
+          <div className={classes.content}>
+            <p>
+              Trying <a href="https://material-ui-next.com">Material-UI</a> as a
+              UI-kit.
+            </p>
+            <p>
+              Play with the drawers (you can open the default one with the
+              hamburger menu):
+            </p>
+            <div className={classes.buttonsRoot}>
+              {drawerPositions.map(position => (
+                <Button
+                  className={classes.button}
+                  key={position}
+                  variant="raised"
+                  color="primary"
+                  onClick={this.toggleDrawer(position, true)}
+                >
+                  {position}
+                </Button>
+              ))}
+            </div>
           </div>
           {children}
           <footer>Some Footer</footer>
@@ -107,7 +102,8 @@ class MainLayout extends Component {
 }
 
 MainLayout.propTypes = {
-  children: PropTypes.element.isRequired
+  children: PropTypes.element.isRequired,
+  classes: PropTypes.object.isRequired
 };
 
-export default MainLayout;
+export default withStyles(styles)(MainLayout);
