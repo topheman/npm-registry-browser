@@ -75,7 +75,7 @@ class Package extends Component {
   async loadInfos(scope, name, range) {
     this.setState({ state: "loading" });
     try {
-      const { data: packageInfos } = await api().packageInfos(
+      const { data: packageInfos } = await api("npmRegistry").packageInfos(
         formatPackageString({ scope, name })
       );
       console.log(packageInfos.name, { packageInfos });

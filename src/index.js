@@ -33,7 +33,7 @@ const render = Component => {
   );
 };
 
-initApi();
+initApi("npmRegistry");
 
 render(RootContainer);
 registerServiceWorker();

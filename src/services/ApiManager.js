@@ -1,21 +1,62 @@
 import axios from "axios";
 import { setupCache } from "axios-cache-adapter";
+import invariant from "invariant";
 import warning from "warning";
 
-let instance = null;
+/**
+ * To use this, simply await getInstance("npmRegistry").client.get('/react')
+ * or await getInstance("npmApi").client.get('/downloads/range/last-month/d3')
+ *
+ * This is a multiton (you will retrieve the same instance each time for each key)
+ * Default configs are set in .env file.
+ * They are overridable using init(key, config)
+ *
+ * Thanks to decorate function, you can add customized method for each
+ */
+
+const KEY_NPM_REGISTRY = "npmRegistry";
+const KEY_NPM_API = "npmApi";
+
+const acceptedKeys = [KEY_NPM_REGISTRY, KEY_NPM_API];
+
+/**
+ * Cache the instances of the multiton
+ */
+const instance = {
+  [KEY_NPM_REGISTRY]: null,
+  [KEY_NPM_API]: null
+};
+
+/**
+ * Specify the config for each
+ */
+const baseConfig = {
+  [KEY_NPM_REGISTRY]: {
+    baseURL: process.env.REACT_APP_NPM_REGISTRY_API_BASE_URL,
+    isCacheEnabled:
+      process.env.REACT_APP_NPM_REGISTRY_API_CACHE_ENABLED === "true"
+  },
+  [KEY_NPM_API]: {
+    baseURL: process.env.REACT_APP_NPM_API_BASE_URL,
+    isCacheEnabled: process.env.REACT_APP_NPM_API_CACHE_ENABLED === "true"
+  }
+};
 
 /**
  * Merges the config object with the defaults.
  * You can pass any axios-specific config.
  * You can also pass the following project specific attributes:
  *  - isCacheEnabled {Boolean}
+ * @param {String} key
  * @param {*} config
  */
-const makeConfig = (config = {}) => {
+const makeConfig = (key, config = {}) => {
+  invariant(
+    acceptedKeys.includes(key),
+    `[ApiManager] Only accepts ${acceptedKeys.join(", ")}`
+  );
   const mergedConfig = {
-    baseURL: process.env.REACT_APP_NPM_REGISTRY_API_BASE_URL,
-    isCacheEnabled:
-      process.env.REACT_APP_NPM_REGISTRY_API_CACHE_ENABLED === "true",
+    ...baseConfig[key],
     ...config
   };
   return mergedConfig;
@@ -26,12 +67,38 @@ const makeConfig = (config = {}) => {
  */
 const encodePackageName = name => name.replace("/", "%2F");
 
+/**
+ * According to key, decorates the instance of SingletonApiManager with specific methods
+ * @param {String} key
+ * @param {SingletonApiManager} apiManagerInstance
+ */
+const decorate = (key, apiManagerInstance) => {
+  switch (key) {
+    case KEY_NPM_REGISTRY:
+      /**
+       * Retrieve package info
+       * @param {String} name (full also scoped packages)
+       * @param @optional {String} version
+       */
+      // eslint-disable-next-line
+      apiManagerInstance.packageInfos = function packageInfos(name, version) {
+        const query =
+          encodePackageName(name) +
+          (typeof version !== "undefined" ? `/${version}` : "");
+        return this.client.get(query);
+      };
+      return apiManagerInstance;
+    default:
+      return apiManagerInstance;
+  }
+};
+
 class SingletonApiManager {
-  constructor(config) {
+  constructor(key, config) {
     // extract any non-axios-specific config (like cache mode, mock mode ...)
-    const { isCacheEnabled, ...axiosConfig } = makeConfig(config);
-    if (!instance) {
-      instance = this;
+    const { isCacheEnabled, ...axiosConfig } = makeConfig(key, config);
+    if (!instance[key]) {
+      instance[key] = decorate(key, this);
       if (isCacheEnabled) {
         this.cache = setupCache({ maxAge: 15 * 60 * 1000 });
         axiosConfig.adapter = this.cache.adapter;
@@ -45,35 +112,28 @@ class SingletonApiManager {
       console.info("[ApiManager] Config", axiosConfig);
     }
   }
-  /**
-   * Retrieve package info
-   * @param {String} name (full also scoped packages)
-   * @param @optional {String} version
-   */
-  packageInfos(name, version) {
-    const query =
-      encodePackageName(name) +
-      (typeof version !== "undefined" ? `/${version}` : "");
-    return this.client.get(query);
-  }
 }
 
-export const getInstance = () => {
+export const getInstance = key => {
+  invariant(
+    acceptedKeys.includes(key),
+    `[ApiManager] Only accepts ${acceptedKeys.join(", ")}`
+  );
   // if .init() wasn't called, the default config of constructor will be used
-  if (!instance) {
-    return new SingletonApiManager();
+  if (!instance[key]) {
+    return new SingletonApiManager(key);
   }
-  return instance;
+  return instance[key];
 };
 
-export const init = config => {
+export const init = (key, config) => {
   // prevent re-init (prevent re-instanciation is built-in SingletonApiManager)
-  if (instance) {
+  if (instance[key]) {
     warning(
       false,
-      "[ApiManager] .init(config) has no effect once .getInstance() or .init() have been called before."
+      "[ApiManager] .init(key, config) has no effect once .getInstance(key) or .init(key) have been called before."
     );
-    return instance;
+    return instance[key];
   }
-  return new SingletonApiManager(config);
+  return new SingletonApiManager(key, config);
 };
