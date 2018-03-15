@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 import { Link, withRouter } from "react-router-dom";
 import { match as matchSemver } from "semver-match";
 
-import { formatPackageString } from "../../utils/string";
-import { getInstance as api } from "../../services/ApiManager";
+import { formatPackageString } from "../utils/string";
+import { getInstance as api } from "../services/ApiManager";
 
 class Package extends Component {
   static propTypes = {

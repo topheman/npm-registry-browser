@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "material-ui/styles";
 
-import TwitterButton from "../TwitterButton/TwitterButton";
+import TwitterButton from "./TwitterButton";
 
 const styles = {
   root: {

@@ -12,7 +12,7 @@ import MenuIcon from "material-ui-icons/Menu";
 import { Link } from "react-router-dom";
 
 import "./Header.css";
-import npmLogo from "../../assets/images/n-64-white.png";
+import npmLogo from "../assets/images/n-64-white.png";
 
 const styles = theme => ({
   root: {

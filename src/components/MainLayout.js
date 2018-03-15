@@ -1,21 +1,17 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 
-import {
-  MuiThemeProvider,
-  createMuiTheme,
-  withStyles
-} from "material-ui/styles";
+import { withStyles } from "material-ui/styles";
 import Button from "material-ui/Button";
 import CssBaseline from "material-ui/CssBaseline";
 
-import Header from "../../components/Header/Header";
+import Header from "../components/Header";
 import MainDrawer, {
   positions as drawerPositions
-} from "../../components/MainDrawer/MainDrawer";
-import Footer from "../../components/Footer/Footer";
+} from "../components/MainDrawer";
+import Footer from "../components/Footer";
 
-import { ucFirst } from "../../utils/string";
+import { ucFirst } from "../utils/string";
 
 const styles = theme => ({
   root: {
@@ -29,16 +25,6 @@ const styles = theme => ({
   },
   buttonsRoot: {
     textAlign: "center"
-  }
-});
-
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      main: "#900000",
-      light: "#c8412a"
-    },
-    secondary: { main: "#DDDDDD" }
   }
 });
 
@@ -59,7 +45,7 @@ class MainLayout extends Component {
   render() {
     const { children, classes } = this.props;
     return (
-      <MuiThemeProvider theme={theme}>
+      <Fragment>
         <CssBaseline />
         {drawerPositions.map(position => (
           <MainDrawer
@@ -97,7 +83,7 @@ class MainLayout extends Component {
           {children}
           <Footer />
         </div>
-      </MuiThemeProvider>
+      </Fragment>
     );
   }
 }

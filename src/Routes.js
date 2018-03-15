@@ -1,10 +1,11 @@
 import React from "react";
 import { HashRouter, Route, Switch, Redirect } from "react-router-dom";
 
-import MainLayout from "./containers/MainLayout/MainLayout";
+import MainLayout from "./components/MainLayout";
 
-import Home from "./containers/Home/Home";
-import Package from "./containers/Package/Package";
+// Containers that will be loaded by the router
+import HomeContainer from "./containers/HomeContainer";
+import PackageContainer from "./containers/PackageContainer";
 
 /**
  * Compiles a render method to pass to a Route that will redirect to "latest" version
@@ -31,18 +32,22 @@ const Routes = () => (
   <HashRouter>
     <MainLayout>
       <Switch>
-        <Route exact path="/" component={Home} />
+        <Route exact path="/" component={HomeContainer} />
         <Route
           exact
           path="/package/@:scope/:name@:version"
-          component={Package}
+          component={PackageContainer}
         />
         <Route
           exact
           path="/package/@:scope/:name"
           render={compileRedirectToLatest(true)}
         />
-        <Route exact path="/package/:name@:version" component={Package} />
+        <Route
+          exact
+          path="/package/:name@:version"
+          component={PackageContainer}
+        />
         <Route
           exact
           path="/package/:name"
