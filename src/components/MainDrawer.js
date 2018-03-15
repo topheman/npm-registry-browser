@@ -1,14 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "material-ui/styles";
-import Drawer from "material-ui/Drawer";
 // import Button from "material-ui/Button";
 import List, { ListItem, ListItemIcon, ListItemText } from "material-ui/List";
 import Divider from "material-ui/Divider";
 import InboxIcon from "material-ui-icons/Inbox";
 import DraftsIcon from "material-ui-icons/Drafts";
 
-export const positions = ["top", "bottom", "left", "right"];
+import Drawer from "../components/Drawer";
 
 const styles = {
   verticalList: {
@@ -56,16 +55,14 @@ const MainDrawer = ({ classes, anchor, open, onClose }) => {
 
   return (
     <Drawer anchor={anchor} open={open} onClose={onClose}>
-      <div tabIndex={0} role="button" onClick={onClose} onKeyDown={onClose}>
-        {sideList}
-      </div>
+      {sideList}
     </Drawer>
   );
 };
 
 MainDrawer.propTypes = {
   classes: PropTypes.object.isRequired,
-  anchor: PropTypes.oneOf(positions).isRequired,
+  anchor: PropTypes.string.isRequired,
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired
 };
