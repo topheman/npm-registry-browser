@@ -88,6 +88,22 @@ const decorate = (key, apiManagerInstance) => {
         return this.client.get(query);
       };
       return apiManagerInstance;
+    case KEY_NPM_API:
+      /**
+       * Retrieve package info
+       * @param {String} name (full also scoped packages)
+       * @param @optional {String} version
+       */
+      // eslint-disable-next-line
+      apiManagerInstance.downloads = function downloads(
+        name,
+        range = "last-month"
+      ) {
+        const query =
+          "/downloads/range/" + range + "/" + encodePackageName(name);
+        return this.client.get(query);
+      };
+      return apiManagerInstance;
     default:
       return apiManagerInstance;
   }

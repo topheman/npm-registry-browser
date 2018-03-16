@@ -16,11 +16,13 @@ class Package extends Component {
     this.loadRegistryInfos = this.loadRegistryInfos.bind(this);
   }
   state = {
-    state: "loading"
+    stateNpmRegistry: "loading",
+    stateNpmApi: "loading"
   };
   async componentDidMount() {
     const { scope, name, version } = this.props.match.params;
     this.loadRegistryInfos(scope, name, version);
+    this.loadApiInfos(scope, name);
   }
   /**
    * Once the container is mounted, we have to track for changes in the router
@@ -38,6 +40,7 @@ class Package extends Component {
     // no need to track version for registry infos (since all versions are included)
     if (scope !== newScope || name !== newName) {
       this.loadRegistryInfos(newScope, newName, newVersion);
+      this.loadApiInfos(scope, name);
     }
   }
   /**
@@ -74,7 +77,7 @@ class Package extends Component {
    * @param {String} range
    */
   async loadRegistryInfos(scope, name, range) {
-    this.setState({ state: "loading" });
+    this.setState({ stateNpmRegistry: "loading" });
     try {
       const { data: packageInfos } = await api("npmRegistry").packageInfos(
         formatPackageString({ scope, name })
@@ -89,29 +92,83 @@ class Package extends Component {
       );
       if (matched) {
         console.log("matched", matched);
-        this.setState({ packageInfos, state: "loaded" });
+        this.setState({ packageInfos, stateNpmRegistry: "loaded" });
       }
     } catch (e) {
       console.error(e);
-      this.setState({ packageInfos: null, state: "error" });
+      this.setState({ packageInfos: null, stateNpmRegistry: "error" });
+    }
+  }
+  async loadApiInfos(scope, name) {
+    this.setState({ stateNpmApi: "loading" });
+    try {
+      const { data: downloads } = await api("npmApi").downloads(
+        formatPackageString({ scope, name })
+      );
+      console.log({ downloads });
+      if (downloads) {
+        this.setState({ downloads, stateNpmApi: "loaded" });
+      }
+    } catch (e) {
+      console.error(e);
+      this.setState({ downloads: null, stateNpmApi: "error" });
     }
   }
   render() {
     const { scope, name, version } = this.props.match.params;
-    const { state, packageInfos } = this.state;
+    const {
+      stateNpmRegistry,
+      stateNpmApi,
+      packageInfos,
+      downloads
+    } = this.state;
     return (
       <Fragment>
         <h1>{formatPackageString({ scope, name, version })}</h1>
-        {state === "error" && (
+        <h2>Downloads</h2>
+        {stateNpmApi === "error" && (
           <div>
             Error -{" "}
-            <button onClick={() => this.loadRegistryInfos(scope, name)}>
+            <button onClick={() => this.loadApiInfos(scope, name)}>
               reload
             </button>
           </div>
         )}
-        {state === "loading" && <div>... loading ...</div>}
-        {state === "loaded" && (
+        {stateNpmApi === "loading" && <div>... loading stats ...</div>}
+        {stateNpmApi === "loaded" && (
+          <Fragment>
+            <p>Stats for all versions:</p>
+            <ul>
+              <li>
+                Last day:{" "}
+                {downloads.downloads[
+                  downloads.downloads.length - 1
+                ].downloads.toLocaleString()}
+              </li>
+              <li>
+                Last month:{" "}
+                {downloads.downloads
+                  .reduce((acc, { downloads: dl }) => acc + dl, 0)
+                  .toLocaleString()}
+              </li>
+            </ul>
+          </Fragment>
+        )}
+        <h2>Versions</h2>
+        {stateNpmRegistry === "error" && (
+          <div>
+            Error -{" "}
+            <button
+              onClick={() => this.loadRegistryInfos(scope, name, version)}
+            >
+              reload
+            </button>
+          </div>
+        )}
+        {stateNpmRegistry === "loading" && (
+          <div>... loading registry infos ...</div>
+        )}
+        {stateNpmRegistry === "loaded" && (
           <ul>
             {Object.keys(packageInfos.versions)
               .reverse()
