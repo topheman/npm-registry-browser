@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`/components/TwitterButton render should render correctly with default props 1`] = `
+<iframe
+  height="28px"
+  scrolling="no"
+  src="https://platform.twitter.com/widgets/tweet_button.html?size=l&count=none&dnt=false&lang=en"
+  style={
+    Object {
+      "border": 0,
+      "overflow": "hidden",
+    }
+  }
+  title="Twitter Tweet Button"
+  width="78px"
+/>
+`;
+
+exports[`/components/TwitterButton render should render correctly with props needing escape 1`] = `
+<iframe
+  height="28px"
+  scrolling="no"
+  src="https://platform.twitter.com/widgets/tweet_button.html?size=l&count=none&dnt=false&lang=en&text=Un%20tweet%20en%20fran%C3%A7ais.%20Le%20verbe%20%C3%AAtre%20%23accents&url=https%3A%2F%2Ftopheman.github.io%2Fd3-react-experiments%2F%23%2Fvictory%2Fcount-npm-downloads&hashtags=react%2C%20twitter&via=topheman&related=testing%2C%20react"
+  style={
+    Object {
+      "border": 0,
+      "overflow": "hidden",
+    }
+  }
+  title="Twitter Tweet Button"
+  width="78px"
+/>
+`;
+
+exports[`/components/TwitterButton render should render correctly with simple props 1`] = `
+<iframe
+  height="28px"
+  scrolling="no"
+  src="https://platform.twitter.com/widgets/tweet_button.html?size=l&count=none&dnt=false&lang=en&text=This%20is%20my%20tweet&url=http%3A%2F%2Fdev.topheman.com&hashtags=react%2C%20twitter&via=topheman&related=testing%2C%20react"
+  style={
+    Object {
+      "border": 0,
+      "overflow": "hidden",
+    }
+  }
+  title="Twitter Tweet Button"
+  width="78px"
+/>
+`;

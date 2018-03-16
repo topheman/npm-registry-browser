@@ -29,18 +29,23 @@ const TwitterButton = props => {
     related,
     buttonTitle
   } = props;
-  console.log(props);
   const params = [
     `size=${size}`,
     "count=none",
     `dnt=${dnt}`,
     `lang=${lang}`,
-    typeof text !== "undefined" && `text=${encodeURIComponent(text)}`,
-    typeof url !== "undefined" && `url=${encodeURIComponent(url)}`,
-    typeof hashtags !== "undefined" &&
-      `hashtags=${encodeURIComponent(hashtags)}`,
-    typeof via !== "undefined" && `via=${encodeURIComponent(via)}`,
-    typeof related !== "undefined" && `related=${encodeURIComponent(related)}`
+    (typeof text !== "undefined" && `text=${encodeURIComponent(text)}`) ||
+      undefined,
+    (typeof url !== "undefined" && `url=${encodeURIComponent(url)}`) ||
+      undefined,
+    (typeof hashtags !== "undefined" &&
+      `hashtags=${encodeURIComponent(hashtags)}`) ||
+      undefined,
+    (typeof via !== "undefined" && `via=${encodeURIComponent(via)}`) ||
+      undefined,
+    (typeof related !== "undefined" &&
+      `related=${encodeURIComponent(related)}`) ||
+      undefined
   ]
     .filter(item => item !== undefined)
     .join("&");
