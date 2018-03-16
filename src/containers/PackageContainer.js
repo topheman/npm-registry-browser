@@ -1,12 +1,14 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { match as matchSemver } from "semver-match";
 
 import { formatPackageString } from "../utils/string";
 import { getInstance as api } from "../services/ApiManager";
 
-class Package extends Component {
+import Package from "../components/Package";
+
+class PackageContainer extends Component {
   static propTypes = {
     match: PropTypes.object.isRequired,
     history: PropTypes.object.isRequired
@@ -14,6 +16,7 @@ class Package extends Component {
   constructor(props) {
     super(props);
     this.loadRegistryInfos = this.loadRegistryInfos.bind(this);
+    this.loadApiInfos = this.loadApiInfos.bind(this);
   }
   state = {
     stateNpmRegistry: "loading",
@@ -123,71 +126,19 @@ class Package extends Component {
       downloads
     } = this.state;
     return (
-      <Fragment>
-        <h1>{formatPackageString({ scope, name, version })}</h1>
-        <h2>Downloads</h2>
-        {stateNpmApi === "error" && (
-          <div>
-            Error -{" "}
-            <button onClick={() => this.loadApiInfos(scope, name)}>
-              reload
-            </button>
-          </div>
-        )}
-        {stateNpmApi === "loading" && <div>... loading stats ...</div>}
-        {stateNpmApi === "loaded" && (
-          <Fragment>
-            <p>Stats for all versions:</p>
-            <ul>
-              <li>
-                Last day:{" "}
-                {downloads.downloads[
-                  downloads.downloads.length - 1
-                ].downloads.toLocaleString()}
-              </li>
-              <li>
-                Last month:{" "}
-                {downloads.downloads
-                  .reduce((acc, { downloads: dl }) => acc + dl, 0)
-                  .toLocaleString()}
-              </li>
-            </ul>
-          </Fragment>
-        )}
-        <h2>Versions</h2>
-        {stateNpmRegistry === "error" && (
-          <div>
-            Error -{" "}
-            <button
-              onClick={() => this.loadRegistryInfos(scope, name, version)}
-            >
-              reload
-            </button>
-          </div>
-        )}
-        {stateNpmRegistry === "loading" && (
-          <div>... loading registry infos ...</div>
-        )}
-        {stateNpmRegistry === "loaded" && (
-          <ul>
-            {Object.keys(packageInfos.versions)
-              .reverse()
-              .map(availableVersion => (
-                <li key={availableVersion}>
-                  <Link
-                    to={`/package/${formatPackageString({
-                      scope,
-                      name,
-                      version: availableVersion
-                    })}`}
-                  >
-                    {availableVersion}
-                  </Link>
-                </li>
-              ))}
-          </ul>
-        )}
-      </Fragment>
+      <Package
+        {...{
+          scope,
+          name,
+          version,
+          stateNpmRegistry,
+          stateNpmApi,
+          packageInfos,
+          downloads,
+          loadApiInfos: this.loadApiInfos,
+          loadRegistryInfos: this.loadRegistryInfos
+        }}
+      />
     );
   }
 }
@@ -195,4 +146,4 @@ class Package extends Component {
 /**
  * Gives access to history/location/match in props from the router - https://github.com/ReactTraining/react-router/blob/master/packages/react-router/docs/api/withRouter.md
  */
-export default withRouter(Package);
+export default withRouter(PackageContainer);
