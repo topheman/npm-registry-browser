@@ -13,30 +13,31 @@ class Package extends Component {
   };
   constructor(props) {
     super(props);
-    this.loadInfos = this.loadInfos.bind(this);
+    this.loadRegistryInfos = this.loadRegistryInfos.bind(this);
   }
   state = {
     state: "loading"
   };
   async componentDidMount() {
     const { scope, name, version } = this.props.match.params;
-    this.loadInfos(scope, name, version);
+    this.loadRegistryInfos(scope, name, version);
   }
   /**
    * Once the container is mounted, we have to track for changes in the router
    * to relaunch xhr to npm-registry, since componentDidMount won't be re-triggered
-   * That way, we trigger this.loadInfos with fresh props from the router
+   * That way, we trigger this.loadRegistryInfos with fresh props from the router
    * @param {Object} newProps
    */
   componentWillReceiveProps(newProps) {
-    const { scope, name, version } = this.props.match.params;
+    const { scope, name } = this.props.match.params;
     const {
       scope: newScope,
       name: newName,
       version: newVersion
     } = newProps.match.params;
-    if (scope !== newScope || name !== newName || version !== newVersion) {
-      this.loadInfos(newScope, newName, newVersion);
+    // no need to track version for registry infos (since all versions are included)
+    if (scope !== newScope || name !== newName) {
+      this.loadRegistryInfos(newScope, newName, newVersion);
     }
   }
   /**
@@ -72,7 +73,7 @@ class Package extends Component {
    * @param {String} name
    * @param {String} range
    */
-  async loadInfos(scope, name, range) {
+  async loadRegistryInfos(scope, name, range) {
     this.setState({ state: "loading" });
     try {
       const { data: packageInfos } = await api("npmRegistry").packageInfos(
@@ -104,7 +105,9 @@ class Package extends Component {
         {state === "error" && (
           <div>
             Error -{" "}
-            <button onClick={() => this.loadInfos(scope, name)}>reload</button>
+            <button onClick={() => this.loadRegistryInfos(scope, name)}>
+              reload
+            </button>
           </div>
         )}
         {state === "loading" && <div>... loading ...</div>}
