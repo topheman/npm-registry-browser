@@ -2,7 +2,16 @@ import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
+import { withStyles } from "material-ui/styles";
+
 import { formatPackageString } from "../utils/string";
+import Markdown from "./Markdown";
+
+const styles = {
+  description: {
+    fontStyle: "italic"
+  }
+};
 
 const Package = ({
   scope,
@@ -13,10 +22,26 @@ const Package = ({
   packageInfos,
   downloads,
   loadApiInfos,
-  loadRegistryInfos
+  loadRegistryInfos,
+  classes
 }) => (
   <div>
     <h1>{formatPackageString({ scope, name, version })}</h1>
+    {stateNpmRegistry === "loaded" &&
+      packageInfos &&
+      packageInfos.versions[version].description && (
+        <p className={classes.description}>
+          {packageInfos.versions[version].description}
+        </p>
+      )}
+    {(stateNpmRegistry === "loaded" &&
+      (packageInfos &&
+        packageInfos.versions[version].readme && (
+          <Markdown source={packageInfos.versions[version].readme} />
+        ))) ||
+      (stateNpmRegistry === "loaded" &&
+        packageInfos &&
+        packageInfos.readme && <Markdown source={packageInfos.readme} />)}
     <h2>Downloads</h2>
     {stateNpmApi === "error" && (
       <div>
@@ -87,7 +112,8 @@ Package.propTypes = {
   packageInfos: PropTypes.object, // eslint-disable-line react/require-default-props
   downloads: PropTypes.object, // eslint-disable-line react/require-default-props
   loadApiInfos: PropTypes.func.isRequired,
-  loadRegistryInfos: PropTypes.func.isRequired
+  loadRegistryInfos: PropTypes.func.isRequired,
+  classes: PropTypes.object.isRequired
 };
 
-export default Package;
+export default withStyles(styles)(Package);
