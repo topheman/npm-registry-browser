@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 
 import { withStyles } from "material-ui/styles";
 
-import { formatPackageString } from "../utils/string";
-import Markdown from "./Markdown";
+import { formatPackageString } from "../../utils/string";
+import Readme from "./Readme";
 
 const styles = {
   description: {
@@ -37,11 +37,11 @@ const Package = ({
     {(stateNpmRegistry === "loaded" &&
       (packageInfos &&
         packageInfos.versions[version].readme && (
-          <Markdown source={packageInfos.versions[version].readme} />
+          <Readme source={packageInfos.versions[version].readme} />
         ))) ||
       (stateNpmRegistry === "loaded" &&
         packageInfos &&
-        packageInfos.readme && <Markdown source={packageInfos.readme} />)}
+        packageInfos.readme && <Readme source={packageInfos.readme} />)}
     <h2>Downloads</h2>
     {stateNpmApi === "error" && (
       <div>
