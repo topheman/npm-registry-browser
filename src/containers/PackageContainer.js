@@ -34,14 +34,14 @@ class PackageContainer extends Component {
    * @param {Object} newProps
    */
   componentWillReceiveProps(newProps) {
-    const { scope, name } = this.props.match.params;
+    const { scope, name, version } = this.props.match.params;
     const {
       scope: newScope,
       name: newName,
       version: newVersion
     } = newProps.match.params;
-    // no need to track version for registry infos (since all versions are included)
-    if (scope !== newScope || name !== newName) {
+    // also need to track version (since it can be dist-tag accessed directly through url)
+    if (scope !== newScope || name !== newName || version !== newVersion) {
       this.loadRegistryInfos(newScope, newName, newVersion);
       this.loadApiInfos(scope, name);
     }
