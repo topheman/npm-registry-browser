@@ -1,10 +1,9 @@
 import React, { Fragment } from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
 
 import { withStyles } from "material-ui/styles";
 
-import { formatPackageString } from "../../utils/string";
+import Title from "./Title";
 import Readme from "./Readme";
 
 const styles = {
@@ -26,9 +25,15 @@ const Package = ({
   classes
 }) => (
   <div>
-    <h1>{formatPackageString({ scope, name, version })}</h1>
+    <Title
+      scope={scope}
+      name={name}
+      version={version}
+      packageInfos={packageInfos}
+    />
     {stateNpmRegistry === "loaded" &&
       packageInfos &&
+      packageInfos.versions[version] &&
       packageInfos.versions[version].description && (
         <p className={classes.description}>
           {packageInfos.versions[version].description}
@@ -36,13 +41,14 @@ const Package = ({
       )}
     {(stateNpmRegistry === "loaded" &&
       (packageInfos &&
+        packageInfos.versions[version] &&
         packageInfos.versions[version].readme && (
           <Readme source={packageInfos.versions[version].readme} />
         ))) ||
       (stateNpmRegistry === "loaded" &&
         packageInfos &&
         packageInfos.readme && <Readme source={packageInfos.readme} />)}
-    <h2>Downloads</h2>
+    <h2>Stats</h2>
     {stateNpmApi === "error" && (
       <div>
         Error -{" "}
@@ -52,7 +58,7 @@ const Package = ({
     {stateNpmApi === "loading" && <div>... loading stats ...</div>}
     {stateNpmApi === "loaded" && (
       <Fragment>
-        <p>Stats for all versions:</p>
+        <p>For all versions:</p>
         <ul>
           <li>
             Last day:{" "}
@@ -69,7 +75,7 @@ const Package = ({
         </ul>
       </Fragment>
     )}
-    <h2>Versions</h2>
+    <h2>Infos</h2>
     {stateNpmRegistry === "error" && (
       <div>
         Error -{" "}
@@ -81,25 +87,7 @@ const Package = ({
     {stateNpmRegistry === "loading" && (
       <div>... loading registry infos ...</div>
     )}
-    {stateNpmRegistry === "loaded" && (
-      <ul>
-        {Object.keys(packageInfos.versions)
-          .reverse()
-          .map(availableVersion => (
-            <li key={availableVersion}>
-              <Link
-                to={`/package/${formatPackageString({
-                  scope,
-                  name,
-                  version: availableVersion
-                })}`}
-              >
-                {availableVersion}
-              </Link>
-            </li>
-          ))}
-      </ul>
-    )}
+    {stateNpmRegistry === "loaded" && <div>loaded</div>}
   </div>
 );
 
