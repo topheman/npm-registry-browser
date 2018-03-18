@@ -82,6 +82,13 @@ export const extractPeopleInfos = people => {
   return undefined;
 };
 
+/**
+ * Extract readme from package.json infos
+ *
+ * @param {Object} packageInfos from registry.npmjs.org
+ * @param {String | undefined} targetVersion
+ * @return {String | undefined}
+ */
 export const extractReadme = (packageInfos, targetVersion) => {
   if (packageInfos && typeof packageInfos === "object") {
     // if a targetVersion is specified, try to retrieve it first
@@ -103,9 +110,7 @@ export const extractReadme = (packageInfos, targetVersion) => {
         .reverse()
         // eslint-disable-next-line
         .reduce((acc, packageInfo) => {
-          // console.log(packageInfo.version, JSON.stringify(acc));
           if (!acc && packageInfo.readme) {
-            // console.log(packageInfo.readme);
             return packageInfo.readme; // eslint-disable-line
           }
           return acc;
@@ -113,4 +118,44 @@ export const extractReadme = (packageInfos, targetVersion) => {
     return result;
   }
   return undefined;
+};
+
+/**
+ * Extract maintainers from package.json infos
+ *
+ * @param {Object} packageInfos from registry.npmjs.org
+ * @param {String | undefined} targetVersion
+ * @return {Array[Object]}
+ */
+export const extractMaintainers = (packageInfos, targetVersion) => {
+  if (packageInfos && typeof packageInfos === "object") {
+    // if a targetVersion is specified, try to retrieve it first
+    if (
+      targetVersion &&
+      packageInfos.versions &&
+      packageInfos.versions[targetVersion].maintainers
+    ) {
+      return packageInfos.versions[targetVersion].maintainers.map(
+        extractPeopleInfos
+      );
+    }
+    // fallback on general maitainers
+    if (packageInfos.maintainers) {
+      return packageInfos.maintainers.map(extractPeopleInfos);
+    }
+    // fallback on the latest maintainers published
+    const result = Object.values(packageInfos.versions)
+      .reverse()
+      // eslint-disable-next-line
+      .reduce((acc, packageInfo) => {
+        // console.log(packageInfo.version, JSON.stringify(acc));
+        if (acc.length === 0 && packageInfo.maintainers) {
+          return packageInfo.maintainers; // eslint-disable-line
+        }
+        return acc;
+      }, []);
+    return result;
+  }
+  // return empty array anyway
+  return [];
 };

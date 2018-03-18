@@ -2,7 +2,8 @@ import {
   extractRepositoryInfos,
   extractHomePageInfos,
   extractPeopleInfos,
-  extractReadme
+  extractReadme,
+  extractMaintainers
 } from "../metadatas";
 
 import packageJsonWithInnerReadme from "./react-package-registry.fixtures.json";
@@ -241,7 +242,28 @@ describe("/utils/metadatas", () => {
     });
     it("should fallback on latest version when no version provided", () => {
       expect(extractReadme(packageJsonWithInnerReadme)).toEqual(
-        packageJsonWithInnerReadme.versions["16.3.0-alpha.1"].readme
+        packageJsonWithInnerReadme.versions["16.3.0-alpha.2"].readme
+      );
+    });
+  });
+  describe("extractMaintainers", () => {
+    it("should extract the default maintainers when no target version", () => {
+      expect(extractMaintainers(packageJsonWithInnerReadme)).toEqual(
+        packageJsonWithInnerReadme.maintainers.map(extractPeopleInfos)
+      );
+    });
+    it("should extract maintainers from correct version", () => {
+      expect(extractMaintainers(packageJsonWithInnerReadme, "0.14.5")).toEqual(
+        packageJsonWithInnerReadme.versions["0.14.5"].maintainers.map(
+          extractPeopleInfos
+        )
+      );
+    });
+    it("should fallback on latest version when no version provided", () => {
+      expect(extractMaintainers(packageJsonWithInnerReadme)).toEqual(
+        packageJsonWithInnerReadme.versions["16.3.0-alpha.2"].maintainers.map(
+          extractPeopleInfos
+        )
       );
     });
   });
