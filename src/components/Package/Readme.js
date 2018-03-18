@@ -31,7 +31,7 @@ class Readme extends Component {
     this.toggle = this.toggle.bind(this);
   }
   state = {
-    expanded: false
+    expanded: this.props.defaultExpanded
   };
   toggle(event, expanded) {
     this.setState({
@@ -61,10 +61,12 @@ class Readme extends Component {
 
 Readme.propTypes = {
   classes: PropTypes.object.isRequired,
-  source: PropTypes.string
+  source: PropTypes.string,
+  defaultExpanded: PropTypes.bool.isRequired
 };
 Readme.defaultProps = {
-  source: ""
+  source: "",
+  defaultExpanded: true
 };
 
 export default withStyles(styles)(Readme);
