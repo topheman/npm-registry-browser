@@ -26,7 +26,9 @@ const Home = ({ classes }) => {
     "react",
     "react@16.2.0",
     "@angular/core",
-    "@angular/core@5.2.8"
+    "@angular/core@5.2.8",
+    "ember",
+    "vue"
   ];
   return (
     <div>
