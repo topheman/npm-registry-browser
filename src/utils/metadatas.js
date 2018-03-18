@@ -68,7 +68,7 @@ export const extractPeopleInfos = people => {
       url
     };
   }
-  if (typeof people === "object") {
+  if (people && typeof people === "object") {
     const infos = extractPeopleInfos(people.name) || {};
     const result = {
       name: infos.name,
@@ -78,6 +78,39 @@ export const extractPeopleInfos = people => {
     if (infos.name || infos.email || infos.url) {
       return result;
     }
+  }
+  return undefined;
+};
+
+export const extractReadme = (packageInfos, targetVersion) => {
+  if (packageInfos && typeof packageInfos === "object") {
+    // if a targetVersion is specified, try to retrieve it first
+    if (
+      targetVersion &&
+      packageInfos.versions &&
+      packageInfos.versions[targetVersion] &&
+      packageInfos.versions[targetVersion].readme
+    ) {
+      return packageInfos.versions[targetVersion].readme;
+    }
+    // fallback on general readme
+    if (packageInfos.readme) {
+      return packageInfos.readme;
+    }
+    // fallback on the latest readme published
+    const result =
+      Object.values(packageInfos.versions)
+        .reverse()
+        // eslint-disable-next-line
+        .reduce((acc, packageInfo) => {
+          // console.log(packageInfo.version, JSON.stringify(acc));
+          if (!acc && packageInfo.readme) {
+            // console.log(packageInfo.readme);
+            return packageInfo.readme; // eslint-disable-line
+          }
+          return acc;
+        }, "") || undefined;
+    return result;
   }
   return undefined;
 };

@@ -1,8 +1,12 @@
 import {
   extractRepositoryInfos,
   extractHomePageInfos,
-  extractPeopleInfos
+  extractPeopleInfos,
+  extractReadme
 } from "../metadatas";
+
+import packageJsonWithInnerReadme from "./react-package-registry.fixtures.json";
+import packageJsonWithRootReadme from "./lodash-package-registry.fixtures.json";
 
 describe("/utils/metadatas", () => {
   describe("extractRepositoryInfos", () => {
@@ -212,6 +216,33 @@ describe("/utils/metadatas", () => {
       it(`sanitize input ${JSON.stringify(received)}`, () => {
         expect(extractPeopleInfos(received)).toEqual(expected);
       });
+    });
+  });
+  describe("extractReadme", () => {
+    it("should extract the default readme when no target version", () => {
+      expect(extractReadme(packageJsonWithRootReadme)).toEqual(
+        packageJsonWithRootReadme.readme
+      );
+    });
+    it("should fallback on default readme when target version doesn't contain readme", () => {
+      expect(extractReadme(packageJsonWithRootReadme, "0.1.0")).toEqual(
+        packageJsonWithRootReadme.readme
+      );
+    });
+    it("should extract readme from correct version", () => {
+      expect(
+        extractReadme(packageJsonWithInnerReadme, "16.3.0-alpha.1")
+      ).toEqual(packageJsonWithInnerReadme.versions["16.3.0-alpha.1"].readme);
+    });
+    it("should fallback on latest version if no match", () => {
+      expect(extractReadme(packageJsonWithInnerReadme, "16.2.0")).toEqual(
+        packageJsonWithInnerReadme.versions["16.3.0-alpha.1"].readme
+      );
+    });
+    it("should fallback on latest version when no version provided", () => {
+      expect(extractReadme(packageJsonWithInnerReadme)).toEqual(
+        packageJsonWithInnerReadme.versions["16.3.0-alpha.1"].readme
+      );
     });
   });
 });
