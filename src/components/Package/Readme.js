@@ -22,6 +22,9 @@ const styles = theme => ({
   bookIcon: {
     verticalAlign: "middle",
     marginRight: "8px"
+  },
+  markdown: {
+    overflow: "scroll"
   }
 });
 
@@ -51,7 +54,7 @@ class Readme extends Component {
             </Typography>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
-            <Markdown source={source} />
+            <Markdown source={source} className={classes.markdown} />
           </ExpansionPanelDetails>
         </ExpansionPanel>
       </div>
