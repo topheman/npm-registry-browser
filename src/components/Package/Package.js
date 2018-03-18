@@ -35,9 +35,18 @@ const Package = ({
       packageInfos &&
       packageInfos.versions[version] &&
       packageInfos.versions[version].description && (
-        <p className={classes.description}>
-          {packageInfos.versions[version].description}
-        </p>
+        <Fragment>
+          <p>
+            {stateNpmRegistry === "loaded" &&
+              packageInfos &&
+              packageInfos.time &&
+              packageInfos.time[version] &&
+              new Date(packageInfos.time[version]).toLocaleDateString()}
+          </p>
+          <p className={classes.description}>
+            {packageInfos.versions[version].description}
+          </p>
+        </Fragment>
       )}
     {(stateNpmRegistry === "loaded" &&
       (packageInfos &&

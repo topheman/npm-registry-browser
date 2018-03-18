@@ -38,3 +38,46 @@ export const extractRepositoryInfos = repository => {
   }
   return undefined;
 };
+
+/**
+ * Extracts infos from people fields in package.json
+ * https://docs.npmjs.com/files/package.json#people-fields-author-contributors
+ *
+ * @param {Object | String | undefined} people
+ * @return {Object | undefined}
+ */
+export const extractPeopleInfos = people => {
+  const URL_REGEXP = /(\(.*)\)/;
+  const EMAIL_REGEXP = /(<.*(?!<)>)/;
+  if (typeof people === "string") {
+    const url =
+      (URL_REGEXP.test(people) &&
+        people.match(URL_REGEXP)[1].replace(/\(|\)/g, "")) ||
+      undefined;
+    const email =
+      (EMAIL_REGEXP.test(people) &&
+        people.match(EMAIL_REGEXP)[1].replace(/<|>/g, "")) ||
+      undefined;
+    const name = people
+      .replace(`(${url})`, "")
+      .replace(`<${email}>`, "")
+      .trim();
+    return {
+      name,
+      email,
+      url
+    };
+  }
+  if (typeof people === "object") {
+    const infos = extractPeopleInfos(people.name) || {};
+    const result = {
+      name: infos.name,
+      email: people.email || infos.email || undefined,
+      url: people.url || infos.url || undefined
+    };
+    if (infos.name || infos.email || infos.url) {
+      return result;
+    }
+  }
+  return undefined;
+};

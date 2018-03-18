@@ -1,4 +1,8 @@
-import { extractRepositoryInfos, extractHomePageInfos } from "../metadatas";
+import {
+  extractRepositoryInfos,
+  extractHomePageInfos,
+  extractPeopleInfos
+} from "../metadatas";
 
 describe("/utils/metadatas", () => {
   describe("extractRepositoryInfos", () => {
@@ -125,6 +129,89 @@ describe("/utils/metadatas", () => {
     });
     it("accept undefined as param", () => {
       expect(extractHomePageInfos()).toBeUndefined();
+    });
+  });
+  describe("extractPeopleInfos", () => {
+    const inputExpectedOutputs = [
+      {
+        received: "Christophe Rosset",
+        expected: { name: "Christophe Rosset" }
+      },
+      {
+        received: "Christophe Rosset <tophe@topheman.com>",
+        expected: { name: "Christophe Rosset", email: "tophe@topheman.com" }
+      },
+      {
+        received: "Christophe Rosset (http://labs.topheman.com)",
+        expected: { name: "Christophe Rosset", url: "http://labs.topheman.com" }
+      },
+      {
+        received:
+          "Christophe Rosset <tophe@topheman.com> (http://labs.topheman.com)",
+        expected: {
+          name: "Christophe Rosset",
+          email: "tophe@topheman.com",
+          url: "http://labs.topheman.com"
+        }
+      },
+      {
+        received: {
+          name: "Christophe Rosset <tophe@topheman.com>",
+          url: "http://labs.topheman.com"
+        },
+        expected: {
+          name: "Christophe Rosset",
+          email: "tophe@topheman.com",
+          url: "http://labs.topheman.com"
+        }
+      },
+      {
+        received: {
+          name:
+            "Christophe Rosset <tophe@topheman.com> (http://labs.topheman.com)",
+          url: "http://github.com/topheman"
+        },
+        expected: {
+          name: "Christophe Rosset",
+          email: "tophe@topheman.com",
+          url: "http://github.com/topheman"
+        }
+      },
+      {
+        received: {
+          name: "Christophe Rosset <tophe@topheman.com>",
+          email: "tophe@example.com"
+        },
+        expected: {
+          name: "Christophe Rosset",
+          email: "tophe@example.com"
+        }
+      },
+      {
+        received: {
+          name: "Christophe Rosset",
+          email: "tophe@topheman.com",
+          url: "http://labs.topheman.com"
+        },
+        expected: {
+          name: "Christophe Rosset",
+          email: "tophe@topheman.com",
+          url: "http://labs.topheman.com"
+        }
+      },
+      {
+        received: {},
+        expected: undefined
+      },
+      {
+        received: undefined,
+        expected: undefined
+      }
+    ];
+    inputExpectedOutputs.forEach(({ received, expected }) => {
+      it(`sanitize input ${JSON.stringify(received)}`, () => {
+        expect(extractPeopleInfos(received)).toEqual(expected);
+      });
     });
   });
 });
