@@ -17,28 +17,12 @@ const theme = createMuiTheme({
     },
     secondary: { main: "#DDDDDD" }
   },
-  /**
-   * To override the whole fontSize, see https://material-ui-next.com/customization/themes/#typography-font-size
-   * Prefer <Typography> to plain html tags like <p> <h1> <li> ...
-   *
-   * This will ensure that you rem as units (so if you change the base fontSize, it will "cascade")
-   *
-   * This part feels very weird when first using a ui-kit based on css-in-js ...
-   */
   typography: {
-    // htmlFontSize: 12 // also update index.css
+    // Fix relative font-size according to <html> element font-size set in index.css
+    fontSize: 14, // Account for base font-size of 87.5%.
+    htmlFontSize: 14 // 87.5% of 16px = 14px
   }
-  // overrides: {
-  //   MuiListItem: {
-  //     default: {
-  //       paddingTop: 8,
-  //       paddingBottom: 8
-  //     }
-  //   }
-  // }
 });
-
-console.log(theme);
 
 /**
  * This is where you add the root providers (like react-redux Provider)

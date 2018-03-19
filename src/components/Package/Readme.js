@@ -18,17 +18,14 @@ const styles = theme => ({
     flexGrow: 1
   },
   heading: {
-    fontSize: theme.typography.pxToRem(15),
-    fontWeight: theme.typography.fontWeightRegular
+    fontSize: theme.typography.pxToRem(12)
   },
   bookIcon: {
     verticalAlign: "middle",
     marginRight: "8px"
   },
   markdown: {
-    overflow: "scroll",
-    fontSize: theme.typography.body1.fontSize,
-    lineHeight: theme.typography.body1.lineHeight
+    overflow: "scroll"
   }
 });
 

@@ -25,7 +25,7 @@ import {
 const styles = theme => ({
   description: {
     fontStyle: "italic",
-    fontSize: theme.typography.pxToRem(16)
+    fontSize: theme.typography.pxToRem(14)
   },
   paper: theme.mixins.gutters({
     paddingTop: 16,
@@ -90,21 +90,21 @@ const Package = ({
             </Typography>
             {stateNpmApi === "loaded" && (
               <Fragment>
-                <Typography>Downloads for all versions:</Typography>
-                <Typography component="ul">
-                  <Typography component="li">
+                <p>Downloads for all versions:</p>
+                <ul>
+                  <li>
                     Last day:{" "}
                     {downloads.downloads[
                       downloads.downloads.length - 1
                     ].downloads.toLocaleString()}
-                  </Typography>
-                  <Typography component="li">
+                  </li>
+                  <li>
                     Last month:{" "}
                     {downloads.downloads
                       .reduce((acc, { downloads: dl }) => acc + dl, 0)
                       .toLocaleString()}
-                  </Typography>
-                </Typography>
+                  </li>
+                </ul>
               </Fragment>
             )}
             {stateNpmApi === "loading" && (

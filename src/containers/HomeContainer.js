@@ -33,18 +33,16 @@ const Home = ({ classes }) => {
   ];
   return (
     <div>
-      <Typography variant="display1">Home</Typography>
-      <Typography>
-        Welcome to the home page. This is still a work in progress.
-      </Typography>
-      <Typography>
+      <h1>Home</h1>
+      <p>Welcome to the home page. This is still a work in progress.</p>
+      <p>
         Trying <a href="https://material-ui-next.com">Material-UI</a> as a
         UI-kit.
-      </Typography>
-      <Typography>
+      </p>
+      <p>
         Play with the drawers (you can open the default one with the hamburger
         menu):
-      </Typography>
+      </p>
       <ConnectedDrawer
         render={({ toggleDrawer, availablePositions }) => (
           <div className={classes.buttonsRoot}>
@@ -62,18 +60,20 @@ const Home = ({ classes }) => {
           </div>
         )}
       />
-      <Typography variant="headline">Packages</Typography>
-      <Typography>
+      <h2>Packages</h2>
+      <p>
         The following links will let you browse infos about packages from the
         npm registry (search will come later):
-      </Typography>
+      </p>
       <List component="nav">
         {packages.map(name => (
           <ListItem button component={Link} to={`/package/${name}`} key={name}>
             <ListItemIcon>
               <PackageIcon />
             </ListItemIcon>
-            <ListItemText inset primary={name} />
+            <ListItemText>
+              <Typography>{name}</Typography>
+            </ListItemText>
           </ListItem>
         ))}
       </List>

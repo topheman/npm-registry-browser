@@ -1,12 +1,16 @@
 /* 
- * If you want to override the whole html fontSize via css
- * 75% of 16px = 12px
- * Remember to override the material ui theme with htmlFontSize: 12
+ * If you want to override the whole html fontSize via css (for non material-ui
+ * tags like <p> <li> ...)
+ *
+ * Otherwise, you will be using <Typography> (directly or indirectly)
+ *
+ * So, remember to override the material ui theme in index.js
+ *
  * See: https://material-ui-next.com/customization/themes/#typography-font-size
+ */
 html {
-  font-size: 75%; /* 75% of 16px = 12px *
+  font-size: 87.5%; /* 87.5% of 16px = 14px */
 }
-*/
 body {
   margin: 0;
   padding: 0;
