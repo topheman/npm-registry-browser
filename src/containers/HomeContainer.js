@@ -5,6 +5,7 @@ import List, { ListItem, ListItemIcon, ListItemText } from "material-ui/List";
 import PackageIcon from "material-ui-icons/Folder";
 import { withStyles } from "material-ui/styles";
 import Button from "material-ui/Button";
+import Typography from "material-ui/Typography";
 
 import { ConnectedDrawer } from "../components/Drawer";
 
@@ -32,16 +33,18 @@ const Home = ({ classes }) => {
   ];
   return (
     <div>
-      <h1>Home</h1>
-      <p>Welcome to the home page. This is still a work in progress.</p>
-      <p>
+      <Typography variant="display1">Home</Typography>
+      <Typography>
+        Welcome to the home page. This is still a work in progress.
+      </Typography>
+      <Typography>
         Trying <a href="https://material-ui-next.com">Material-UI</a> as a
         UI-kit.
-      </p>
-      <p>
+      </Typography>
+      <Typography>
         Play with the drawers (you can open the default one with the hamburger
         menu):
-      </p>
+      </Typography>
       <ConnectedDrawer
         render={({ toggleDrawer, availablePositions }) => (
           <div className={classes.buttonsRoot}>
@@ -59,11 +62,11 @@ const Home = ({ classes }) => {
           </div>
         )}
       />
-      <h2>Packages</h2>
-      <p>
+      <Typography variant="headline">Packages</Typography>
+      <Typography>
         The following links will let you browse infos about packages from the
         npm registry (search will come later):
-      </p>
+      </Typography>
       <List component="nav">
         {packages.map(name => (
           <ListItem button component={Link} to={`/package/${name}`} key={name}>

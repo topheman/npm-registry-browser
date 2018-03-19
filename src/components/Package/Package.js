@@ -90,21 +90,21 @@ const Package = ({
             </Typography>
             {stateNpmApi === "loaded" && (
               <Fragment>
-                <p>Downloads for all versions:</p>
-                <ul>
-                  <li>
+                <Typography>Downloads for all versions:</Typography>
+                <Typography component="ul">
+                  <Typography component="li">
                     Last day:{" "}
                     {downloads.downloads[
                       downloads.downloads.length - 1
                     ].downloads.toLocaleString()}
-                  </li>
-                  <li>
+                  </Typography>
+                  <Typography component="li">
                     Last month:{" "}
                     {downloads.downloads
                       .reduce((acc, { downloads: dl }) => acc + dl, 0)
                       .toLocaleString()}
-                  </li>
-                </ul>
+                  </Typography>
+                </Typography>
               </Fragment>
             )}
             {stateNpmApi === "loading" && (
@@ -125,7 +125,9 @@ const Package = ({
                 <List subheader={<ListSubheader>Publisher</ListSubheader>}>
                   <ListItem>
                     <Gravatar alt={publisher.name} email={publisher.email} />
-                    <ListItemText primary={publisher.name} />
+                    <ListItemText>
+                      <Typography component="span">{publisher.name}</Typography>
+                    </ListItemText>
                   </ListItem>
                 </List>
               )}
@@ -139,7 +141,11 @@ const Package = ({
                 {extractMaintainers(packageInfos, version).map(maintainer => (
                   <ListItem key={`${maintainer.name}-${maintainer.email}`}>
                     <Gravatar alt={maintainer.name} email={maintainer.email} />
-                    <ListItemText primary={maintainer.name} />
+                    <ListItemText>
+                      <Typography component="span">
+                        {maintainer.name}
+                      </Typography>
+                    </ListItemText>
                   </ListItem>
                 ))}
               </List>

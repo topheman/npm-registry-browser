@@ -11,6 +11,8 @@ import BookIcon from "material-ui-icons/LibraryBooks";
 
 import Markdown from "../Markdown";
 
+import "./Readme.css";
+
 const styles = theme => ({
   root: {
     flexGrow: 1
@@ -24,7 +26,9 @@ const styles = theme => ({
     marginRight: "8px"
   },
   markdown: {
-    overflow: "scroll"
+    overflow: "scroll",
+    fontSize: theme.typography.body1.fontSize,
+    lineHeight: theme.typography.body1.lineHeight
   }
 });
 
@@ -54,7 +58,10 @@ class Readme extends Component {
             </Typography>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
-            <Markdown source={source} className={classes.markdown} />
+            <Markdown
+              source={source}
+              className={`Readme-markdown__root ${classes.markdown}`}
+            />
           </ExpansionPanelDetails>
         </ExpansionPanel>
       </div>
