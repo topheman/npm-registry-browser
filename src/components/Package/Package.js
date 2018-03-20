@@ -98,20 +98,19 @@ const Package = ({
           packageInfos={packageInfos}
         />
         <Fragment>
-          {packageInfos &&
-            packageInfos.versions[version] &&
-            packageInfos.versions[version].description && (
-              <Typography className={classes.description}>
-                {packageInfos.versions[version].description}
-              </Typography>
-            )}
-          {packageInfos &&
-            packageInfos.time &&
-            packageInfos.time[version] && (
-              <Typography>
-                {new Date(packageInfos.time[version]).toLocaleDateString()}
-              </Typography>
-            )}
+          <Typography className={classes.description}>
+            {(packageInfos &&
+              packageInfos.versions[version] &&
+              packageInfos.versions[version].description) ||
+              "\u00A0"}
+          </Typography>
+          <Typography>
+            {(packageInfos &&
+              packageInfos.time &&
+              packageInfos.time[version] &&
+              new Date(packageInfos.time[version]).toLocaleDateString()) ||
+              "\u00A0"}
+          </Typography>
         </Fragment>
       </header>
       <Paper className={`${classes.blocks} ${classes.blockStats}`}>
