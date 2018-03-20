@@ -16,6 +16,8 @@ import List, {
 import Title from "./Title";
 import Readme from "./Readme";
 import Gravatar from "../Gravatar";
+import Loader from "../Loader";
+import RetryButton from "../RetryButton";
 import {
   extractReadme,
   extractMaintainers,
@@ -114,83 +116,102 @@ const Package = ({
         </Fragment>
       </header>
       <Paper className={`${classes.blocks} ${classes.blockStats}`}>
-        <Typography variant="title" className={classes.title}>
-          Stats
-        </Typography>
-        {stateNpmApi === "loaded" && (
-          <Fragment>
-            <p>Downloads for all versions:</p>
-            <ul>
-              <li>
-                Last day:{" "}
-                {downloads.downloads[
-                  downloads.downloads.length - 1
-                ].downloads.toLocaleString()}
-              </li>
-              <li>
-                Last month:{" "}
-                {downloads.downloads
-                  .reduce((acc, { downloads: dl }) => acc + dl, 0)
-                  .toLocaleString()}
-              </li>
-            </ul>
-          </Fragment>
-        )}
-        {stateNpmApi === "loading" && (
-          <Typography>... loading stats ...</Typography>
-        )}
-        {stateNpmApi === "error" && (
-          <Typography>
-            Error -{" "}
-            <button onClick={() => loadApiInfos(scope, name)}>reload</button>
-          </Typography>
-        )}
+        <Loader
+          loading={stateNpmApi === "loading"}
+          render={() => {
+            if (stateNpmApi === "error") {
+              return <RetryButton onClick={() => loadApiInfos(scope, name)} />;
+            }
+            return (
+              <Fragment>
+                <Typography variant="title" className={classes.title}>
+                  Stats
+                </Typography>
+                <p>Downloads for all versions:</p>
+                <ul>
+                  <li>
+                    Last day:{" "}
+                    {downloads.downloads[
+                      downloads.downloads.length - 1
+                    ].downloads.toLocaleString()}
+                  </li>
+                  <li>
+                    Last month:{" "}
+                    {downloads.downloads
+                      .reduce((acc, { downloads: dl }) => acc + dl, 0)
+                      .toLocaleString()}
+                  </li>
+                </ul>
+              </Fragment>
+            );
+          }}
+        />
       </Paper>
       <Paper className={`${classes.blocks} ${classes.blockInfos1}`}>
-        {stateNpmRegistry === "loaded" && (
-          <Fragment>
-            {publisher && (
-              <List subheader={<ListSubheader>Publisher</ListSubheader>}>
-                <ListItem>
-                  <Gravatar alt={publisher.name} email={publisher.email} />
-                  <ListItemText>
-                    <Typography component="span">{publisher.name}</Typography>
-                  </ListItemText>
-                </ListItem>
-              </List>
-            )}
-            <List
-              subheader={
-                <ListSubheader>
-                  Maintainer{maintainers.length > 1 ? "s" : ""}
-                </ListSubheader>
-              }
-            >
-              {extractMaintainers(packageInfos, version).map(maintainer => (
-                <ListItem key={`${maintainer.name}-${maintainer.email}`}>
-                  <Gravatar alt={maintainer.name} email={maintainer.email} />
-                  <ListItemText>
-                    <Typography component="span">{maintainer.name}</Typography>
-                  </ListItemText>
-                </ListItem>
-              ))}
-            </List>
-          </Fragment>
-        )}
-        {stateNpmRegistry === "loading" && (
-          <Typography>... loading registry infos ...</Typography>
-        )}
-        {stateNpmRegistry === "error" && (
-          <Typography>
-            Error -{" "}
-            <button onClick={() => loadRegistryInfos(scope, name, version)}>
-              reload
-            </button>
-          </Typography>
-        )}
+        <Loader
+          loading={stateNpmRegistry === "loading"}
+          render={() => {
+            if (stateNpmRegistry === "error") {
+              return (
+                <RetryButton
+                  onClick={() => loadRegistryInfos(scope, name, version)}
+                />
+              );
+            }
+            return (
+              <Fragment>
+                {publisher && (
+                  <List subheader={<ListSubheader>Publisher</ListSubheader>}>
+                    <ListItem>
+                      <Gravatar alt={publisher.name} email={publisher.email} />
+                      <ListItemText>
+                        <Typography component="span">
+                          {publisher.name}
+                        </Typography>
+                      </ListItemText>
+                    </ListItem>
+                  </List>
+                )}
+                <List
+                  subheader={
+                    <ListSubheader>
+                      Maintainer{maintainers.length > 1 ? "s" : ""}
+                    </ListSubheader>
+                  }
+                >
+                  {extractMaintainers(packageInfos, version).map(maintainer => (
+                    <ListItem key={`${maintainer.name}-${maintainer.email}`}>
+                      <Gravatar
+                        alt={maintainer.name}
+                        email={maintainer.email}
+                      />
+                      <ListItemText>
+                        <Typography component="span">
+                          {maintainer.name}
+                        </Typography>
+                      </ListItemText>
+                    </ListItem>
+                  ))}
+                </List>
+              </Fragment>
+            );
+          }}
+        />
       </Paper>
       <Paper className={`${classes.blocks} ${classes.blockInfos2}`}>
-        Some other infos ...? (layout test)
+        <Loader
+          loading={stateNpmRegistry === "loading"}
+          render={() => {
+            if (stateNpmRegistry === "error") {
+              return (
+                <RetryButton
+                  onClick={() => loadRegistryInfos(scope, name, version)}
+                />
+              );
+            }
+            return <Typography>Some infos loaded ...</Typography>;
+          }}
+        />
       </Paper>
       {stateNpmRegistry === "loaded" &&
         packageInfos && (
