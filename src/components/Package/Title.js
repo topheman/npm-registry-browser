@@ -8,64 +8,19 @@ import ExpandMoreIcon from "material-ui-icons/ExpandMore";
 
 import { formatPackageString } from "../../utils/string";
 
-const styles = theme => {
-  console.log(theme);
-  return {
-    button: {
-      textTransform: "none",
-      marginLeft: -16,
-      color: theme.palette.primary.main,
-      [theme.breakpoints.down("sm")]: {
-        fontSize: theme.typography.pxToRem(20)
-      },
-      [theme.breakpoints.up("sm")]: {
-        fontSize: theme.typography.pxToRem(36)
-      }
+const styles = theme => ({
+  button: {
+    textTransform: "none",
+    marginLeft: -16,
+    color: theme.palette.primary.main,
+    [theme.breakpoints.down("sm")]: {
+      fontSize: theme.typography.pxToRem(20)
     },
-    h1: {
-      paddingTop: "11px",
-      [theme.breakpoints.down("sm")]: {
-        fontSize: theme.typography.pxToRem(20)
-      },
-      [theme.breakpoints.up("sm")]: {
-        fontSize: theme.typography.pxToRem(36)
-      }
+    [theme.breakpoints.up("sm")]: {
+      fontSize: theme.typography.pxToRem(36)
     }
-  };
-};
-
-/**
- * That way, the name/version of the package will be displayed even if the API hasn't answered
- * It will only be interactive when the infos is ready to be displayed
- */
-const ButtonOrHeading = ({
-  children,
-  packageInfos,
-  onClick, // only called when packageInfos is loaded
-  classes,
-  ...props
-}) => {
-  if (packageInfos) {
-    return (
-      <Button onClick={onClick} className={classes.button} {...props}>
-        {children}
-        <ExpandMoreIcon />
-      </Button>
-    );
   }
-  return (
-    <h1 {...props} className={classes.h1}>
-      {children}
-    </h1>
-  );
-};
-
-ButtonOrHeading.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.element, PropTypes.string]), // eslint-disable-line react/require-default-props
-  packageInfos: PropTypes.object, // eslint-disable-line react/require-default-props
-  onClick: PropTypes.func.isRequired,
-  classes: PropTypes.object.isRequired
-};
+});
 
 class Title extends Component {
   state = {
@@ -82,15 +37,16 @@ class Title extends Component {
     const { anchorEl } = this.state;
     return (
       <Fragment>
-        <ButtonOrHeading
+        <Button
           aria-owns={anchorEl ? "simple-menu" : null}
           aria-haspopup="true"
           onClick={this.handleClick}
-          packageInfos={packageInfos}
-          classes={classes}
+          className={classes.button}
+          disabled={!packageInfos}
         >
           {formatPackageString({ scope, name, version })}
-        </ButtonOrHeading>
+          {packageInfos && <ExpandMoreIcon />}
+        </Button>
         {packageInfos && (
           <Menu
             id="simple-menu"

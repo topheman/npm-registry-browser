@@ -15,7 +15,8 @@ const styles = () => ({
     margin: "0px 16px"
   },
   content: {
-    marginTop: "70px"
+    margin: "60px auto",
+    maxWidth: "1180px"
   }
 });
 

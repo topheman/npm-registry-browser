@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 
 import { withStyles } from "material-ui/styles";
-import Grid from "material-ui/Grid";
+// import Grid from "material-ui/Grid";
 import Paper from "material-ui/Paper";
 import Typography from "material-ui/Typography";
 import List, {
@@ -27,13 +27,40 @@ const styles = theme => ({
     fontStyle: "italic",
     fontSize: theme.typography.pxToRem(14)
   },
-  paper: theme.mixins.gutters({
+  blocks: theme.mixins.gutters({
     paddingTop: 16,
-    paddingBottom: 16,
-    marginBottom: 16
+    paddingBottom: 16
   }),
-  rootGridContainer: {
-    marginTop: 8
+  root: {
+    display: "grid",
+    gridGap: "10px",
+    [theme.breakpoints.down("sm")]: {
+      gridTemplateAreas: `"header"
+      "infos2"
+      "stats"
+      "infos1"
+      "readme"`
+    },
+    [theme.breakpoints.up("sm")]: {
+      gridTemplateAreas: `"header header header"
+      "infos1 stats infos2"
+      "readme readme readme"`
+    }
+  },
+  blockHeader: {
+    gridArea: "header"
+  },
+  blockInfos1: {
+    gridArea: "infos1"
+  },
+  blockInfos2: {
+    gridArea: "infos2"
+  },
+  blockStats: {
+    gridArea: "stats"
+  },
+  blockReadme: {
+    gridArea: "readme"
   },
   title: {
     color: theme.palette.primary.main
@@ -59,124 +86,132 @@ const Package = ({
     extractPeopleInfos(packageInfos.versions[version]._npmUser); // eslint-disable-line
   const maintainers = extractMaintainers(packageInfos, version);
   return (
-    <div>
-      <Title
-        scope={scope}
-        name={name}
-        version={version}
-        packageInfos={packageInfos}
-      />
-      <Fragment>
-        {packageInfos &&
-          packageInfos.versions[version] &&
-          packageInfos.versions[version].description && (
-            <Typography className={classes.description}>
-              {packageInfos.versions[version].description}
-            </Typography>
-          )}
-        {packageInfos &&
-          packageInfos.time &&
-          packageInfos.time[version] && (
-            <Typography>
-              {new Date(packageInfos.time[version]).toLocaleDateString()}
-            </Typography>
-          )}
-      </Fragment>
-      <Grid container className={classes.rootGridContainer}>
-        <Grid item xs={12} sm={4}>
-          <Paper className={classes.paper}>
-            <Typography variant="title" className={classes.title}>
-              Stats
-            </Typography>
-            {stateNpmApi === "loaded" && (
-              <Fragment>
-                <p>Downloads for all versions:</p>
-                <ul>
-                  <li>
-                    Last day:{" "}
-                    {downloads.downloads[
-                      downloads.downloads.length - 1
-                    ].downloads.toLocaleString()}
-                  </li>
-                  <li>
-                    Last month:{" "}
-                    {downloads.downloads
-                      .reduce((acc, { downloads: dl }) => acc + dl, 0)
-                      .toLocaleString()}
-                  </li>
-                </ul>
-              </Fragment>
+    <section className={classes.root}>
+      <header className={`${classes.blocks} ${classes.blockHeader}`}>
+        <Title
+          scope={scope}
+          name={name}
+          version={version}
+          packageInfos={packageInfos}
+        />
+        <Fragment>
+          {packageInfos &&
+            packageInfos.versions[version] &&
+            packageInfos.versions[version].description && (
+              <Typography className={classes.description}>
+                {packageInfos.versions[version].description}
+              </Typography>
             )}
-            {stateNpmApi === "loading" && (
-              <Typography>... loading stats ...</Typography>
+          {packageInfos &&
+            packageInfos.time &&
+            packageInfos.time[version] && (
+              <Typography>
+                {new Date(packageInfos.time[version]).toLocaleDateString()}
+              </Typography>
             )}
-            {stateNpmApi === "error" && (
+        </Fragment>
+      </header>
+      <Paper className={`${classes.blocks} ${classes.blockStats}`}>
+        <Typography variant="title" className={classes.title}>
+          Stats
+        </Typography>
+        {stateNpmApi === "loaded" && (
+          <Fragment>
+            <p>Downloads for all versions:</p>
+            <ul>
+              <li>
+                Last day:{" "}
+                {downloads.downloads[
+                  downloads.downloads.length - 1
+                ].downloads.toLocaleString()}
+              </li>
+              <li>
+                Last month:{" "}
+                {downloads.downloads
+                  .reduce((acc, { downloads: dl }) => acc + dl, 0)
+                  .toLocaleString()}
+              </li>
+            </ul>
+          </Fragment>
+        )}
+        {stateNpmApi === "loading" && (
+          <Typography>... loading stats ...</Typography>
+        )}
+        {stateNpmApi === "error" && (
+          <Typography>
+            Error -{" "}
+            <button onClick={() => loadApiInfos(scope, name)}>reload</button>
+          </Typography>
+        )}
+      </Paper>
+      <Paper className={`${classes.blocks} ${classes.blockInfos1}`}>
+        {stateNpmRegistry === "loaded" && (
+          <Fragment>
+            {publisher && (
+              <List subheader={<ListSubheader>Publisher</ListSubheader>}>
+                <ListItem>
+                  <Gravatar alt={publisher.name} email={publisher.email} />
+                  <ListItemText>
+                    <Typography component="span">{publisher.name}</Typography>
+                  </ListItemText>
+                </ListItem>
+              </List>
+            )}
+            <List
+              subheader={
+                <ListSubheader>
+                  Maintainer{maintainers.length > 1 ? "s" : ""}
+                </ListSubheader>
+              }
+            >
+              {extractMaintainers(packageInfos, version).map(maintainer => (
+                <ListItem key={`${maintainer.name}-${maintainer.email}`}>
+                  <Gravatar alt={maintainer.name} email={maintainer.email} />
+                  <ListItemText>
+                    <Typography component="span">{maintainer.name}</Typography>
+                  </ListItemText>
+                </ListItem>
+              ))}
+            </List>
+          </Fragment>
+        )}
+        {stateNpmRegistry === "loading" && (
+          <Typography>... loading registry infos ...</Typography>
+        )}
+        {stateNpmRegistry === "error" && (
+          <Typography>
+            Error -{" "}
+            <button onClick={() => loadRegistryInfos(scope, name, version)}>
+              reload
+            </button>
+          </Typography>
+        )}
+      </Paper>
+      <Paper className={`${classes.blocks} ${classes.blockInfos2}`}>
+        Some other infos ...? (layout test)
+      </Paper>
+      <div className={classes.blockReadme}>
+        {stateNpmRegistry === "loaded" &&
+          packageInfos && (
+            <Readme source={extractReadme(packageInfos, version)} />
+          )}
+        {["loading", "error"].includes(stateNpmRegistry) && (
+          <Paper className={classes.blocks}>
+            {stateNpmRegistry === "loading" && (
+              <Typography>... loading registry infos ...</Typography>
+            )}
+            {stateNpmRegistry === "error" && (
               <Typography>
                 Error -{" "}
-                <button onClick={() => loadApiInfos(scope, name)}>
+                <button onClick={() => loadRegistryInfos(scope, name, version)}>
                   reload
                 </button>
               </Typography>
             )}
           </Paper>
-          {stateNpmRegistry === "loaded" && (
-            <Paper className={classes.paper}>
-              {publisher && (
-                <List subheader={<ListSubheader>Publisher</ListSubheader>}>
-                  <ListItem>
-                    <Gravatar alt={publisher.name} email={publisher.email} />
-                    <ListItemText>
-                      <Typography component="span">{publisher.name}</Typography>
-                    </ListItemText>
-                  </ListItem>
-                </List>
-              )}
-              <List
-                subheader={
-                  <ListSubheader>
-                    Maintainer{maintainers.length > 1 ? "s" : ""}
-                  </ListSubheader>
-                }
-              >
-                {extractMaintainers(packageInfos, version).map(maintainer => (
-                  <ListItem key={`${maintainer.name}-${maintainer.email}`}>
-                    <Gravatar alt={maintainer.name} email={maintainer.email} />
-                    <ListItemText>
-                      <Typography component="span">
-                        {maintainer.name}
-                      </Typography>
-                    </ListItemText>
-                  </ListItem>
-                ))}
-              </List>
-            </Paper>
-          )}
-        </Grid>
-        <Grid item xs={12} sm={8}>
-          {stateNpmRegistry === "loaded" &&
-            packageInfos && (
-              <Readme source={extractReadme(packageInfos, version)} />
-            )}
-          {["loading", "error"].includes(stateNpmRegistry) && (
-            <Paper className={classes.paper}>
-              {stateNpmRegistry === "loading" && (
-                <Typography>... loading registry infos ...</Typography>
-              )}
-              {stateNpmRegistry === "error" && (
-                <Typography>
-                  Error -{" "}
-                  <button
-                    onClick={() => loadRegistryInfos(scope, name, version)}
-                  >
-                    reload
-                  </button>
-                </Typography>
-              )}
-            </Paper>
-          )}
-        </Grid>
-      </Grid>
-    </div>
+        )}
+      </div>
+    </section>
   );
 };
 

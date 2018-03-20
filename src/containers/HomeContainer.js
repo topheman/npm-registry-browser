@@ -10,6 +10,9 @@ import Typography from "material-ui/Typography";
 import { ConnectedDrawer } from "../components/Drawer";
 
 const styles = theme => ({
+  root: {
+    paddingTop: 10
+  },
   button: {
     margin: theme.spacing.unit
   },
@@ -32,7 +35,7 @@ const Home = ({ classes }) => {
     "vue"
   ];
   return (
-    <div>
+    <div className={classes.root}>
       <h1>Home</h1>
       <p>Welcome to the home page. This is still a work in progress.</p>
       <p>
