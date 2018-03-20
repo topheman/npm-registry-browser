@@ -133,6 +133,7 @@ export const extractMaintainers = (packageInfos, targetVersion) => {
     if (
       targetVersion &&
       packageInfos.versions &&
+      packageInfos.versions[targetVersion] &&
       packageInfos.versions[targetVersion].maintainers
     ) {
       return packageInfos.versions[targetVersion].maintainers.map(
