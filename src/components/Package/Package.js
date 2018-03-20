@@ -35,6 +35,7 @@ const styles = theme => ({
     display: "grid",
     gridGap: "10px",
     [theme.breakpoints.down("sm")]: {
+      gridTemplateColumns: "1fr",
       gridTemplateAreas: `"header"
       "infos2"
       "stats"
@@ -42,6 +43,7 @@ const styles = theme => ({
       "readme"`
     },
     [theme.breakpoints.up("sm")]: {
+      gridTemplateColumns: "1fr 1fr 1fr",
       gridTemplateAreas: `"header header header"
       "infos1 stats infos2"
       "readme readme readme"`
