@@ -60,7 +60,8 @@ const styles = theme => ({
     gridArea: "stats"
   },
   blockReadme: {
-    gridArea: "readme"
+    gridArea: "readme",
+    overflow: "scroll"
   },
   title: {
     color: theme.palette.primary.main
@@ -190,27 +191,12 @@ const Package = ({
       <Paper className={`${classes.blocks} ${classes.blockInfos2}`}>
         Some other infos ...? (layout test)
       </Paper>
-      <div className={classes.blockReadme}>
-        {stateNpmRegistry === "loaded" &&
-          packageInfos && (
+      {stateNpmRegistry === "loaded" &&
+        packageInfos && (
+          <Paper className={`${classes.blocks} ${classes.blockReadme}`}>
             <Readme source={extractReadme(packageInfos, version)} />
-          )}
-        {["loading", "error"].includes(stateNpmRegistry) && (
-          <Paper className={classes.blocks}>
-            {stateNpmRegistry === "loading" && (
-              <Typography>... loading registry infos ...</Typography>
-            )}
-            {stateNpmRegistry === "error" && (
-              <Typography>
-                Error -{" "}
-                <button onClick={() => loadRegistryInfos(scope, name, version)}>
-                  reload
-                </button>
-              </Typography>
-            )}
           </Paper>
         )}
-      </div>
     </section>
   );
 };
