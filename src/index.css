@@ -11,6 +11,10 @@
 html {
   font-size: 87.5%; /* 87.5% of 16px = 14px */
 }
+p,
+li {
+  line-height: 1.5rem; /* adjust the line-height on basic elements */
+}
 body {
   margin: 0;
   padding: 0;
