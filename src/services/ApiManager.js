@@ -53,7 +53,7 @@ const baseConfig = {
 const makeConfig = (key, config = {}) => {
   invariant(
     acceptedKeys.includes(key),
-    `[ApiManager] Only accepts ${acceptedKeys.join(", ")}`
+    `[ApiManager](${key}) Only accepts ${acceptedKeys.join(", ")}`
   );
   const mergedConfig = {
     ...baseConfig[key],
@@ -119,13 +119,13 @@ class SingletonApiManager {
         this.cache = setupCache({ maxAge: 15 * 60 * 1000 });
         axiosConfig.adapter = this.cache.adapter;
         if (process.env.NODE_ENV === "development") {
-          console.info("[ApiManager] Cache is enabled", this.cache);
+          console.info(`[ApiManager](${key}) Cache is enabled`, this.cache);
         }
       }
       this.client = axios.create(axiosConfig);
     }
     if (process.env.NODE_ENV === "development") {
-      console.info("[ApiManager] Config", axiosConfig);
+      console.info(`[ApiManager](${key}) Config`, axiosConfig);
     }
   }
 }
@@ -133,7 +133,7 @@ class SingletonApiManager {
 export const getInstance = key => {
   invariant(
     acceptedKeys.includes(key),
-    `[ApiManager] Only accepts ${acceptedKeys.join(", ")}`
+    `[ApiManager](${key}) Only accepts ${acceptedKeys.join(", ")}`
   );
   // if .init() wasn't called, the default config of constructor will be used
   if (!instance[key]) {
@@ -147,7 +147,7 @@ export const init = (key, config) => {
   if (instance[key]) {
     warning(
       false,
-      "[ApiManager] .init(key, config) has no effect once .getInstance(key) or .init(key) have been called before."
+      `[ApiManager](${key}) .init(key, config) has no effect once .getInstance(key) or .init(key) have been called before.`
     );
     return instance[key];
   }

@@ -1,5 +1,5 @@
 /**
- * Setup file for test suites, specific to crea-react-app
+ * Setup file for test suites, specific to create-react-app
  *
  * Necessary for jest config with enzyme, see:
  * - http://airbnb.io/enzyme/docs/installation/index.html

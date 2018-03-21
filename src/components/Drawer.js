@@ -31,7 +31,6 @@ export class Provider extends Component {
     availablePositions.forEach(position => {
       this.state[position] = false; // eslint-disable-line react/no-direct-mutation-state
     });
-    this.toggleDrawer.bind(this);
   }
   toggleDrawer = (side, open) => () => {
     this.setState({

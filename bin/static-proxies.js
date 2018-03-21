@@ -15,6 +15,9 @@ const host = process.env.HOST || "0.0.0.0";
 // Listen on a specific port via the PORT environment variable
 const port = process.env.PORT || 8000;
 
-createServer({ proxyConfig: packageJson.proxy }).listen(port, host, () => {
+createServer({
+  proxyConfig: packageJson.proxy,
+  staticFolders: ["build"]
+}).listen(port, host, () => {
   console.log(`Running static-proxies on ${host}:${port}`);
 });

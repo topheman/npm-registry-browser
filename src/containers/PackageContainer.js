@@ -60,7 +60,6 @@ class PackageContainer extends Component {
   redirectUntilMatchVersion(scope, name, range, versions = [], distTags = {}) {
     if (typeof range !== "undefined") {
       const matchedVersion = matchSemver(range, versions, distTags) || "latest";
-      console.log({ range, versions, distTags, matchedVersion });
       if (
         matchedVersion &&
         matchedVersion !== this.props.match.params.version
@@ -85,7 +84,7 @@ class PackageContainer extends Component {
       const { data: packageInfos } = await api("npmRegistry").packageInfos(
         formatPackageString({ scope, name })
       );
-      console.log(packageInfos.name, { packageInfos });
+      console.log(packageInfos.name, "packageInfos", packageInfos);
       const matched = this.redirectUntilMatchVersion(
         scope,
         name,
@@ -94,7 +93,6 @@ class PackageContainer extends Component {
         packageInfos["dist-tags"]
       );
       if (matched) {
-        console.log("matched", matched);
         this.setState({ packageInfos, stateNpmRegistry: "loaded" });
       }
     } catch (e) {
@@ -108,7 +106,7 @@ class PackageContainer extends Component {
       const { data: downloads } = await api("npmApi").downloads(
         formatPackageString({ scope, name })
       );
-      console.log({ downloads });
+      console.log(formatPackageString({ scope, name }), "downloads", downloads);
       if (downloads) {
         this.setState({ downloads, stateNpmApi: "loaded" });
       }

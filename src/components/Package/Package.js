@@ -2,16 +2,9 @@ import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 
 import { withStyles } from "material-ui/styles";
-// import Grid from "material-ui/Grid";
 import Paper from "material-ui/Paper";
 import Typography from "material-ui/Typography";
-import List, {
-  ListItem,
-  // ListItemIcon,
-  // ListItemSecondaryAction,
-  ListItemText,
-  ListSubheader
-} from "material-ui/List";
+import List, { ListItem, ListItemText, ListSubheader } from "material-ui/List";
 
 import Title from "./Title";
 import Readme from "./Readme";
@@ -210,7 +203,9 @@ const Package = ({
                 />
               );
             }
-            return <Typography>Some infos loaded ...</Typography>;
+            return (
+              <Typography>Some infos loaded (comming soon) ...</Typography>
+            );
           }}
         />
       </Paper>

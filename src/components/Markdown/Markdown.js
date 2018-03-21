@@ -6,7 +6,7 @@ import ReactMarkdown, { uriTransformer } from "react-markdown";
 import CodeBlock from "./CodeBlock";
 
 /**
- * Transform urls in readme pointing to npmjs.com/package/* to #/package/*
+ * Transforms urls inside readme pointing to npmjs.com/package/* to #/package/*
  * @param {*} uri
  */
 const transformLinkUri = uri => {

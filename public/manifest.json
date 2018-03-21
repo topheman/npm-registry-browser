@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "npm-registry-browser",
+  "name": "npm-registry-browser",
   "icons": [
     {
       "src": "favicon.ico",

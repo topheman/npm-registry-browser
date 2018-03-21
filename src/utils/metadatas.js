@@ -149,7 +149,6 @@ export const extractMaintainers = (packageInfos, targetVersion) => {
       .reverse()
       // eslint-disable-next-line
       .reduce((acc, packageInfo) => {
-        // console.log(packageInfo.version, JSON.stringify(acc));
         if (acc.length === 0 && packageInfo.maintainers) {
           return packageInfo.maintainers; // eslint-disable-line
         }
