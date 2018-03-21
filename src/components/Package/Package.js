@@ -52,6 +52,7 @@ const styles = theme => ({
     }
   },
   blockHeader: {
+    paddingLeft: 0,
     gridArea: "header"
   },
   blockInfos1: {
