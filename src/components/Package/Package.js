@@ -38,10 +38,10 @@ const styles = theme => ({
       "readme"`
     },
     [theme.breakpoints.up("sm")]: {
-      gridTemplateColumns: "1fr 1fr 1fr",
-      gridTemplateAreas: `"header header header"
-      "infos1 stats infos2"
-      "readme readme readme"`
+      gridTemplateColumns: "1fr 1fr",
+      gridTemplateAreas: `"header header header header"
+      "readme readme readme infos1"
+      "readme readme readme stats"`
     }
   },
   blockHeader: {
@@ -52,7 +52,8 @@ const styles = theme => ({
     gridArea: "infos1"
   },
   blockInfos2: {
-    gridArea: "infos2"
+    gridArea: "infos2",
+    display: "none"
   },
   blockStats: {
     gridArea: "stats"
