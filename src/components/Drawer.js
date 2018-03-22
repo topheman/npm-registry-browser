@@ -5,6 +5,8 @@ import hoistNonReactStatics from "hoist-non-react-statics";
 
 const DrawerContext = createContext({});
 
+/** Component part (meant to be connected) */
+
 const availablePositions = ["top", "bottom", "left", "right"];
 
 const Drawer = ({ anchor, open, onClose, children, ...props }) => (
@@ -23,6 +25,8 @@ Drawer.propTypes = {
 };
 
 export default Drawer;
+
+/** Provider part */
 
 export class Provider extends Component {
   constructor(props) {
@@ -56,12 +60,16 @@ Provider.propTypes = {
   children: PropTypes.element.isRequired
 };
 
+/** Component with render props part */
+
 export const ConnectedDrawer = ({ render }) => (
   <DrawerContext.Consumer>{props => render(props)}</DrawerContext.Consumer>
 );
 ConnectedDrawer.propTypes = {
   render: PropTypes.func.isRequired
 };
+
+/** Higher Order Component (HOC) part */
 
 export const withDrawer = () => Comp => {
   function Wrapper(props) {
@@ -74,11 +82,15 @@ export const withDrawer = () => Comp => {
       />
     );
   }
-  Wrapper.displayName = `withDrawer(${Component.displayName ||
-    Component.name})`;
+  Wrapper.displayName = `withDrawer(${Comp.displayName ||
+    Comp.name ||
+    "Component"})`;
   Wrapper.propTypes = {
-    innerRef: PropTypes.func // eslint-disable-line
+    innerRef: PropTypes.func
   };
-  Wrapper.WrappedComponent = Component;
-  return hoistNonReactStatics(Wrapper, Component);
+  Wrapper.defaultProps = {
+    innerRef: undefined
+  };
+  Wrapper.WrappedComponent = Comp;
+  return hoistNonReactStatics(Wrapper, Comp);
 };

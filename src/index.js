@@ -8,6 +8,7 @@ import registerServiceWorker from "./registerServiceWorker";
 
 import { init as initApi } from "./services/ApiManager";
 import { Provider as DrawerProvider } from "./components/Drawer";
+import { Provider as WindowInfosProvider } from "./components/WindowInfos";
 
 const theme = createMuiTheme({
   palette: {
@@ -30,9 +31,11 @@ const theme = createMuiTheme({
 const render = Component => {
   ReactDOM.render(
     <MuiThemeProvider theme={theme}>
-      <DrawerProvider>
-        <Component />
-      </DrawerProvider>
+      <WindowInfosProvider>
+        <DrawerProvider>
+          <Component />
+        </DrawerProvider>
+      </WindowInfosProvider>
     </MuiThemeProvider>,
     document.getElementById("root")
   );
