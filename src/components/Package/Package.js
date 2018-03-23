@@ -8,6 +8,7 @@ import List, { ListItem, ListItemText, ListSubheader } from "material-ui/List";
 
 import Title from "./Title";
 import Readme from "./Readme";
+import VersionsTab from "./VersionsTab";
 import Gravatar from "../Gravatar";
 import Loader from "../Loader";
 import RetryButton from "../RetryButton";
@@ -227,6 +228,16 @@ const Package = ({
             <Paper className={`${classes.blocks} ${classes.blockReadme}`}>
               <Readme source={extractReadme(packageInfos, version)} />
             </Paper>
+          )}
+        {stateNpmRegistry === "loaded" &&
+          packageInfos && (
+            <VersionsTab
+              scope={scope}
+              name={name}
+              version={version}
+              packageInfos={packageInfos}
+              className={`${classes.blocks}`}
+            />
           )}
       </section>
     </section>
