@@ -61,23 +61,27 @@ const TwitterButton = props => {
   );
 };
 
-TwitterButton.defaultProps = {
-  size: "l",
-  lang: "en",
-  dnt: false,
-  buttonTitle: "Twitter Tweet Button"
-};
-
 TwitterButton.propTypes = {
   size: PropTypes.oneOf(["l", "large"]).isRequired, // no default for the moment, only large
   lang: PropTypes.string.isRequired,
   dnt: PropTypes.bool.isRequired,
-  text: PropTypes.string, // eslint-disable-line react/require-default-props
-  url: PropTypes.string, // eslint-disable-line react/require-default-props
-  hashtags: PropTypes.string, // eslint-disable-line react/require-default-props
-  via: PropTypes.string, // eslint-disable-line react/require-default-props
-  related: PropTypes.string, // eslint-disable-line react/require-default-props
+  text: PropTypes.string,
+  url: PropTypes.string,
+  hashtags: PropTypes.string,
+  via: PropTypes.string,
+  related: PropTypes.string,
   buttonTitle: PropTypes.string.isRequired
+};
+TwitterButton.defaultProps = {
+  size: "l",
+  lang: "en",
+  dnt: false,
+  buttonTitle: "Twitter Tweet Button",
+  text: undefined,
+  url: undefined,
+  hashtags: undefined,
+  via: undefined,
+  related: undefined
 };
 
 export default TwitterButton;

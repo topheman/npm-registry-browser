@@ -221,16 +221,22 @@ const Package = ({
 };
 
 Package.propTypes = {
-  scope: PropTypes.string, // eslint-disable-line react/require-default-props
-  name: PropTypes.string, // eslint-disable-line react/require-default-props
-  version: PropTypes.string, // eslint-disable-line react/require-default-props
+  scope: PropTypes.string,
+  name: PropTypes.string.isRequired,
+  version: PropTypes.string,
   stateNpmRegistry: PropTypes.string.isRequired,
   stateNpmApi: PropTypes.string.isRequired,
-  packageInfos: PropTypes.object, // eslint-disable-line react/require-default-props
-  downloads: PropTypes.object, // eslint-disable-line react/require-default-props
+  packageInfos: PropTypes.object,
+  downloads: PropTypes.object,
   loadApiInfos: PropTypes.func.isRequired,
   loadRegistryInfos: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired
+};
+Package.defaultProps = {
+  scope: undefined,
+  version: undefined,
+  packageInfos: undefined,
+  downloads: undefined
 };
 
 export default withStyles(styles)(Package);

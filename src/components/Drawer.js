@@ -31,10 +31,10 @@ export default Drawer;
 export class Provider extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
-    availablePositions.forEach(position => {
-      this.state[position] = false; // eslint-disable-line react/no-direct-mutation-state
-    });
+    this.state = availablePositions.reduce((acc, position) => {
+      acc[position] = false;
+      return acc;
+    }, {});
   }
   toggleDrawer = (side, open) => () => {
     this.setState({
