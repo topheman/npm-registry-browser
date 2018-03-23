@@ -22,6 +22,22 @@ const theme = createMuiTheme({
     // Fix relative font-size according to <html> element font-size set in index.css
     fontSize: 14, // Account for base font-size of 87.5%.
     htmlFontSize: 14 // 87.5% of 16px = 14px
+  },
+  overrides: {
+    MuiListSubheader: {
+      root: {
+        fontSize: "1rem",
+        color: "grey",
+        fontWeight: 500
+      }
+    },
+    MuiTypography: {
+      subheading: {
+        fontSize: "1rem",
+        color: "grey",
+        fontWeight: 500
+      }
+    }
   }
 });
 

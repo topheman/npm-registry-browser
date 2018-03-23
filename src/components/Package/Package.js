@@ -9,6 +9,7 @@ import List, { ListItem, ListItemText, ListSubheader } from "material-ui/List";
 import Title from "./Title";
 import Readme from "./Readme";
 import VersionsTab from "./VersionsTab";
+import DependenciesTab from "./DependenciesTab";
 import Gravatar from "../Gravatar";
 import Loader from "../Loader";
 import RetryButton from "../RetryButton";
@@ -59,10 +60,9 @@ const styles = theme => ({
     display: "none"
   },
   blockStats: {},
-  blockReadme: {
-    gridArea: "readme",
-    overflow: "scroll"
-  },
+  blockReadme: {},
+  blockVersions: {},
+  blockDependencies: {},
   title: {
     color: theme.palette.primary.main
   }
@@ -236,7 +236,17 @@ const Package = ({
               name={name}
               version={version}
               packageInfos={packageInfos}
-              className={`${classes.blocks}`}
+              className={`${classes.blocks} ${classes.blockVersions}`}
+              style={{ padding: 0 }}
+            />
+          )}
+        {stateNpmRegistry === "loaded" &&
+          packageInfos && (
+            <DependenciesTab
+              version={version}
+              packageInfos={packageInfos}
+              className={`${classes.blocks} ${classes.blockDependencies}`}
+              style={{ padding: 0 }}
             />
           )}
       </section>
