@@ -13,3 +13,7 @@
 .Readme-markdown__root img {
   max-width: 100%;
 }
+/** Prevent long word from overflowing the layout by breaking them */
+.Readme-markdown__root {
+  word-break: break-word;
+}
