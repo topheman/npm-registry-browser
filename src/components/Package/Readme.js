@@ -18,7 +18,7 @@ const styles = theme => ({
     marginRight: "8px"
   },
   markdown: {
-    overflow: "scroll"
+    // overflow: "scroll"
   }
 });
 

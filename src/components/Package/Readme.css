@@ -9,3 +9,7 @@
 .Readme-markdown__root code {
   font-size: 1.1em;
 }
+/** Prevent large images to overflow */
+.Readme-markdown__root img {
+  max-width: 100%;
+}
