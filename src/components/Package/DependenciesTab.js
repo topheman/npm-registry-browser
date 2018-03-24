@@ -11,7 +11,7 @@ import { withStyles } from "material-ui/styles";
 
 import { Link } from "react-router-dom";
 
-const styles = {
+const styles = theme => ({
   panelDetails: {
     display: "block"
   },
@@ -31,9 +31,17 @@ const styles = {
     textDecoration: "none",
     "&:hover": {
       backgroundColor: "#cecece"
+    },
+    "& > span": {
+      [theme.breakpoints.down("sm")]: {
+        maxWidth: "75vw", // on small screens, limit the maxWidth to 75% of the width of the window (vw unit)
+        display: "inline-block",
+        overflow: "hidden",
+        textOverflow: "ellipsis"
+      }
     }
   }
-};
+});
 
 const DependenciesTab = ({
   version,
@@ -72,9 +80,7 @@ const DependenciesTab = ({
     <div className={className} style={style}>
       <ExpansionPanel>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography className={classes.heading}>
-            Dependencies ({dependencies.length})
-          </Typography>
+          <Typography>Dependencies ({dependencies.length})</Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails className={classes.panelDetails}>
           {Object.entries(lists).map(([sectionTitle, sectionDependencies]) => (

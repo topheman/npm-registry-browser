@@ -17,9 +17,7 @@ const styles = theme => ({
     verticalAlign: "middle",
     marginRight: "8px"
   },
-  markdown: {
-    // overflow: "scroll"
-  }
+  markdown: {}
 });
 
 const Readme = ({ classes, source }) => (
