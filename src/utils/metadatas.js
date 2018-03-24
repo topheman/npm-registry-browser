@@ -1,20 +1,33 @@
+export const safeExtractVersion = (packageInfos, targetVersion) =>
+  (packageInfos &&
+    packageInfos.versions &&
+    packageInfos.versions[targetVersion]) ||
+  {};
+
+const strictExtractVersion = (packageInfos, targetVersion) =>
+  (packageInfos &&
+    packageInfos.versions &&
+    packageInfos.versions[targetVersion]) ||
+  undefined;
+
 /**
- * Extracts the url from a "homepage" field containing either a string
+ * Extracts the url from a "homepage" -like field containing either a string
  * or an object like : {url}
  * @param {String | Object | undefined} homepage
  * @return {String | undefined}
  */
-export const extractHomePageInfos = homepage =>
-  (homepage && homepage.url) ||
-  (homepage && typeof homepage === "string" && homepage);
+export const extractUrl = urlField =>
+  (urlField && urlField.url) ||
+  (urlField && typeof urlField === "string" && urlField) ||
+  undefined;
 
 /**
  * Extract infos from the repositry field (github ones)
  * @param {String | Object | undefined} repository
- * @return {String | undefined}
+ * @return {Object | undefined}
  */
 export const extractRepositoryInfos = repository => {
-  let url = extractHomePageInfos(repository);
+  let url = extractUrl(repository);
   url =
     url &&
     url
@@ -92,12 +105,7 @@ export const extractPeopleInfos = people => {
 export const extractReadme = (packageInfos, targetVersion) => {
   if (packageInfos && typeof packageInfos === "object") {
     // if a targetVersion is specified, try to retrieve it first
-    if (
-      targetVersion &&
-      packageInfos.versions &&
-      packageInfos.versions[targetVersion] &&
-      packageInfos.versions[targetVersion].readme
-    ) {
+    if (safeExtractVersion(packageInfos, targetVersion).readme) {
       return packageInfos.versions[targetVersion].readme;
     }
     // fallback on general readme
@@ -130,12 +138,7 @@ export const extractReadme = (packageInfos, targetVersion) => {
 export const extractMaintainers = (packageInfos, targetVersion) => {
   if (packageInfos && typeof packageInfos === "object") {
     // if a targetVersion is specified, try to retrieve it first
-    if (
-      targetVersion &&
-      packageInfos.versions &&
-      packageInfos.versions[targetVersion] &&
-      packageInfos.versions[targetVersion].maintainers
-    ) {
+    if (safeExtractVersion(packageInfos, targetVersion).maintainers) {
       return packageInfos.versions[targetVersion].maintainers.map(
         extractPeopleInfos
       );
@@ -158,4 +161,26 @@ export const extractMaintainers = (packageInfos, targetVersion) => {
   }
   // return empty array anyway
   return [];
+};
+
+/**
+ * @todo review following code + write tests
+ * @param {*} license
+ */
+export const extractLicenseInfos = (packageInfo, targetVersion) => {
+  const version = strictExtractVersion(packageInfo, targetVersion);
+  const license =
+    (version && version.license) ||
+    (version && Array.isArray(version.licenses) && version.licenses[0]);
+  if (!license) {
+    return undefined;
+  }
+  if (typeof license === "object") {
+    return {
+      licenseId: license.name
+    };
+  }
+  return {
+    licenseId: license
+  };
 };

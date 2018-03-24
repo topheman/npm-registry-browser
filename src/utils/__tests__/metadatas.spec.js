@@ -1,6 +1,6 @@
 import {
   extractRepositoryInfos,
-  extractHomePageInfos,
+  extractUrl,
   extractPeopleInfos,
   extractReadme,
   extractMaintainers
@@ -123,17 +123,15 @@ describe("/utils/metadatas", () => {
       });
     });
   });
-  describe("extractHomePageInfos", () => {
+  describe("extractUrl", () => {
     it("should return passed param", () => {
-      expect(extractHomePageInfos("hello world")).toEqual("hello world");
+      expect(extractUrl("hello world")).toEqual("hello world");
     });
     it("should return value of url fiels if object was passed", () => {
-      expect(extractHomePageInfos({ url: "hello world" })).toEqual(
-        "hello world"
-      );
+      expect(extractUrl({ url: "hello world" })).toEqual("hello world");
     });
     it("accept undefined as param", () => {
-      expect(extractHomePageInfos()).toBeUndefined();
+      expect(extractUrl()).toBeUndefined();
     });
   });
   describe("extractPeopleInfos", () => {

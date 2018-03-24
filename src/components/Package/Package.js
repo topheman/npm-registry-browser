@@ -4,20 +4,15 @@ import PropTypes from "prop-types";
 import { withStyles } from "material-ui/styles";
 import Paper from "material-ui/Paper";
 import Typography from "material-ui/Typography";
-import List, { ListItem, ListItemText, ListSubheader } from "material-ui/List";
 
 import Title from "./Title";
 import Readme from "./Readme";
 import VersionsTab from "./VersionsTab";
 import DependenciesTab from "./DependenciesTab";
-import Gravatar from "../Gravatar";
+import InfosContents from "./InfosContents";
 import Loader from "../Loader";
 import RetryButton from "../RetryButton";
-import {
-  extractReadme,
-  extractMaintainers,
-  extractPeopleInfos
-} from "../../utils/metadatas";
+import { extractReadme } from "../../utils/metadatas";
 
 const styles = theme => ({
   description: {
@@ -79,180 +74,129 @@ const Package = ({
   loadApiInfos,
   loadRegistryInfos,
   classes
-}) => {
-  const publisher =
-    packageInfos &&
-    packageInfos.versions &&
-    packageInfos.versions[version] &&
-    extractPeopleInfos(packageInfos.versions[version]._npmUser); // eslint-disable-line
-  const maintainers = extractMaintainers(packageInfos, version);
-  return (
-    <section className={classes.root}>
-      <header className={`${classes.blocks} ${classes.areaHeader}`}>
-        <Title
-          scope={scope}
-          name={name}
-          version={version}
-          packageInfos={packageInfos}
+}) => (
+  <section className={classes.root}>
+    <header className={`${classes.blocks} ${classes.areaHeader}`}>
+      <Title
+        scope={scope}
+        name={name}
+        version={version}
+        packageInfos={packageInfos}
+      />
+      <Fragment>
+        <Typography className={classes.description}>
+          {(packageInfos &&
+            packageInfos.versions[version] &&
+            packageInfos.versions[version].description) ||
+            "\u00A0"}
+        </Typography>
+        <Typography>
+          {(packageInfos &&
+            packageInfos.time &&
+            packageInfos.time[version] &&
+            new Date(packageInfos.time[version]).toLocaleDateString()) ||
+            "\u00A0"}
+        </Typography>
+      </Fragment>
+    </header>
+    <aside className={classes.areaAside}>
+      <Paper className={`${classes.blocks} ${classes.blockStats}`}>
+        <Loader
+          loading={stateNpmApi === "loading"}
+          render={() => {
+            if (stateNpmApi === "error") {
+              return <RetryButton onClick={() => loadApiInfos(scope, name)} />;
+            }
+            return (
+              <Fragment>
+                <Typography variant="title" className={classes.title}>
+                  Stats
+                </Typography>
+                <p>Downloads for all versions:</p>
+                <ul>
+                  <li>
+                    Last day:{" "}
+                    {downloads.downloads[
+                      downloads.downloads.length - 1
+                    ].downloads.toLocaleString()}
+                  </li>
+                  <li>
+                    Last month:{" "}
+                    {downloads.downloads
+                      .reduce((acc, { downloads: dl }) => acc + dl, 0)
+                      .toLocaleString()}
+                  </li>
+                </ul>
+              </Fragment>
+            );
+          }}
         />
-        <Fragment>
-          <Typography className={classes.description}>
-            {(packageInfos &&
-              packageInfos.versions[version] &&
-              packageInfos.versions[version].description) ||
-              "\u00A0"}
-          </Typography>
-          <Typography>
-            {(packageInfos &&
-              packageInfos.time &&
-              packageInfos.time[version] &&
-              new Date(packageInfos.time[version]).toLocaleDateString()) ||
-              "\u00A0"}
-          </Typography>
-        </Fragment>
-      </header>
-      <aside className={classes.areaAside}>
-        <Paper className={`${classes.blocks} ${classes.blockStats}`}>
-          <Loader
-            loading={stateNpmApi === "loading"}
-            render={() => {
-              if (stateNpmApi === "error") {
-                return (
-                  <RetryButton onClick={() => loadApiInfos(scope, name)} />
-                );
-              }
+      </Paper>
+      <Paper className={`${classes.blocks} ${classes.blockInfos1}`}>
+        <Loader
+          loading={stateNpmRegistry === "loading"}
+          render={() => {
+            if (stateNpmRegistry === "error") {
               return (
-                <Fragment>
-                  <Typography variant="title" className={classes.title}>
-                    Stats
-                  </Typography>
-                  <p>Downloads for all versions:</p>
-                  <ul>
-                    <li>
-                      Last day:{" "}
-                      {downloads.downloads[
-                        downloads.downloads.length - 1
-                      ].downloads.toLocaleString()}
-                    </li>
-                    <li>
-                      Last month:{" "}
-                      {downloads.downloads
-                        .reduce((acc, { downloads: dl }) => acc + dl, 0)
-                        .toLocaleString()}
-                    </li>
-                  </ul>
-                </Fragment>
+                <RetryButton
+                  onClick={() => loadRegistryInfos(scope, name, version)}
+                />
               );
-            }}
-          />
-        </Paper>
-        <Paper className={`${classes.blocks} ${classes.blockInfos1}`}>
-          <Loader
-            loading={stateNpmRegistry === "loading"}
-            render={() => {
-              if (stateNpmRegistry === "error") {
-                return (
-                  <RetryButton
-                    onClick={() => loadRegistryInfos(scope, name, version)}
-                  />
-                );
-              }
+            }
+            return (
+              <InfosContents version={version} packageInfos={packageInfos} />
+            );
+          }}
+        />
+      </Paper>
+      <Paper className={`${classes.blocks} ${classes.blockInfos2}`}>
+        <Loader
+          loading={stateNpmRegistry === "loading"}
+          render={() => {
+            if (stateNpmRegistry === "error") {
               return (
-                <Fragment>
-                  {publisher && (
-                    <List subheader={<ListSubheader>Publisher</ListSubheader>}>
-                      <ListItem>
-                        <Gravatar
-                          alt={publisher.name}
-                          email={publisher.email}
-                        />
-                        <ListItemText>
-                          <Typography component="span">
-                            {publisher.name}
-                          </Typography>
-                        </ListItemText>
-                      </ListItem>
-                    </List>
-                  )}
-                  <List
-                    subheader={
-                      <ListSubheader>
-                        Maintainer{maintainers.length > 1 ? "s" : ""}
-                      </ListSubheader>
-                    }
-                  >
-                    {extractMaintainers(packageInfos, version).map(
-                      maintainer => (
-                        <ListItem
-                          key={`${maintainer.name}-${maintainer.email}`}
-                        >
-                          <Gravatar
-                            alt={maintainer.name}
-                            email={maintainer.email}
-                          />
-                          <ListItemText>
-                            <Typography component="span">
-                              {maintainer.name}
-                            </Typography>
-                          </ListItemText>
-                        </ListItem>
-                      )
-                    )}
-                  </List>
-                </Fragment>
+                <RetryButton
+                  onClick={() => loadRegistryInfos(scope, name, version)}
+                />
               );
-            }}
+            }
+            return (
+              <Typography>Some infos loaded (comming soon) ...</Typography>
+            );
+          }}
+        />
+      </Paper>
+    </aside>
+    <section className={classes.areaSection}>
+      {stateNpmRegistry === "loaded" &&
+        packageInfos && (
+          <Paper className={`${classes.blocks} ${classes.blockReadme}`}>
+            <Readme source={extractReadme(packageInfos, version)} />
+          </Paper>
+        )}
+      {stateNpmRegistry === "loaded" &&
+        packageInfos && (
+          <VersionsTab
+            scope={scope}
+            name={name}
+            version={version}
+            packageInfos={packageInfos}
+            className={`${classes.blocks} ${classes.blockVersions}`}
+            style={{ padding: 0 }}
           />
-        </Paper>
-        <Paper className={`${classes.blocks} ${classes.blockInfos2}`}>
-          <Loader
-            loading={stateNpmRegistry === "loading"}
-            render={() => {
-              if (stateNpmRegistry === "error") {
-                return (
-                  <RetryButton
-                    onClick={() => loadRegistryInfos(scope, name, version)}
-                  />
-                );
-              }
-              return (
-                <Typography>Some infos loaded (comming soon) ...</Typography>
-              );
-            }}
+        )}
+      {stateNpmRegistry === "loaded" &&
+        packageInfos && (
+          <DependenciesTab
+            version={version}
+            packageInfos={packageInfos}
+            className={`${classes.blocks} ${classes.blockDependencies}`}
+            style={{ padding: 0 }}
           />
-        </Paper>
-      </aside>
-      <section className={classes.areaSection}>
-        {stateNpmRegistry === "loaded" &&
-          packageInfos && (
-            <Paper className={`${classes.blocks} ${classes.blockReadme}`}>
-              <Readme source={extractReadme(packageInfos, version)} />
-            </Paper>
-          )}
-        {stateNpmRegistry === "loaded" &&
-          packageInfos && (
-            <VersionsTab
-              scope={scope}
-              name={name}
-              version={version}
-              packageInfos={packageInfos}
-              className={`${classes.blocks} ${classes.blockVersions}`}
-              style={{ padding: 0 }}
-            />
-          )}
-        {stateNpmRegistry === "loaded" &&
-          packageInfos && (
-            <DependenciesTab
-              version={version}
-              packageInfos={packageInfos}
-              className={`${classes.blocks} ${classes.blockDependencies}`}
-              style={{ padding: 0 }}
-            />
-          )}
-      </section>
+        )}
     </section>
-  );
-};
+  </section>
+);
 
 Package.propTypes = {
   scope: PropTypes.string,
