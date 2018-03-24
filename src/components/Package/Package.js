@@ -222,7 +222,7 @@ const Package = ({
           />
         </Paper>
       </aside>
-      <section classes={classes.areaSection}>
+      <section className={classes.areaSection}>
         {stateNpmRegistry === "loaded" &&
           packageInfos && (
             <Paper className={`${classes.blocks} ${classes.blockReadme}`}>

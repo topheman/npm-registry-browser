@@ -17,7 +17,20 @@ const styles = theme => ({
     verticalAlign: "middle",
     marginRight: "8px"
   },
-  markdown: {}
+  markdown: {
+    [theme.breakpoints.down("sm")]: {
+      // on small screens, limit the maxWidth to 80% of the width of the window (vw unit)
+      // so that <pre> tags in readme have specific width to overflow: scroll when
+      // piece of code exemple is to wide
+      maxWidth: "80vw"
+    },
+    [theme.breakpoints.up("sm")]: {
+      maxWidth: "58vw" // adjust for regular screens
+    },
+    [theme.breakpoints.up("md")]: {
+      maxWidth: "64vw" // adjust for regular screens
+    }
+  }
 });
 
 const Readme = ({ classes, source }) => (

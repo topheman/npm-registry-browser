@@ -23,7 +23,10 @@ const styles = theme => ({
     display: "flex",
     justifyContent: "center",
     flexWrap: "wrap",
-    margin: "5px 0px"
+    margin: "5px 0px",
+    [theme.breakpoints.down("sm")]: {
+      maxWidth: "75vw" // on small screens, limit the maxWidth to 75% of the width of the window (vw unit)
+    }
   },
   chip: {
     margin: 3,

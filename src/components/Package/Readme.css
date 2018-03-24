@@ -17,3 +17,8 @@
 .Readme-markdown__root {
   word-break: break-word;
 }
+/** Don't break words in code examples */
+.Readme-markdown__root pre {
+  word-break: normal;
+  overflow: scroll;
+}
