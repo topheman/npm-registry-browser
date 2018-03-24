@@ -168,12 +168,21 @@ const Package = ({
       </Paper>
     </aside>
     <section className={classes.areaSection}>
-      {stateNpmRegistry === "loaded" &&
-        packageInfos && (
-          <Paper className={`${classes.blocks} ${classes.blockReadme}`}>
-            <Readme source={extractReadme(packageInfos, version)} />
-          </Paper>
-        )}
+      <Paper className={`${classes.blocks} ${classes.blockReadme}`}>
+        <Loader
+          loading={stateNpmRegistry === "loading"}
+          render={() => {
+            if (stateNpmRegistry === "error") {
+              return (
+                <RetryButton
+                  onClick={() => loadRegistryInfos(scope, name, version)}
+                />
+              );
+            }
+            return <Readme source={extractReadme(packageInfos, version)} />;
+          }}
+        />
+      </Paper>
       {stateNpmRegistry === "loaded" &&
         packageInfos && (
           <VersionsTab
