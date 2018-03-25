@@ -1,0 +1,58 @@
+/**
+ * Simple wrapper for sparkline
+ *
+ * There is no componentWillUpdate mechanism (in case you update data or width).
+ * Since it is meant to display still data, I kept it simple.
+ *
+ * More complex dataviz here: https://github.com/topheman/d3-react-experiments
+ */
+
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+
+import sparkline from "@fnando/sparkline";
+
+export default class Sparkline extends Component {
+  static propTypes = {
+    data: PropTypes.array.isRequired,
+    width: PropTypes.number.isRequired,
+    height: PropTypes.number.isRequired,
+    strokeWidth: PropTypes.number.isRequired,
+    onMouseMove: PropTypes.func,
+    onMouseOut: PropTypes.func
+  };
+  static defaultProps = {
+    width: 100,
+    height: 30,
+    strokeWidth: 3,
+    onMouseMove: undefined,
+    onMouseOut: undefined
+  };
+  componentDidMount() {
+    this.init(); // only init on mount
+  }
+  init() {
+    if (this.node) {
+      const config = {
+        onmousemove: this.props.onMouseMove,
+        onmouseout: this.props.onMouseOut
+      };
+      sparkline(this.node, this.props.data, config);
+    }
+  }
+  render() {
+    const { width, height, strokeWidth, ...props } = this.props;
+    return (
+      <svg
+        ref={node => {
+          this.node = node;
+        }}
+        className={root}
+        width={width}
+        height={height}
+        strokeWidth={strokeWidth}
+        {...props}
+      />
+    );
+  }
+}

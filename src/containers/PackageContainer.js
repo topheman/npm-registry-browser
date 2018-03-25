@@ -104,7 +104,8 @@ class PackageContainer extends Component {
     this.setState({ stateNpmApi: "loading" });
     try {
       const { data: downloads } = await api("npmApi").downloads(
-        formatPackageString({ scope, name })
+        formatPackageString({ scope, name }),
+        "last-year"
       );
       console.log(formatPackageString({ scope, name }), "downloads", downloads);
       if (downloads) {

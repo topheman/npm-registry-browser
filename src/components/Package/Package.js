@@ -10,6 +10,7 @@ import Readme from "./Readme";
 import VersionsTab from "./VersionsTab";
 import DependenciesTab from "./DependenciesTab";
 import InfosContents from "./InfosContents";
+import StatsContents from "./StatsContents";
 import Loader from "../Loader";
 import RetryButton from "../RetryButton";
 import { extractReadme } from "../../utils/metadatas";
@@ -107,28 +108,7 @@ const Package = ({
             if (stateNpmApi === "error") {
               return <RetryButton onClick={() => loadApiInfos(scope, name)} />;
             }
-            return (
-              <Fragment>
-                <Typography variant="title" className={classes.title}>
-                  Stats
-                </Typography>
-                <p>Downloads for all versions:</p>
-                <ul>
-                  <li>
-                    Last day:{" "}
-                    {downloads.downloads[
-                      downloads.downloads.length - 1
-                    ].downloads.toLocaleString()}
-                  </li>
-                  <li>
-                    Last month:{" "}
-                    {downloads.downloads
-                      .reduce((acc, { downloads: dl }) => acc + dl, 0)
-                      .toLocaleString()}
-                  </li>
-                </ul>
-              </Fragment>
-            );
+            return <StatsContents downloads={downloads} />;
           }}
         />
       </Paper>
