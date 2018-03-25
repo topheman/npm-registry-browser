@@ -11,12 +11,18 @@ const styles = {
     position: "relative",
     height: 80
   },
+  label: {
+    position: "absolute",
+    whiteSpace: "nowrap"
+  },
   downloadsCount: {
-    position: "absolute"
+    position: "absolute",
+    top: 30
   },
   datavizWrapper: {
     position: "absolute",
-    right: 0
+    right: 0,
+    bottom: 0
   }
 };
 
@@ -65,7 +71,7 @@ class StatsContents extends Component {
     return (
       <div className={className} style={style}>
         <div className={classes.root}>
-          <Typography variant="subheading">
+          <Typography variant="subheading" className={classes.label}>
             {downloads
               ? `From ${new Date(from).toLocaleDateString()} to ${new Date(
                   to

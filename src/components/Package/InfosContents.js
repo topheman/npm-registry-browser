@@ -17,7 +17,10 @@ import Gravatar from "../Gravatar";
 
 const styles = {
   block: {
-    margin: "4px 0 8px"
+    margin: "4px 0 16px"
+  },
+  safeWidth: {
+    wordBreak: "break-all"
   },
   license: {},
   homepage: {},
@@ -50,19 +53,23 @@ const InfosContent = ({ packageInfos, version, classes, className, style }) => {
       {licenseInfos && (
         <div className={`${classes.licence} ${classes.block}`}>
           <Typography variant="subheading">License</Typography>
-          {licenseInfos.licenseId}
+          <span className={classes.safeWidth}>{licenseInfos.licenseId}</span>
         </div>
       )}
       {homepage && (
         <div className={`${classes.homepage} ${classes.block}`}>
           <Typography variant="subheading">Homepage</Typography>
-          <a href={homepage}>{displayUrl(homepage)}</a>
+          <a href={homepage} className={classes.safeWidth}>
+            {displayUrl(homepage)}
+          </a>
         </div>
       )}
       {repositoryInfos && (
         <div className={`${classes.repository} ${classes.block}`}>
           <Typography variant="subheading">Repository</Typography>
-          <a href={repositoryInfos.url}>{repositoryInfos.displayUrl}</a>
+          <a href={repositoryInfos.url} className={classes.safeWidth}>
+            {repositoryInfos.displayUrl}
+          </a>
         </div>
       )}
       {maintainers.length > 0 && (
@@ -74,7 +81,10 @@ const InfosContent = ({ packageInfos, version, classes, className, style }) => {
                 <ListItemAvatar>
                   <Gravatar alt={maintainer.name} email={maintainer.email} />
                 </ListItemAvatar>
-                <ListItemText primary={maintainer.name} />
+                <ListItemText
+                  primary={maintainer.name}
+                  className={classes.safeWidth}
+                />
               </ListItem>
             ))}
           </List>
