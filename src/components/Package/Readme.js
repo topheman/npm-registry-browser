@@ -4,8 +4,6 @@ import { withStyles } from "material-ui/styles";
 
 import Markdown from "../Markdown";
 
-import "./Readme.css";
-
 const styles = theme => ({
   root: {
     flexGrow: 1
@@ -29,6 +27,17 @@ const styles = theme => ({
     },
     [theme.breakpoints.up("md")]: {
       maxWidth: "64vw" // adjust for regular screens
+    },
+    wordBreak: "break-word", // revent long word from overflowing the layout
+    "& pre": {
+      wordBreak: "normal",
+      overflow: "scroll"
+    },
+    "& code": {
+      fontSize: "1.1em"
+    },
+    "& img": {
+      maxWidth: "100%" // Prevent large images to overflow
     }
   }
 });

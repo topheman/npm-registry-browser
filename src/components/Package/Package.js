@@ -29,13 +29,13 @@ const styles = theme => ({
     display: "grid",
     gridGap: "10px",
     [theme.breakpoints.down("sm")]: {
-      gridTemplateColumns: "1fr",
+      gridTemplateColumns: "90vw",
       gridTemplateAreas: `"header"
       "section"
       "aside"`
     },
     [theme.breakpoints.up("sm")]: {
-      gridTemplateColumns: "3fr 1fr",
+      gridTemplateColumns: "1fr 260px",
       gridTemplateAreas: `"header header"
       "section aside"
       "section aside"`
@@ -58,7 +58,9 @@ const styles = theme => ({
   blockStats: {},
   blockReadme: {},
   blockVersions: {},
-  blockDependencies: {},
+  blockDependencies: {
+    marginBottom: 0
+  },
   title: {
     color: theme.palette.primary.main
   }

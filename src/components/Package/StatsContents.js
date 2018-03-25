@@ -7,22 +7,11 @@ import Sparkline from "../Sparkline";
 import { yearDownloadsToWeaks } from "../../utils/npmApiHelpers";
 
 const styles = {
-  root: {
-    position: "relative",
-    height: 80
-  },
-  label: {
-    position: "absolute",
-    whiteSpace: "nowrap"
-  },
-  downloadsCount: {
-    position: "absolute",
-    top: 30
-  },
+  root: {},
+  label: {},
+  downloadsCount: {},
   datavizWrapper: {
-    position: "absolute",
-    right: 0,
-    bottom: 0
+    textAlign: "right"
   }
 };
 
@@ -83,7 +72,7 @@ class StatsContents extends Component {
           </div>
           <div className={classes.datavizWrapper}>
             <Sparkline
-              width={190}
+              width={212}
               height={50}
               data={data}
               stroke={theme.palette.primary.main}

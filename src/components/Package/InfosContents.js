@@ -20,7 +20,10 @@ const styles = {
     margin: "4px 0 16px"
   },
   safeWidth: {
-    wordBreak: "break-all"
+    display: "block",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    whiteSpace: "nowrap"
   },
   license: {},
   homepage: {},
@@ -81,10 +84,14 @@ const InfosContent = ({ packageInfos, version, classes, className, style }) => {
                 <ListItemAvatar>
                   <Gravatar alt={maintainer.name} email={maintainer.email} />
                 </ListItemAvatar>
-                <ListItemText
-                  primary={maintainer.name}
-                  className={classes.safeWidth}
-                />
+                <ListItemText>
+                  <Typography
+                    variant="subheading"
+                    className={classes.safeWidth}
+                  >
+                    {maintainer.name}
+                  </Typography>
+                </ListItemText>
               </ListItem>
             ))}
           </List>
