@@ -3,7 +3,11 @@ import PropTypes from "prop-types";
 import { withStyles } from "material-ui/styles";
 import Typography from "material-ui/Typography";
 import Downshift from "downshift";
+import { compose } from "recompose";
 
+import animatedScrollTo from "animated-scrollto";
+
+import { withWindowInfos } from "./WindowInfos";
 import { debounce } from "../utils/helpers";
 
 const styles = theme => ({
@@ -72,7 +76,8 @@ const styles = theme => ({
 class Search extends Component {
   constructor(props) {
     super(props);
-    this.state = { items: [] };
+    this.state = { items: [], inputValue: "" };
+    this.inputEl = null;
   }
   debouncedSearch = debounce(
     value =>
@@ -85,11 +90,20 @@ class Search extends Component {
     300
   );
   render() {
-    const { goToPackage, classes } = this.props;
+    const { goToPackage, windowInfos, classes, theme } = this.props;
+    const { inputValue, items } = this.state;
     return (
       <Downshift
         itemToString={item => (item && item.name) || ""}
-        onChange={item => goToPackage(item.name)}
+        onChange={item => {
+          this.setState({
+            inputValue: "" // reset the value of the controlled input
+          });
+          if (this.inputEl) {
+            this.inputEl.blur();
+          }
+          goToPackage(item.name);
+        }}
         render={({
           selectedItem,
           getInputProps,
@@ -99,23 +113,37 @@ class Search extends Component {
         }) => (
           <div className={classes.rootWrapper}>
             <input
+              ref={node => {
+                this.inputEl = node;
+              }}
               className={classes.input}
               {...getInputProps({
+                value: inputValue,
                 placeholder: "Search packages",
                 onChange: event => {
                   const value = event.target.value;
-                  if (!value) {
-                    return;
+                  this.setState(
+                    {
+                      inputValue: value // keep track of the value of the input
+                    },
+                    () => this.debouncedSearch(value)
+                  );
+                },
+                onFocus: () => {
+                  // on mobile, the keyboard will pop up. Give it some space
+                  if (windowInfos.windowWidth < theme.breakpoints.values.sm) {
+                    setTimeout(() => {
+                      animatedScrollTo(document.body, 75, 400);
+                    }, 75);
                   }
-                  this.debouncedSearch(value);
                 }
               })}
             />
             {isOpen &&
-              this.state.items &&
-              this.state.items.length > 0 && (
+              items &&
+              items.length > 0 && (
                 <ul className={classes.itemsWrapper}>
-                  {this.state.items.map((item, index) => (
+                  {items.map((item, index) => (
                     <li
                       key={item.name}
                       className={classes.item}
@@ -157,8 +185,13 @@ class Search extends Component {
 
 Search.propTypes = {
   classes: PropTypes.object.isRequired,
+  theme: PropTypes.object.isRequired,
   fetchInfos: PropTypes.func.isRequired,
-  goToPackage: PropTypes.func.isRequired
+  goToPackage: PropTypes.func.isRequired,
+  windowInfos: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(Search);
+export default compose(
+  withStyles(styles, { withTheme: true }),
+  withWindowInfos()
+)(Search);
