@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import Typography from "material-ui/Typography";
 import { withStyles } from "material-ui/styles";
-import List, { ListItem, ListItemAvatar, ListItemText } from "material-ui/List";
+import List, { ListItem, ListItemAvatar } from "material-ui/List";
 import relativeDate from "relative-date";
 
 import {
@@ -84,14 +84,9 @@ const InfosContent = ({ packageInfos, version, classes, className, style }) => {
                 <ListItemAvatar>
                   <Gravatar alt={maintainer.name} email={maintainer.email} />
                 </ListItemAvatar>
-                <ListItemText>
-                  <Typography
-                    variant="subheading"
-                    className={classes.safeWidth}
-                  >
-                    {maintainer.name}
-                  </Typography>
-                </ListItemText>
+                <Typography variant="subheading" className={classes.safeWidth}>
+                  {maintainer.name}
+                </Typography>
               </ListItem>
             ))}
           </List>
