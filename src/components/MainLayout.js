@@ -6,6 +6,7 @@ import { withStyles } from "material-ui/styles";
 import CssBaseline from "material-ui/CssBaseline";
 
 import Header from "../components/Header";
+import SearchContainer from "../containers/SearchContainer";
 import MainDrawer from "../components/MainDrawer";
 import { withDrawer } from "../components/Drawer";
 import Footer from "../components/Footer";
@@ -14,8 +15,11 @@ const styles = () => ({
   root: {
     margin: "0px 16px"
   },
+  searchContainer: {
+    marginTop: 80
+  },
   content: {
-    margin: "60px auto",
+    margin: "0px auto",
     maxWidth: "1180px"
   }
 });
@@ -33,6 +37,7 @@ const MainLayout = ({ children, classes, drawer }) => (
     ))}
     <div className={classes.root}>
       <Header onClickMenuIcon={drawer.toggleDrawer("left", true)} />
+      <SearchContainer className={classes.searchContainer} />
       <div className={classes.content}>{children}</div>
       <Footer />
     </div>

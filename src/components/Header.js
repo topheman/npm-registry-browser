@@ -55,7 +55,7 @@ const Header = props => {
   const { classes, onClickMenuIcon } = props;
   return (
     <header className={classes.root}>
-      <AppBar position="fixed">
+      <AppBar position="absolute">
         <Toolbar>
           <IconButton
             className={classes.menuButton}

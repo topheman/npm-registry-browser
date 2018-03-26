@@ -87,6 +87,11 @@ const decorate = (key, apiManagerInstance) => {
           (typeof version !== "undefined" ? `/${version}` : "");
         return this.client.get(query);
       };
+      // eslint-disable-next-line
+      apiManagerInstance.search = function search(value) {
+        const query = `/-/v1/search?text=${encodeURIComponent(value)}`;
+        return this.client.get(query);
+      };
       return apiManagerInstance;
     case KEY_NPM_API:
       /**
