@@ -15,8 +15,9 @@ class CodeBlock extends PureComponent {
     highlightBlock(this.codeEl);
   }
   render() {
+    const { className, style } = this.props;
     return (
-      <pre>
+      <pre className={className} style={style}>
         <code
           ref={ref => {
             this.codeEl = ref;
@@ -30,13 +31,16 @@ class CodeBlock extends PureComponent {
   }
 }
 
-CodeBlock.defaultProps = {
-  language: ""
-};
-
 CodeBlock.propTypes = {
   value: PropTypes.string.isRequired,
-  language: PropTypes.string
+  language: PropTypes.string,
+  className: PropTypes.string,
+  style: PropTypes.object
+};
+CodeBlock.defaultProps = {
+  language: "",
+  className: "",
+  style: {}
 };
 
 export default CodeBlock;

@@ -9,6 +9,7 @@ import Title from "./Title";
 import Readme from "./Readme";
 import VersionsTab from "./VersionsTab";
 import DependenciesTab from "./DependenciesTab";
+import PackageJsonTab from "./PackageJsonTab";
 import InfosContents from "./InfosContents";
 import StatsContents from "./StatsContents";
 import Loader from "../Loader";
@@ -57,6 +58,7 @@ const styles = theme => ({
   },
   blockStats: {},
   blockReadme: {},
+  blockPackageJson: {},
   blockVersions: {},
   blockDependencies: {
     marginBottom: 0
@@ -165,6 +167,16 @@ const Package = ({
           }}
         />
       </Paper>
+      {stateNpmRegistry === "loaded" &&
+        packageInfos &&
+        packageInfos.versions &&
+        packageInfos.versions[version] && (
+          <PackageJsonTab
+            value={packageInfos.versions[version]}
+            className={`${classes.blocks} ${classes.blockPackageJson}`}
+            style={{ padding: 0 }}
+          />
+        )}
       {stateNpmRegistry === "loaded" &&
         packageInfos && (
           <VersionsTab
