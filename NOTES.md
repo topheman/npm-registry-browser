@@ -73,11 +73,17 @@ REACT_APP_NPM_REGISTRY_API_BASE_URL=/api/npm-registry
 REACT_APP_NPM_API_BASE_URL=/api/npm-api
 ```
 
+### API proxy for production
+
+In `.env.production`, a specific CORS proxy is setup that will be used at build time.
+
 ## React specific
 
 ## Miscellaneous
 
 ### CORS anywhere development proxy
+
+Deprecated: please use [API proxy for development](#api-proxy-for-development).
 
 The npm registry doesn't return any CORS headers nor can it be called with jsonp. So any in-browser XHR request will be blocked.
 
