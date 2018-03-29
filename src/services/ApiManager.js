@@ -1,7 +1,9 @@
-import axios from "axios";
 import { setupCache } from "axios-cache-adapter";
 import invariant from "invariant";
 import warning from "warning";
+
+import { TARGET_API_NPM_API, TARGET_API_NPM_REGISTRY } from "./constants";
+import { makeClient } from "./httpClient";
 
 /**
  * To use this, simply await getInstance("npmRegistry").client.get('/react')
@@ -14,29 +16,26 @@ import warning from "warning";
  * Thanks to decorate function, you can add customized method for each
  */
 
-const KEY_NPM_REGISTRY = "npmRegistry";
-const KEY_NPM_API = "npmApi";
-
-const acceptedKeys = [KEY_NPM_REGISTRY, KEY_NPM_API];
+const acceptedKeys = [TARGET_API_NPM_REGISTRY, TARGET_API_NPM_API];
 
 /**
  * Cache the instances of the multiton
  */
 const instance = {
-  [KEY_NPM_REGISTRY]: null,
-  [KEY_NPM_API]: null
+  [TARGET_API_NPM_REGISTRY]: null,
+  [TARGET_API_NPM_API]: null
 };
 
 /**
  * Specify the config for each
  */
 const baseConfig = {
-  [KEY_NPM_REGISTRY]: {
+  [TARGET_API_NPM_REGISTRY]: {
     baseURL: process.env.REACT_APP_NPM_REGISTRY_API_BASE_URL,
     isCacheEnabled:
       process.env.REACT_APP_NPM_REGISTRY_API_CACHE_ENABLED === "true"
   },
-  [KEY_NPM_API]: {
+  [TARGET_API_NPM_API]: {
     baseURL: process.env.REACT_APP_NPM_API_BASE_URL,
     isCacheEnabled: process.env.REACT_APP_NPM_API_CACHE_ENABLED === "true"
   }
@@ -74,7 +73,7 @@ const encodePackageName = name => name.replace("/", "%2F");
  */
 const decorate = (key, apiManagerInstance) => {
   switch (key) {
-    case KEY_NPM_REGISTRY:
+    case TARGET_API_NPM_REGISTRY:
       /**
        * Retrieve package info
        * @param {String} name (full also scoped packages)
@@ -93,7 +92,7 @@ const decorate = (key, apiManagerInstance) => {
         return this.client.get(query);
       };
       return apiManagerInstance;
-    case KEY_NPM_API:
+    case TARGET_API_NPM_API:
       /**
        * Retrieve package info
        * @param {String} name (full also scoped packages)
@@ -127,7 +126,7 @@ class SingletonApiManager {
           console.info(`[ApiManager](${key}) Cache is enabled`, this.cache);
         }
       }
-      this.client = axios.create(axiosConfig);
+      this.client = makeClient(axiosConfig);
     }
     if (process.env.NODE_ENV === "development") {
       console.info(`[ApiManager](${key}) Config`, axiosConfig);
