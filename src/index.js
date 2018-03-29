@@ -16,7 +16,11 @@ const theme = createMuiTheme({
       main: "#900000",
       light: "#c8412a"
     },
-    secondary: { main: "#DDDDDD" }
+    secondary: { main: "#DDDDDD" },
+    error: {
+      main: "#f44336",
+      light: "#e5c9ca"
+    }
   },
   typography: {
     // Fix relative font-size according to <html> element font-size set in index.css

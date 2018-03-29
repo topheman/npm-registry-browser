@@ -57,6 +57,10 @@ const styles = theme => ({
     display: "none"
   },
   blockStats: {},
+  blockDeprecated: {
+    backgroundColor: theme.palette.error.light,
+    borderRadius: 5
+  },
   blockReadme: {},
   blockPackageJson: {},
   blockVersions: {},
@@ -152,6 +156,18 @@ const Package = ({
       </Paper>
     </aside>
     <section className={classes.areaSection}>
+      {stateNpmRegistry === "loaded" &&
+        packageInfos &&
+        packageInfos.versions &&
+        packageInfos.versions[version] &&
+        packageInfos.versions[version].deprecated && (
+          <div className={`${classes.blocks} ${classes.blockDeprecated}`}>
+            <Typography variant="subheading">
+              This package has been deprecated
+            </Typography>
+            <Typography>{packageInfos.versions[version].deprecated}</Typography>
+          </div>
+        )}
       <Paper className={`${classes.blocks} ${classes.blockReadme}`}>
         <Loader
           loading={stateNpmRegistry === "loading"}
