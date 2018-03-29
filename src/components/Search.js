@@ -7,6 +7,7 @@ import { compose } from "recompose";
 
 import animatedScrollTo from "animated-scrollto";
 
+import Loader from "./Loader";
 import { withWindowInfos } from "./WindowInfos";
 import { debounce } from "../utils/helpers";
 
@@ -70,6 +71,18 @@ const styles = theme => ({
   itemVersion: {
     textAlign: "right",
     marginTop: -24
+  },
+  // following are the classes to override the CustomLoader
+  customLoaderMessage: {
+    display: "none"
+  },
+  customLoaderRoot: {
+    verticalAlign: "center",
+    padding: "O auto"
+  },
+  progress: {
+    width: 50,
+    margin: "-10px auto 10px"
   }
 });
 
@@ -84,14 +97,20 @@ class Search extends Component {
       this.props
         .fetchInfos(value)
         .then(items => {
-          this.setState({ items });
+          this.setState({ items, state: "loaded" });
         })
-        .catch(e => console.error(e)),
+        .catch(e => {
+          console.error(e);
+          this.setState({
+            items: [],
+            state: "error"
+          });
+        }),
     300
   );
   render() {
     const { goToPackage, windowInfos, classes, theme } = this.props;
-    const { inputValue, items } = this.state;
+    const { inputValue, items, state } = this.state;
     return (
       <Downshift
         itemToString={item => (item && item.name) || ""}
@@ -124,7 +143,8 @@ class Search extends Component {
                   const value = event.target.value;
                   this.setState(
                     {
-                      inputValue: value // keep track of the value of the input
+                      inputValue: value, // keep track of the value of the input
+                      state: "loading"
                     },
                     () => this.debouncedSearch(value)
                   );
@@ -139,7 +159,26 @@ class Search extends Component {
                 }
               })}
             />
+            {["loading", "error"].includes(state) && (
+              <ul className={classes.itemsWrapper}>
+                <li className={classes.item}>
+                  {state === "loading" ? (
+                    <Loader
+                      message=""
+                      overrideClasses={{
+                        customLoaderMessage: classes.customLoaderMessage,
+                        customLoaderRoot: classes.customLoaderRoot,
+                        progress: classes.progress
+                      }}
+                    />
+                  ) : (
+                    "error"
+                  )}
+                </li>
+              </ul>
+            )}
             {isOpen &&
+              state === "loaded" &&
               items &&
               items.length > 0 && (
                 <ul className={classes.itemsWrapper}>

@@ -32,7 +32,6 @@ const CustomLoader = ({ message, classes }) => (
     <LinearProgress className={classes.progress} />
   </div>
 );
-CustomLoader.displayName = "WithStyles(CustomLoader)";
 CustomLoader.propTypes = {
   classes: PropTypes.object.isRequired,
   message: PropTypes.string
@@ -41,19 +40,27 @@ CustomLoader.defaultProps = {
   message: "Loading"
 };
 
-const Loader = ({ message, classes, ...props }) => (
-  <Waiting
-    loader={<CustomLoader message={message} classes={classes} />}
-    {...props}
-  />
-);
+const Loader = ({ message, classes, overrideClasses, ...props }) => {
+  const loaderClasses = {
+    ...classes,
+    ...overrideClasses
+  };
+  return (
+    <Waiting
+      loader={<CustomLoader message={message} classes={loaderClasses} />}
+      {...props}
+    />
+  );
+};
 
 Loader.propTypes = {
   classes: PropTypes.object.isRequired,
+  overrideClasses: PropTypes.object,
   message: PropTypes.string.isRequired
 };
 Loader.defaultProps = {
-  message: "Loading"
+  message: "Loading",
+  overrideClasses: {} // override the classes of the loader
 };
 
 export default withStyles(styles)(Loader);
