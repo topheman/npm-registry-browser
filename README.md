@@ -28,3 +28,19 @@ npm install
 ```shell
 npm start
 ```
+
+## Build
+
+```shell
+npm run build
+```
+
+Will build the a production version of the website in the `build` folder.
+
+## Serve
+
+Once you've built you're app, you can test the build on a local server with:
+
+```shell
+npm run serve
+```

@@ -32,6 +32,7 @@
     "test:watch": "react-scripts test --env=jsdom",
     "test:ci": "cross-env CI=true react-scripts test --env=jsdom",
     "test:precommit": "npm run test:ci",
+    "serve": "npx serve build",
     "eject": "react-scripts eject",
     "lint": "npx eslint .",
     "pretty": "npx prettier --write '**/*.{js,jsx,json,css,scss}'",
@@ -55,7 +56,8 @@
     "husky": "^0.14.3",
     "lint-staged": "^7.0.0",
     "npm-run-all": "^4.1.2",
-    "prettier": "1.11.1"
+    "prettier": "1.11.1",
+    "serve": "^6.5.3"
   },
   "proxy": {
     "/api/npm-registry": {
