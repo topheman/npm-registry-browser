@@ -10,7 +10,9 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 
-import sparkline from "@fnando/sparkline";
+// temporary hack
+// see src/libs/README.md for explanation (why not directly use "@fnando/sparkline")
+import { sparkline } from "../libs/@fnando/sparkline/src/sparkline";
 
 export default class Sparkline extends Component {
   static propTypes = {

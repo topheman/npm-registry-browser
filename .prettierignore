@@ -5,3 +5,4 @@ package-lock.json
 .prettierignore
 .gitignore
 *.fixtures.json
+src/libs/**

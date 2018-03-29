@@ -1,0 +1,65 @@
+{
+  "_from": "@fnando/sparkline",
+  "_id": "@fnando/sparkline@0.3.5",
+  "_inBundle": false,
+  "_integrity": "sha512-npF2sFrbD0B8iqcbqzQUVZ9o5wlRP1EGzawtr6yDA7CjNASVhvt9DWcZho7j8KBFgEbMsa6CZ9fYwPNbdKrYiw==",
+  "_location": "/@fnando/sparkline",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "@fnando/sparkline",
+    "name": "@fnando/sparkline",
+    "escapedName": "@fnando%2fsparkline",
+    "scope": "@fnando",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/@fnando/sparkline/-/sparkline-0.3.5.tgz",
+  "_shasum": "c33c9237d86894247227025cf30bab3fac66715c",
+  "_spec": "@fnando/sparkline",
+  "_where": "/Users/Tophe/projects/front/npm-registry-browser",
+  "bugs": {
+    "url": "https://github.com/fnando/sparkline/issues"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "Generate SVG sparklines with JavaScript without any external dependency.",
+  "devDependencies": {
+    "babel-core": "6.26.0",
+    "babel-loader": "7.1.2",
+    "babel-preset-env": "1.6.1",
+    "jsdom": "11.4.0",
+    "mocha": "4.0.1",
+    "snap-shot": "2.17.0",
+    "uglifyjs-webpack-plugin": "1.1.0",
+    "webpack": "3.8.1"
+  },
+  "files": [
+    "src/sparkline.js",
+    "dist/**/*",
+    "README.md"
+  ],
+  "homepage": "https://github.com/fnando/sparkline#readme",
+  "license": "MIT",
+  "main": "dist/sparkline.js",
+  "module": "src/sparkline.js",
+  "name": "@fnando/sparkline",
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fnando/sparkline.git"
+  },
+  "scripts": {
+    "dist": "yarn test && yarn js:dist:expanded && yarn js:dist:minified",
+    "js:dist:expanded": "webpack",
+    "js:dist:minified": "NODE_ENV=production webpack",
+    "test": "mocha --require babel-core/register 'test/**/*_test.js'"
+  },
+  "version": "0.3.5"
+}
