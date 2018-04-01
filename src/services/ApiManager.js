@@ -27,17 +27,54 @@ const instance = {
 };
 
 /**
- * Specify the config for each
+ * Specify the config for each (see .env files)
+ * - isCacheEnabled: will use memory cache
+ * - mocks: specify mock files that will be used
+ *    require is used so that the fixtures won't be part of the final bundle in regular mode
+ *    see: http://dev.topheman.com/optimize-your-bundles-weight-with-webpack/
+ * - makeMockClient: same, only required when needed to be dropped if not
  */
 const baseConfig = {
   [TARGET_API_NPM_REGISTRY]: {
     baseURL: process.env.REACT_APP_NPM_REGISTRY_API_BASE_URL,
     isCacheEnabled:
-      process.env.REACT_APP_NPM_REGISTRY_API_CACHE_ENABLED === "true"
+      process.env.REACT_APP_NPM_REGISTRY_API_CACHE_ENABLED === "true",
+    mocks:
+      process.env.REACT_APP_NPM_REGISTRY_API_MOCKS_ENABLED === "true"
+        ? [].concat(require("./mocks/npmRegistry.fixtures.json"))
+        : undefined,
+    makeMockedClient:
+      process.env.REACT_APP_NPM_REGISTRY_API_MOCKS_ENABLED === "true"
+        ? require("./httpClientMock").makeMockedClient
+        : undefined,
+    preprocessMocking: ([status, response, headers]) => [
+      status,
+      response,
+      {
+        ...headers,
+        Date: new Date().toString() // adjust date header
+      }
+    ]
   },
   [TARGET_API_NPM_API]: {
     baseURL: process.env.REACT_APP_NPM_API_BASE_URL,
-    isCacheEnabled: process.env.REACT_APP_NPM_API_CACHE_ENABLED === "true"
+    isCacheEnabled: process.env.REACT_APP_NPM_API_CACHE_ENABLED === "true",
+    mocks:
+      process.env.REACT_APP_NPM_API_MOCKS_ENABLED === "true"
+        ? [].concat(require("./mocks/npmApi.fixtures.json"))
+        : undefined,
+    makeMockedClient:
+      process.env.REACT_APP_NPM_API_MOCKS_ENABLED === "true"
+        ? require("./httpClientMock").makeMockedClient
+        : undefined,
+    preprocessMocking: ([status, response, headers]) => [
+      status,
+      response,
+      {
+        ...headers,
+        Date: new Date().toString() // adjust date header
+      }
+    ]
   }
 };
 
@@ -116,7 +153,13 @@ const decorate = (key, apiManagerInstance) => {
 class SingletonApiManager {
   constructor(key, config) {
     // extract any non-axios-specific config (like cache mode, mock mode ...)
-    const { isCacheEnabled, ...axiosConfig } = makeConfig(key, config);
+    const {
+      isCacheEnabled,
+      mocks,
+      makeMockedClient,
+      preprocessMocking,
+      ...axiosConfig
+    } = makeConfig(key, config);
     if (!instance[key]) {
       instance[key] = decorate(key, this);
       if (isCacheEnabled) {
@@ -126,7 +169,19 @@ class SingletonApiManager {
           console.info(`[ApiManager](${key}) Cache is enabled`, this.cache);
         }
       }
-      this.client = makeClient(axiosConfig);
+      if (mocks) {
+        console.warn(
+          `[ApiManager](${key}) Mocking API. Requests will be intercepted and served. The files containing the mocks are in src/services/mocks. To generate those files, run: npm run record-http-mocks.`
+        );
+        console.warn(
+          `[ApiManager](${key}) Unmocked requests will pass through and will be logged.`
+        );
+        this.client = makeMockedClient(axiosConfig, mocks, {
+          preprocessMocking
+        });
+      } else {
+        this.client = makeClient(axiosConfig);
+      }
     }
     if (process.env.NODE_ENV === "development") {
       console.info(`[ApiManager](${key}) Config`, axiosConfig);

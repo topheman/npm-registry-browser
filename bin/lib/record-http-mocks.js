@@ -44,6 +44,18 @@ function record({ target, config, outputPath, requests = [] }) {
       });
     });
 
+  /**
+   * Extract a map of the match RegExp (that will be used at runtime)
+   * @param {Array} requestsList
+   */
+  const makeMatchMap = requestsList =>
+    requestsList.reduce((acc, cur) => {
+      if (cur.match) {
+        acc[typeof cur === "string" ? cur : cur.url] = cur.match;
+      }
+      return acc;
+    }, {});
+
   // reset any current recording
   nock.recorder.clear();
 
@@ -60,10 +72,15 @@ function record({ target, config, outputPath, requests = [] }) {
     .then(() => {
       // once all request have passed, retrieve the recorded data
       const nockCallObjects = nock.recorder.play() || [];
+      const matchMap = makeMatchMap(requests);
       const output = nockCallObjects.map(item => {
-        // change the shape of the object if necessary
-        console.log(item.scope, item.path);
-        return item;
+        const newItem = { ...item };
+        console.log(newItem.scope, newItem.path);
+        // add the match attribute containing a regexp to be used at runtime
+        if (matchMap[item.path]) {
+          newItem.match = matchMap[item.path];
+        }
+        return newItem;
       });
       fs.ensureFileSync(outputPath); // make sur the file exists (create it if it doesn't)
       fs.writeFileSync(outputPath, JSON.stringify(output));

@@ -7,6 +7,7 @@
     "animated-scrollto": "^1.1.0",
     "axios": "^0.18.0",
     "axios-cache-adapter": "^2.0.0",
+    "axios-mock-adapter": "^1.14.1",
     "downshift": "^1.31.2",
     "highlight.js": "^9.12.0",
     "hoist-non-react-statics": "^2.5.0",
@@ -27,6 +28,9 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "dev": "npm start",
+    "dev:mock":
+      "echo 'Mock mode' && cross-env REACT_APP_NPM_REGISTRY_API_MOCKS_ENABLED=true REACT_APP_NPM_API_MOCKS_ENABLED=true npm start",
     "build": "react-scripts build",
     "test": "npm run test:watch",
     "test:watch": "react-scripts test --env=jsdom",
@@ -38,7 +42,8 @@
     "pretty": "npx prettier --write '**/*.{js,jsx,json,css,scss}'",
     "precommit": "lint-staged && npm run lint && npm run test:precommit",
     "proxy-apis": "node ./bin/cors-anywhere.js",
-    "record-http-mocks": "node ./bin/record-http-mocks.js"
+    "record-http-mocks":
+      "cross-env REACT_APP_NPM_REGISTRY_API_BASE_URL=https://registry.npmjs.org node ./bin/record-http-mocks.js"
   },
   "lint-staged": {
     "**/*.{js,jsx,json,css,scss}": ["prettier --write", "git add"]

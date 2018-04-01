@@ -28,7 +28,18 @@ const recordConfig = {
         origin: "https://github.io"
       }
     },
-    requests: ["/react", "/angular"],
+    requests: [
+      "/react",
+      "/@angular%2Fcore",
+      {
+        url: "/-/v1/search?text=react",
+        match: "/-/v1/search\\?text=react(\\.*)"
+      },
+      {
+        url: "/-/v1/search?text=%40angular",
+        match: "/-/v1/search\\?text=%40angular(\\.*)"
+      }
+    ],
     outputPath: path.join(
       __dirname,
       "..",
@@ -42,7 +53,10 @@ const recordConfig = {
     config: {
       baseURL: process.env.REACT_APP_NPM_API_BASE_URL
     },
-    requests: [{ url: "/downloads/range/last-month/d3" }],
+    requests: [
+      "/downloads/range/last-year/react",
+      "/downloads/range/last-year/@angular%2Fcore"
+    ],
     outputPath: path.join(
       __dirname,
       "..",
