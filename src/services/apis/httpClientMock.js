@@ -7,7 +7,7 @@
 import MockAdapter from "axios-mock-adapter";
 
 import { makeClient } from "./httpClient";
-import { ucFirst } from "../utils/string";
+import { ucFirst } from "../../utils/string";
 
 // this log will only happen if this file is required
 // you will see that if you don't mock, all the json mock files and the implementation
@@ -45,7 +45,8 @@ const rawHeadersToRegularHeaders = (rawHeaders = []) =>
 export const makeMockedClient = (
   axiosConfig,
   mocks,
-  { preprocessMocking } = {}
+  { preprocessMocking } = {},
+  key
 ) => {
   // Reshape the headers in the mock from arrays to objects
   const preprocessedMocks = mocks.map(mock => ({
@@ -55,7 +56,9 @@ export const makeMockedClient = (
       : mock.rawHeaders
   }));
   console.warn(
-    `[Mock][init] Following requests will be mocked on ${axiosConfig.baseURL}`,
+    `[Mock][init](${key}) Following requests will be mocked on ${
+      axiosConfig.baseURL
+    }`,
     mocks.map(mock => `${mock.method.toUpperCase()}: ${mock.path}`)
   );
   const mockedAxios = new MockAdapter(makeClient(axiosConfig));
@@ -74,7 +77,11 @@ export const makeMockedClient = (
         typeof preprocessMocking === "function"
           ? preprocessMocking([status, response, headers], config)
           : [status, response, headers];
-      console.log(`[Mock][mocking] ${mock.path}`, userPreprocessedMock, config);
+      console.log(
+        `[Mock][mocking](${key}) ${mock.path}`,
+        userPreprocessedMock,
+        config
+      );
       return userPreprocessedMock;
     });
   });
@@ -82,7 +89,7 @@ export const makeMockedClient = (
   mockedAxios.onAny().reply(config =>
     originalHttpClient.request(config).then(result => {
       const output = [result.status, result.data, result.headers];
-      console.log(`[Mock][passThrough] ${config.url}`, output);
+      console.log(`[Mock][passThrough](${key}) ${config.url}`, output);
       return output;
     })
   );

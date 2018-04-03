@@ -6,7 +6,7 @@ import "./index.css";
 import RootContainer from "./containers/RootContainer";
 import registerServiceWorker from "./registerServiceWorker";
 
-import { init as initApi } from "./services/ApiManager";
+import { init as initApis } from "./services/apis";
 import { Provider as DrawerProvider } from "./components/Drawer";
 import { Provider as WindowInfosProvider } from "./components/WindowInfos";
 
@@ -61,7 +61,7 @@ const render = Component => {
   );
 };
 
-initApi("npmRegistry");
+initApis();
 
 render(RootContainer);
 registerServiceWorker();

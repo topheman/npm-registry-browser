@@ -18,7 +18,7 @@ const { recordAll } = require("./lib/record-http-mocks");
 const {
   TARGET_API_NPM_API,
   TARGET_API_NPM_REGISTRY
-} = require("../src/services/constants");
+} = require("../src/services/apis/constants");
 
 const recordConfig = {
   [TARGET_API_NPM_REGISTRY]: {

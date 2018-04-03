@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
 
-import { getInstance as api } from "../services/ApiManager";
+import { apiNpmRegistry } from "../services/apis";
 import Search from "../components/Search";
 
 const compileSearchPackage = registryClient => value =>
@@ -19,7 +19,7 @@ const compileGoToPackage = history => packageName =>
 const SearchContainer = ({ history, className, style }) => (
   <div className={className} style={style}>
     <Search
-      fetchInfos={compileSearchPackage(api("npmRegistry"))}
+      fetchInfos={compileSearchPackage(apiNpmRegistry())}
       goToPackage={compileGoToPackage(history)}
     />
   </div>

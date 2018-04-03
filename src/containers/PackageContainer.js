@@ -4,7 +4,7 @@ import { withRouter } from "react-router-dom";
 import { match as matchSemver } from "semver-match";
 
 import { formatPackageString } from "../utils/string";
-import { getInstance as api } from "../services/ApiManager";
+import { apiNpmApi, apiNpmRegistry } from "../services/apis";
 
 import Package from "../components/Package";
 
@@ -81,7 +81,7 @@ class PackageContainer extends Component {
   async loadRegistryInfos(scope, name, range) {
     this.setState({ stateNpmRegistry: "loading" });
     try {
-      const { data: packageInfos } = await api("npmRegistry").packageInfos(
+      const { data: packageInfos } = await apiNpmRegistry().packageInfos(
         formatPackageString({ scope, name })
       );
       console.log(packageInfos.name, "packageInfos", packageInfos);
@@ -103,7 +103,7 @@ class PackageContainer extends Component {
   async loadApiInfos(scope, name) {
     this.setState({ stateNpmApi: "loading" });
     try {
-      const { data: downloads } = await api("npmApi").downloads(
+      const { data: downloads } = await apiNpmApi().downloads(
         formatPackageString({ scope, name }),
         "last-year"
       );
