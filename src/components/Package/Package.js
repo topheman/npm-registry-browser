@@ -62,11 +62,11 @@ const styles = theme => ({
     borderRadius: 5
   },
   blockReadme: {},
-  blockPackageJson: {},
-  blockVersions: {},
-  blockDependencies: {
+  blockPackageJson: {
     marginBottom: 0
   },
+  blockVersions: {},
+  blockDependencies: {},
   title: {
     color: theme.palette.primary.main
   }
@@ -184,12 +184,11 @@ const Package = ({
         />
       </Paper>
       {stateNpmRegistry === "loaded" &&
-        packageInfos &&
-        packageInfos.versions &&
-        packageInfos.versions[version] && (
-          <PackageJsonTab
-            value={packageInfos.versions[version]}
-            className={`${classes.blocks} ${classes.blockPackageJson}`}
+        packageInfos && (
+          <DependenciesTab
+            version={version}
+            packageInfos={packageInfos}
+            className={`${classes.blocks} ${classes.blockDependencies}`}
             style={{ padding: 0 }}
           />
         )}
@@ -205,11 +204,12 @@ const Package = ({
           />
         )}
       {stateNpmRegistry === "loaded" &&
-        packageInfos && (
-          <DependenciesTab
-            version={version}
-            packageInfos={packageInfos}
-            className={`${classes.blocks} ${classes.blockDependencies}`}
+        packageInfos &&
+        packageInfos.versions &&
+        packageInfos.versions[version] && (
+          <PackageJsonTab
+            value={packageInfos.versions[version]}
+            className={`${classes.blocks} ${classes.blockPackageJson}`}
             style={{ padding: 0 }}
           />
         )}
