@@ -1,14 +1,11 @@
 import React, { Fragment } from "react";
 import PropTypes from "prop-types";
-import { compose } from "recompose";
 
 import { withStyles } from "material-ui/styles";
 import CssBaseline from "material-ui/CssBaseline";
 
 import Header from "../components/Header";
 import SearchContainer from "../containers/SearchContainer";
-import MainDrawer from "../components/MainDrawer";
-import { withDrawer } from "../components/Drawer";
 import Footer from "../components/Footer";
 
 const styles = theme => ({
@@ -36,19 +33,11 @@ const styles = theme => ({
   }
 });
 
-const MainLayout = ({ children, classes, drawer }) => (
+const MainLayout = ({ children, classes }) => (
   <Fragment>
     <CssBaseline />
-    {drawer.availablePositions.map(position => (
-      <MainDrawer
-        key={position}
-        anchor={position}
-        open={drawer[position]}
-        onClose={drawer.toggleDrawer(position, false)}
-      />
-    ))}
     <div className={classes.root}>
-      <Header onClickMenuIcon={drawer.toggleDrawer("left", true)} />
+      <Header />
       <SearchContainer className={classes.searchContainer} />
       <div className={classes.content}>{children}</div>
       <Footer />
@@ -62,14 +51,7 @@ const MainLayout = ({ children, classes, drawer }) => (
 
 MainLayout.propTypes = {
   children: PropTypes.element.isRequired,
-  classes: PropTypes.object.isRequired, // from withStyles(styles)
-  drawer: PropTypes.object.isRequired // from withDrawer()
+  classes: PropTypes.object.isRequired
 };
 
-/**
- * Connecting drawer utilies as well.
- * Same as : withDrawer()(withStyles(styles)(MainLayout));
- *
- * Check HomeContainer to see the render props version of withDrawer HOC.
- */
-export default compose(withDrawer(), withStyles(styles))(MainLayout);
+export default withStyles(styles)(MainLayout);

@@ -5,8 +5,7 @@ import List, { ListItem, ListItemIcon, ListItemText } from "material-ui/List";
 import Divider from "material-ui/Divider";
 import InboxIcon from "material-ui-icons/Inbox";
 import DraftsIcon from "material-ui-icons/Drafts";
-
-import Drawer from "../components/Drawer";
+import MuiDrawer from "material-ui/Drawer";
 
 const styles = {
   verticalList: {
@@ -53,9 +52,11 @@ const MainDrawer = ({ classes, anchor, open, onClose }) => {
   );
 
   return (
-    <Drawer anchor={anchor} open={open} onClose={onClose}>
-      {sideList}
-    </Drawer>
+    <MuiDrawer anchor={anchor} open={open} onClose={onClose}>
+      <div tabIndex={0} role="button" onClick={onClose} onKeyDown={onClose}>
+        {sideList}
+      </div>
+    </MuiDrawer>
   );
 };
 

@@ -7,7 +7,6 @@ import RootContainer from "./containers/RootContainer";
 import registerServiceWorker from "./registerServiceWorker";
 
 import { init as initApis } from "./services/apis";
-import { Provider as DrawerProvider } from "./components/Drawer";
 import { Provider as WindowInfosProvider } from "./components/WindowInfos";
 
 const theme = createMuiTheme({
@@ -52,9 +51,7 @@ const render = Component => {
   ReactDOM.render(
     <MuiThemeProvider theme={theme}>
       <WindowInfosProvider>
-        <DrawerProvider>
-          <Component />
-        </DrawerProvider>
+        <Component />
       </WindowInfosProvider>
     </MuiThemeProvider>,
     document.getElementById("root")
