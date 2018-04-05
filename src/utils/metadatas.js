@@ -37,15 +37,20 @@ export const extractRepositoryInfos = repository => {
   if (url) {
     const isGithub = /https:\/\/github.com/.test(url);
     const isGitlab = /https:\/\/gitlab.com/.test(url);
+    const [, , , user, repo] = ((isGithub || isGitlab) && url.split("/")) || [];
     const result = {
       url,
       displayUrl: url.replace(/^https:\/\//, ""),
       issuesUrl: ((isGithub || isGitlab) && `${url}/issues`) || undefined,
+      user,
+      repo,
       pullsUrl:
         (isGithub && `${url}/pulls`) ||
         (isGitlab && `${url}/merge_requests`) ||
         undefined,
-      repoType: (isGithub && "github") || (isGitlab && "gitlab")
+      repoType: (isGithub && "github") || (isGitlab && "gitlab") || undefined,
+      isGithub,
+      isGitlab
     };
     return result;
   }

@@ -101,25 +101,74 @@ describe("/utils/metadatas", () => {
         expect(extractRepositoryInfos()).toBeUndefined();
       });
     });
-    describe("match host type", () => {
-      it("should match github", () => {
+    describe("exctract user", () => {
+      it("should extract github user", () => {
         expect(
           extractRepositoryInfos(
             "https://github.com/topheman/npm-registry-browser"
-          ).repoType
-        ).toEqual("github");
+          ).user
+        ).toEqual("topheman");
       });
-      it("should match gitlab", () => {
+      it("should extract gitlab user", () => {
         expect(
           extractRepositoryInfos(
             "https://gitlab.com/topheman/npm-registry-browser"
-          ).repoType
-        ).toEqual("gitlab");
+          ).user
+        ).toEqual("topheman");
+      });
+      it("should extract undefined user if not gitlab/github", () => {
+        expect(
+          extractRepositoryInfos(
+            "https://other.com/topheman/npm-registry-browser"
+          ).user
+        ).toBeUndefined();
+      });
+    });
+    describe("exctract repo", () => {
+      it("should extract github repo", () => {
+        expect(
+          extractRepositoryInfos(
+            "https://github.com/topheman/npm-registry-browser"
+          ).repo
+        ).toEqual("npm-registry-browser");
+      });
+      it("should extract gitlab user", () => {
+        expect(
+          extractRepositoryInfos(
+            "https://gitlab.com/topheman/npm-registry-browser"
+          ).repo
+        ).toEqual("npm-registry-browser");
+      });
+      it("should extract undefined repo if not gitlab/github", () => {
+        expect(
+          extractRepositoryInfos(
+            "https://other.com/topheman/npm-registry-browser"
+          ).repo
+        ).toBeUndefined();
+      });
+    });
+    describe("match host type", () => {
+      it("should match github", () => {
+        const result = extractRepositoryInfos(
+          "https://github.com/topheman/npm-registry-browser"
+        );
+        expect(result.repoType).toEqual("github");
+        expect(result.isGithub).toBe(true);
+        expect(result.isGitlab).toBe(false);
+      });
+      it("should match gitlab", () => {
+        const result = extractRepositoryInfos(
+          "https://gitlab.com/topheman/npm-registry-browser"
+        );
+        expect(result.repoType).toEqual("gitlab");
+        expect(result.isGithub).toBe(false);
+        expect(result.isGitlab).toBe(true);
       });
       it("should match none", () => {
-        expect(
-          extractRepositoryInfos("https://somewhere-else.com").repoType
-        ).toEqual(false);
+        const result = extractRepositoryInfos("https://somewhere-else.com");
+        expect(result.repoType).toBeUndefined();
+        expect(result.isGithub).toBe(false);
+        expect(result.isGitlab).toBe(false);
       });
     });
   });

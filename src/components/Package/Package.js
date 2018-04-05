@@ -14,7 +14,7 @@ import InfosContents from "./InfosContents";
 import StatsContents from "./StatsContents";
 import Loader from "../Loader";
 import RetryButton from "../RetryButton";
-import { extractReadme } from "../../utils/metadatas";
+import { extractReadme, extractRepositoryInfos } from "../../utils/metadatas";
 
 const styles = theme => ({
   description: {
@@ -179,7 +179,17 @@ const Package = ({
                 />
               );
             }
-            return <Readme source={extractReadme(packageInfos, version)} />;
+            return (
+              <Readme
+                source={extractReadme(packageInfos, version)}
+                repository={extractRepositoryInfos(
+                  packageInfos &&
+                    packageInfos.versions &&
+                    packageInfos.versions[version] &&
+                    packageInfos.versions[version].repository
+                )}
+              />
+            );
           }}
         />
       </Paper>

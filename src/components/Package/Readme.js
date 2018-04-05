@@ -42,19 +42,22 @@ const styles = theme => ({
   }
 });
 
-const Readme = ({ classes, source }) => (
+const Readme = ({ classes, source, repository }) => (
   <Markdown
     source={source}
+    repository={repository}
     className={`Readme-markdown__root ${classes.markdown}`}
   />
 );
 
 Readme.propTypes = {
   classes: PropTypes.object.isRequired,
-  source: PropTypes.string
+  source: PropTypes.string,
+  repository: PropTypes.object
 };
 Readme.defaultProps = {
-  source: ""
+  source: "",
+  repository: {}
 };
 
 export default withStyles(styles)(Readme);
