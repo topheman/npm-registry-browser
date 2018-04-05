@@ -161,7 +161,12 @@ class Search extends Component {
             />
             {["loading", "error"].includes(state) && (
               <ul className={classes.itemsWrapper}>
-                <li className={classes.item}>
+                <li
+                  className={classes.item}
+                  style={{
+                    backgroundColor: "white"
+                  }}
+                >
                   {state === "loading" ? (
                     <Loader
                       message=""
