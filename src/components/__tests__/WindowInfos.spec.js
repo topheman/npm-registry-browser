@@ -10,7 +10,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { render } from "react-testing-library";
 // add the custom expect matchers
-import "react-testing-library/extend-expect";
+import "dom-testing-library/extend-expect"; // eslint-disable-line
 
 import { timeout } from "../../utils/time";
 
