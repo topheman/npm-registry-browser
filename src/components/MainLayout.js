@@ -45,7 +45,7 @@ const MainLayout = ({ children, classes }) => (
       <Header />
       <SearchContainer className={classes.searchContainer} />
       <div className={classes.content}>{children}</div>
-      <Footer />
+      <Footer fromFullYear={2018} />
     </div>
     {(process.env.REACT_APP_NPM_REGISTRY_API_MOCKS_ENABLED === "true" ||
       process.env.REACT_APP_NPM_API_MOCKS_ENABLED === "true") && (

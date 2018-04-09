@@ -14,12 +14,18 @@ const styles = {
   }
 };
 
-const Footer = ({ classes }) => (
+const Footer = ({ classes, fromFullYear, toFullYear }) => (
   <footer className={classes.root}>
     <p>
-      ©{new Date().getFullYear()}{" "}
+      ©{fromFullYear === toFullYear
+        ? toFullYear
+        : `${fromFullYear}-${toFullYear}`}{" "}
       <a href="http://labs.topheman.com/">labs.topheman.com</a> - Christophe
       Rosset
+    </p>
+    <p>
+      All data comes directly from <a href="https://www.npmjs.com/">npm</a> /
+      This project is not affiliated with npm, Inc. in any way.
     </p>
     <p>
       <TwitterButton
@@ -34,7 +40,12 @@ const Footer = ({ classes }) => (
 );
 
 Footer.propTypes = {
+  toFullYear: PropTypes.number,
+  fromFullYear: PropTypes.number.isRequired,
   classes: PropTypes.object.isRequired
+};
+Footer.defaultProps = {
+  toFullYear: new Date().getFullYear()
 };
 
 export default withStyles(styles)(Footer);
