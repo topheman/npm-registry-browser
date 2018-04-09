@@ -31,6 +31,8 @@ npm install
 npm start
 ```
 
+Checkout [API proxy for development](#api-proxy-for-development) to understand how the API servers are served in development mode.
+
 ## Build
 
 ```shell
@@ -45,6 +47,54 @@ Once you've built you're app, you can test the build on a local server with:
 
 ```shell
 npm run serve
+```
+
+## Test
+
+### Unit
+
+```shell
+npm test
+```
+
+Check out [Error npm test on MacOs Sierra](NOTES.md#error-npm-test-on-macos-sierra) if you're experimenting some troubles.
+
+## Advanced
+
+### Mock mode
+
+#### Serve mocks
+
+Thanks to [src/services/apis](src/services/apis), the api calls can be mocked at any time. The following command will let the api manager serve the mocks saved in [src/services/apis/mocks](src/services/apis/mocks).
+
+```shell
+npm run dev:mock
+```
+
+It can be useful when the front-end and back-end teams are developing the same feature at the same time, so as a front-end developer, you don't have to wait for the server to be completed.
+
+It can also be applied once you have a backend to mock your api calls while coding or testing, to have deterministic responses from your http client.
+
+#### Record mocks
+
+I made a utility based on nock in [bin/record-http-mocks.js](bin/record-http-mocks.js) to automate the recording of the mocks by declaring which urls you want to mock and automatically generate those files.
+
+Specify your config in [bin/record-http-mocks.js](bin/record-http-mocks.js) and
+
+```shell
+npm run record-http-mocks
+```
+
+#### Make a build with mocks
+
+You can even make a mocked build version of the app.
+
+Warning: Like in development, mocked requests will be intercepted (won't go to the server) and you will be shipping mocks (and the code that implements the mocking part) to your bundle.
+
+This could be used for e2e testing purposes.
+
+```shell
+npm run build:mock
 ```
 
 ## FAQ

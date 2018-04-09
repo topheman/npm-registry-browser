@@ -33,6 +33,8 @@
     "dev:mock":
       "echo 'Mock mode' && cross-env REACT_APP_NPM_REGISTRY_API_MOCKS_ENABLED=true REACT_APP_NPM_API_MOCKS_ENABLED=true npm start",
     "build": "react-scripts build",
+    "build:mock":
+      "echo 'Mock mode' && cross-env REACT_APP_NPM_REGISTRY_API_MOCKS_ENABLED=true REACT_APP_NPM_API_MOCKS_ENABLED=true npm run build",
     "test": "npm run test:watch",
     "test:watch": "react-scripts test --env=jsdom",
     "test:ci": "cross-env CI=true react-scripts test --env=jsdom",
