@@ -46,3 +46,28 @@ Once you've built you're app, you can test the build on a local server with:
 ```shell
 npm run serve
 ```
+
+## FAQ
+
+### Why use create-react-app ?
+
+The goal of this project is to focus on how to put the pieces together to make a front-end app, to focus on architecture, not get stuck on webpack configurations 😉.
+
+[Toolkits](https://blog.kentcdodds.com/concerning-toolkits-4db57296e1c3) are becoming more popular. Developers are tending to use them or make their own.
+
+Since create-react-app is the most popular toolkit in the react community, I chose this one, with a challenge/constaint: **NOT TO EJECT**.
+
+Why not eject ?
+
+* So that when you dive in the project, you don't have any more overhead from enforcing any weird configuration or tool
+* To challenge some use-cases where people tell you that you should eject when you can still remain
+
+### What couldn't you do with create-react-app ?
+
+There are some points that I couldn't address with an unejected create-react-app:
+
+* Not being able to add babel-presets/babel-plugins: usually I use a few ones such as:
+  * [babel-plugin-dev-expression](https://www.npmjs.com/package/babel-plugin-dev-expression): I use [invariant](https://www.npmjs.com/package/invariant), it removes development checks added for development
+* Not being able to alias modules via webpack config: when hacking/forking a module, it can come handy. This is why there is a [src/libs](src/libs) folder (temporary).
+
+For those who want to play with webpack configurations, you can access a starter kit I open sourced: [topheman/webpack-babel-starter](https://github.com/topheman/webpack-babel-starter).

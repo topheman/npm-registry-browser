@@ -64,18 +64,18 @@ This means that when you `npm start`, `/api/npm-registry` and `/api/npm-api` url
 
 That way, in development mode, you don't have to worry about CORS and your api server will definitly be accessible from a mobile device (when you test on wifi - not from `localhost` but with a real IP, you'll have the same experience).
 
-Note: If you publish this kind of project, you'll have to host a proxy server somewhere that adds the CORS header (at least, for the npm registry).
-
-See the .env file where the api root urls server are set:
+You will notice that the [.env](.env) file sets the following urls for the servers (which are the ones that will be used in development):
 
 ```shell
 REACT_APP_NPM_REGISTRY_API_BASE_URL=/api/npm-registry
 REACT_APP_NPM_API_BASE_URL=/api/npm-api
 ```
 
+In production, you'll need to provide production servers that support CORS, this is why you have [.env.production](.env.production).
+
 ### API proxy for production
 
-In `.env.production`, a specific CORS proxy is setup that will be used at build time.
+In [.env.production](.env.production), a specific CORS proxy is setup that will be used at build time.
 
 ## React specific
 
