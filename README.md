@@ -6,8 +6,10 @@ There are lots of great resources on React out there. What might be missing is s
 * using external libraries (UI kits, http clients ...)
 * some routing and global state management
 * code quality good practices (linting, testing, git hooks, cis ...)
+* automation / dev pipeline
+* and more ...
 
-The goal of this project is to provide an example of all those things combined (which sometimes can be the part we have a hard time to put together).
+The hard part is often to be able to put all those together. This is the goal of this project: provide a well-documented example of a front-end app with real-world features and constraints.
 
 ## Infos
 

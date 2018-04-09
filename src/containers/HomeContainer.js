@@ -72,26 +72,23 @@ const Home = ({ classes }) => {
   return (
     <div className={classes.root}>
       <p>
-        There are tons of great resources to learn about new technologies /
-        languages / frameworks.
-      </p>
-      <p>
-        The hard part is not to find or learn from those, it&#39;s to pick one
-        over others or to put them all together.
-      </p>
-      <p>
-        I noticed this problem talking with multiple developers (at work,
-        online, in meetups ...). So I decided to make a project with real-world
-        app features and constraints that you would encounter in a development
-        team such as:
+        There are lots of great resources on React out there. What might be
+        missing is some projects mixing real-world constraints like:
       </p>
       <ul>
         <li>API calls / frontend router</li>
-        <li>Development pipeline</li>
-        <li>Using 3rd party libraries / UI kit</li>
-        <li>Code quality practice like linters / unit-tests</li>
+        <li>using external libraries (UI kits, http clients ...)</li>
+        <li>
+          code quality good practices (linting, testing, git hooks, cis ...)
+        </li>
+        <li>automation / dev pipeline</li>
         <li>and more ...</li>
       </ul>
+      <p>
+        The hard part is often to be able to put all those together. This is the
+        goal of this project: provide a well-documented example of a front-end
+        app with real-world features and constraints.
+      </p>
       <p>
         All the source code is open and documented for you to read. It&#39;s
         available on{" "}
