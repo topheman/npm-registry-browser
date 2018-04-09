@@ -44,7 +44,7 @@
     "lint": "npx eslint .",
     "pretty": "npx prettier --write '**/*.{js,jsx,json,css,scss}'",
     "precommit": "lint-staged && npm run lint && npm run test:precommit",
-    "proxy-apis": "node ./bin/cors-anywhere.js",
+    "proxy-apis-deprecated": "echo 'DEPRECATED' && node ./bin/cors-anywhere.js",
     "record-http-mocks":
       "cross-env REACT_APP_NPM_REGISTRY_API_BASE_URL=https://registry.npmjs.org node ./bin/record-http-mocks.js"
   },

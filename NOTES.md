@@ -9,6 +9,7 @@ Bellow, you will find some notes I took along the way.
   * [API proxy for development](#api-proxy-for-development)
 * [React specific](#react-specific)
 * [Miscellaneous](#miscellaneous)
+  * [Eslint and Prettier](#eslint-and-prettier)
   * [CORS anywhere development proxy](#cors-anywhere-development-proxy)
 
 ## create-react-app related
@@ -80,6 +81,36 @@ In [.env.production](.env.production), a specific CORS proxy is setup that will 
 ## React specific
 
 ## Miscellaneous
+
+### Eslint and Prettier
+
+Here is the commits where I setup prettier and eslint, you should check the infos in the commit messages:
+
+* 3372bad - chore(prettier): setup prettier with eslint
+
+  Based on [Using Prettier with VS Code and Create React App](https://medium.com/technical-credit/using-prettier-with-vs-code-and-create-react-app-67c2449b9d08)
+
+  ```shell
+  npm install --save-dev --save-exact prettier
+  npm install --save-dev eslint-plugin-prettier
+  ```
+
+* a4a67b9 - style(\*): prettify code
+* 247d4ef - chore(eslint): setup airbnb rules
+
+  eslint-config-airbnb has peer dependencies, take the latest v15 to ensure compatibility with installed versions of the dependencies in create-react-app
+
+  ```
+  npm install --save-dev eslint-config-airbnb@15.x.x
+  ```
+
+  Turns off all rules that are unnecessary or might conflict with Prettier: [eslint-config-prettier](https://github.com/prettier/eslint-config-prettier).
+
+  ```
+  npm install --save-dev eslint-config-prettier
+  ```
+
+* 4746848 - chore(prettier): add precommit hook
 
 ### CORS anywhere development proxy
 

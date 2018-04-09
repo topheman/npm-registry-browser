@@ -11,13 +11,18 @@ There are lots of great resources on React out there. What might be missing is s
 
 The hard part is often to be able to put all those together. This is the goal of this project: provide a well-documented example of a front-end app with real-world features and constraints.
 
+## What this project is not
+
+1.  A simple boilerplate. It aims to be more than that: expose quality sample code that you could learn from, at a project level.
+2.  The ultimate answer. There are things you would have done differently and it's ok. Other things will evolve with time.
+
 ## Infos
 
 This project was bootstrapped with [create-react-app](https://github.com/facebook/create-react-app).
 
 The whole README from `create-react-app` is available [here](README.cra.md).
 
-I took some notes along the way, they are available [here](NOTES.md)
+I took some notes along the way, they are available [here](NOTES.md).
 
 ## Install
 
@@ -31,7 +36,7 @@ npm install
 npm start
 ```
 
-Checkout [API proxy for development](#api-proxy-for-development) to understand how the API servers are served in development mode.
+Checkout [API proxy for development](NOTES.md#api-proxy-for-development) to understand how the API servers are served in development mode.
 
 ## Build
 
@@ -58,6 +63,38 @@ npm test
 ```
 
 Check out [Error npm test on MacOs Sierra](NOTES.md#error-npm-test-on-macos-sierra) if you're experimenting some troubles.
+
+## Linter
+
+I use eslint to check the coding style, with the following presets:
+
+* [eslint-config-airbnb](https://www.npmjs.com/package/eslint-config-airbnb): An advanced set of eslint rules for JavaScript and React made by Airbnb
+* [eslint-config-prettier](https://www.npmjs.com/package/eslint-config-prettier): Turns off all rules that are unnecessary or might conflict with Prettier.
+* [eslint-config-react-app](https://www.npmjs.com/package/eslint-config-react-app): Shipping preset from create-react-app
+
+More on [eslint configuration](NOTES.md#eslint-and-prettier).
+
+The following command will run the linter on your code base. This task is ran at pre-commit to ensure code quality.
+
+```shell
+npm run lint
+```
+
+## Prettier
+
+Prettier is a great tool to enforce a consistent style accross your code base (usefull when working in teams).
+
+[Here is how to integrate it with your editor](https://prettier.io/docs/en/editors.html).
+
+Once it's done, when you'll save a file, it will reformat it.
+
+The following command will let you format your code base. This task is ran at pre-commit.
+
+```shell
+npm run pretty
+```
+
+More on [prettier](NOTES.md#eslint-and-prettier).
 
 ## Advanced
 
