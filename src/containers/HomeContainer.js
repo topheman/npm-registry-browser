@@ -7,9 +7,20 @@ import Chip from "material-ui/Chip";
 const styles = theme => ({
   root: {
     paddingTop: 10,
-    "& > p": {
-      textAlign: "center"
+    "& > p, & > ul": {
+      marginLeft: "auto",
+      marginRight: "auto",
+      [theme.breakpoints.up("sm")]: {
+        maxWidth: "70vw"
+      },
+      [theme.breakpoints.down("sm")]: {
+        maxWidth: "90vw"
+      }
     }
+  },
+  explainChips: {
+    fontSize: "120%",
+    textAlign: "center"
   },
   chipsWrapper: {
     display: "flex",
@@ -61,6 +72,37 @@ const Home = ({ classes }) => {
   return (
     <div className={classes.root}>
       <p>
+        There are tons of great resources to learn about new technologies /
+        languages / frameworks.
+      </p>
+      <p>
+        The hard part is not to find or learn from those, it&#39;s to pick one
+        over others or to put them all together.
+      </p>
+      <p>
+        I noticed this problem talking with multiple developers (at work,
+        online, in meetups ...). So I decided to make a project with real-world
+        app features and constraints that you would encounter in a development
+        team such as:
+      </p>
+      <ul>
+        <li>API calls / frontend router</li>
+        <li>Development pipeline</li>
+        <li>Using 3rd party libraries / UI kit</li>
+        <li>Code quality practice like linters / unit-tests</li>
+        <li>and more ...</li>
+      </ul>
+      <p>
+        All the source code is open and documented for you to read. It&#39;s
+        available on{" "}
+        <a
+          href="https://github.com/topheman/npm-registry-browser"
+          title="npm-registry-brower sources on github"
+        >
+          github
+        </a>.
+      </p>
+      <p className={classes.explainChips}>
         Use the serch engine to find a package{" "}
         <span role="img" aria-label="look up">
           👆
