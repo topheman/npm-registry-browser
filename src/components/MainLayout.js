@@ -10,7 +10,12 @@ import Footer from "../components/Footer";
 
 const styles = theme => ({
   root: {
-    margin: "0px 16px"
+    margin: "0px 16px",
+    marginBottom:
+      ((process.env.REACT_APP_NPM_REGISTRY_API_MOCKS_ENABLED === "true" ||
+        process.env.REACT_APP_NPM_API_MOCKS_ENABLED === "true") &&
+        "50px") ||
+      "0"
   },
   searchContainer: {
     marginTop: 80
@@ -20,11 +25,11 @@ const styles = theme => ({
     maxWidth: "1180px"
   },
   mockWarning: {
-    position: "sticky",
+    position: "fixed",
     bottom: 0,
-    marginLeft: "auto",
-    marginRight: "auto",
     width: 200,
+    left: "50%",
+    transform: "translate(-50%, 0)",
     backgroundColor: theme.palette.primary.main,
     color: theme.palette.primary.contrastText,
     padding: 4,
