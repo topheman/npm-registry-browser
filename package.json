@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@fnando/sparkline": "^0.3.5",
+    "@material-ui/icons": "^1.0.0-beta.42",
     "animated-scrollto": "^1.1.0",
     "axios": "^0.18.0",
     "axios-cache-adapter": "^2.0.0",
@@ -14,8 +15,7 @@
     "hoist-non-react-statics": "^2.5.0",
     "invariant": "^2.2.3",
     "js-md5": "^0.7.3",
-    "material-ui": "^1.0.0-beta.40",
-    "material-ui-icons": "^1.0.0-beta.36",
+    "material-ui": "^1.0.0-beta.41",
     "prop-types": "^15.6.1",
     "react": "^16.3.1",
     "react-dom": "^16.3.1",

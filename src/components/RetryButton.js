@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import { withStyles } from "material-ui/styles";
 import Button from "material-ui/Button";
-import RefreshIcon from "material-ui-icons/Refresh";
+import RefreshIcon from "@material-ui/icons/Refresh";
 
 const styles = theme => ({
   root: {

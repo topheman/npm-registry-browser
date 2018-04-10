@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import Button from "material-ui/Button";
 import Menu, { MenuItem, MenuList } from "material-ui/Menu";
 import { withStyles } from "material-ui/styles";
-import ExpandMoreIcon from "material-ui-icons/ExpandMore";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Drawer from "material-ui/Drawer";
 import { withStateHandlers, compose } from "recompose";
 import { ConnectedWindowInfos } from "../WindowInfos";

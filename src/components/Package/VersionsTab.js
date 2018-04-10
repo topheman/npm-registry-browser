@@ -5,7 +5,7 @@ import ExpansionPanel, {
   ExpansionPanelSummary,
   ExpansionPanelDetails
 } from "material-ui/ExpansionPanel";
-import ExpandMoreIcon from "material-ui-icons/ExpandMore";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Typography from "material-ui/Typography";
 import { withStyles } from "material-ui/styles";
 import relativeDate from "relative-date";
