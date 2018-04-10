@@ -158,3 +158,27 @@ There are some points that I couldn't address with an unejected create-react-app
 * Not being able to alias modules via webpack config: when hacking/forking a module, it can come handy. This is why there is a [src/libs](src/libs) folder (temporary).
 
 For those who want to play with webpack configurations, you can access a starter kit I open sourced: [topheman/webpack-babel-starter](https://github.com/topheman/webpack-babel-starter).
+
+### Why not use redux ?
+
+> People often choose Redux before they need it. “What if our app doesn’t scale without it?” Later, developers frown at the indirection Redux introduced to their code. “Why do I have to touch three files to get a simple feature working?” Why indeed!
+>
+> People blame Redux, React, functional programming, immutability, and many other things for their woes, and I understand them. It is natural to compare Redux to an approach that doesn’t require “boilerplate” code to update the state, and to conclude that Redux is just complicated. In a way it is, and by design so.
+
+[You Might Not Need Redux](https://medium.com/@dan_abramov/you-might-not-need-redux-be46360cf367) by [Dan Abramov](https://twitter.com/dan_abramov)
+
+I wanted to show that you don't necessarily need redux to make a web app like this one.
+
+Also, not adding redux kept the codebase more agnostic.
+
+Maybe in further versions, I will add redux while adding other features.
+
+### Why use Material UI ?
+
+In every enterprise app, you're using some kind of UI Kit (whether it is homemade or based on libraries like [material-ui](https://material-ui-next.com/), [semantic-ui](https://react.semantic-ui.com) or [bootstrap](https://react-bootstrap.github.io/)).
+
+Working with such a library was part of the constraints I set.
+
+I had never used `material-ui`, it was the opportunity of testing it (and also test the `css-in-js` paradigm that I knew of, but never coded with).
+
+## Next
