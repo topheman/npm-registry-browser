@@ -56,13 +56,40 @@ npm run serve
 
 ## Test
 
-### Unit
+The following command will run both unit and e2e (cypress) tests.
 
 ```shell
 npm test
 ```
 
+You can choose to run them separately.
+
+### Unit
+
+You'll find unit tests spread in the `src` folder inside `__tests__` folders in files named like `*.spec.js`.
+
+I'm using [Jest](https://facebook.github.io/jest/) as a test runner and [enzyme](https://github.com/airbnb/enzyme) / [react-testing-library](https://github.com/kentcdodds/react-testing-library) as testing utilies.
+
+* `npm run test:unit` : single run of the unit tests
+* `npm run test:unit:watch` : run the unit tests in watch mode
+
 Check out [Error npm test on MacOs Sierra](NOTES.md#error-npm-test-on-macos-sierra) if you're experimenting some troubles.
+
+### End to end
+
+> End-to-end testing is a technique used to test whether the flow of an application right from start to finish is behaving as expected. The purpose of performing end-to-end testing is to identify system dependencies and to ensure that the data integrity is maintained between various system components and systems.
+>
+> The entire application is tested for critical functionalities such as communicating with the other systems, interfaces, database, network, and other applications.
+
+I'm using [cypress.io](https://www.cypress.io/) for the e2e tests. You will find them in [cypress/integration](cypress/integration).
+
+* `npm run test:cypress` : single run the e2e tests. It will:
+  * build the project and serve it on [http://localhost:5000](http://localhost:5000) (that way, your tests reflect exactly what the end user would see in production)
+  * run the tests in [cypress/integration](cypress/integration) folder
+  * tear down once tests are passed (or failed)
+* `npm run test:cypress:dev` : use this one when you're coding your tests. It will:
+  * spin up a dev server on [http://localhost:3000](http://localhost:3000) (so, you don't have to `npm start`)
+  * open the cypress client that will let you choose which tests you want to run
 
 ## Linter
 

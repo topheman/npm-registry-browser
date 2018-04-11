@@ -11,5 +11,8 @@
     "prefer-template": "off",
     "no-underscore-dangle": ["error", { "allowAfterThis": true }],
     "global-require": "off"
+  },
+  "globals": {
+    "cy": true
   }
 }

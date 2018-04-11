@@ -35,10 +35,16 @@
     "build": "react-scripts build",
     "build:mock":
       "echo 'Mock mode' && cross-env REACT_APP_NPM_REGISTRY_API_MOCKS_ENABLED=true REACT_APP_NPM_API_MOCKS_ENABLED=true npm run build",
-    "test": "npm run test:watch",
-    "test:watch": "react-scripts test --env=jsdom",
-    "test:ci": "cross-env CI=true react-scripts test --env=jsdom",
-    "test:precommit": "npm run test:ci",
+    "test": "npm-run-all --parallel test:unit test:cypress",
+    "test:unit": "cross-env CI=true react-scripts test --env=jsdom",
+    "test:unit:watch": "react-scripts test --env=jsdom",
+    "pretest:cypress": "npm run build",
+    "test:cypress": "npm-run-all --parallel --race serve cy:run",
+    "test:cypress:dev":
+      "npm-run-all --parallel --race start 'cy:open -- --config baseUrl=http://localhost:3000'",
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
+    "test:precommit": "npm test",
     "serve": "npx serve build",
     "eject": "react-scripts eject",
     "lint": "npx eslint .",
@@ -54,6 +60,7 @@
   "devDependencies": {
     "cors-anywhere": "^0.4.1",
     "cross-env": "^5.1.4",
+    "cypress": "^2.1.0",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "enzyme-to-json": "^3.3.1",
