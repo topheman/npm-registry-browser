@@ -27,6 +27,20 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/styles/github.min.css" />
   <title>npm-registry-browser</title>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-41002835-1"></script>
+  <script>
+    // only run analytics in production
+    (function (env) {
+      if (env === "production") {
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-41002835-1');
+      }
+    })("%NODE_ENV%")
+  </script>
 </head>
 
 <body>
