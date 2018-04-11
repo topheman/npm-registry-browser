@@ -123,6 +123,18 @@ npm run pretty
 
 More on [prettier](NOTES.md#eslint-and-prettier).
 
+## Deploy
+
+The demo is hosted on [github-pages](https://topheman.github.io/npm-registry-browser). A simple way to publish your app is to use the [gh-pages](https://www.npmjs.com/package/gh-pages) package that will create a `gh-pages` orphan branch on which it will commit and push.
+
+The following script will build then publish your app on your github pages:
+
+```shell
+npm run deploy
+```
+
+[More infos](README.cra.md#github-pages)
+
 ## Advanced
 
 ### Mock mode
