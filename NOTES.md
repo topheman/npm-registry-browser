@@ -10,6 +10,7 @@ Bellow, you will find some notes I took along the way.
 * [React specific](#react-specific)
 * [Miscellaneous](#miscellaneous)
   * [Eslint and Prettier](#eslint-and-prettier)
+  * [Cypress with cross-origin](#cypress-with-cross-origin)
   * [CORS anywhere development proxy](#cors-anywhere-development-proxy)
 
 ## create-react-app related
@@ -111,6 +112,22 @@ Here is the commits where I setup prettier and eslint, you should check the info
   ```
 
 * 4746848 - chore(prettier): add precommit hook
+
+### Cypress with cross-origin
+
+I had the following error lying in the cypress console:
+
+```
+Error: Blocked a frame with origin "http://localhost:5000" from accessing a cross-origin frame.
+```
+
+Solution: add following in [cypress.json](cypress.json):
+
+```json
+"chromeWebSecurity": false
+```
+
+Sources: https://github.com/cypress-io/cypress/issues/262
 
 ### CORS anywhere development proxy
 
