@@ -18,6 +18,9 @@ const styles = theme => ({
       }
     }
   },
+  explainMockMode: {
+    fontStyle: "italic"
+  },
   explainChips: {
     fontSize: "120%",
     textAlign: "center"
@@ -71,6 +74,21 @@ const Home = ({ classes }) => {
   ];
   return (
     <div className={classes.root}>
+      {(process.env.REACT_APP_NPM_REGISTRY_API_MOCKS_ENABLED === "true" ||
+        process.env.REACT_APP_NPM_API_MOCKS_ENABLED === "true") && (
+        <p className={classes.explainMockMode}>
+          You are in mocked mode, checkout the console in the devtools to
+          monitor the mocked requests.{" "}
+          {window.location.hostname === "mock.npm-registry-browser.surge.sh" ? (
+            <a
+              href="https://topheman.github.io/npm-registry-browser"
+              title="npm-registry-browser original on github.io"
+            >
+              Back to original
+            </a>
+          ) : null}
+        </p>
+      )}
       <p>
         There are lots of great resources on React out there. What might be
         missing is some projects mixing real-world constraints like:
