@@ -3,11 +3,16 @@ import PropTypes from "prop-types";
 import { withStyles } from "material-ui/styles";
 import List, { ListItem, ListItemIcon, ListItemText } from "material-ui/List";
 import Divider from "material-ui/Divider";
-import InboxIcon from "@material-ui/icons/Inbox";
-import DraftsIcon from "@material-ui/icons/Drafts";
+import HomeIcon from "@material-ui/icons/Home";
 import MuiDrawer from "material-ui/Drawer";
 
+import twitterIcon from "../assets/images/twitter-retina.png";
+import githubIcon from "../assets/images/github-retina.png";
+
 const styles = {
+  svgColor: {
+    fill: "#900000"
+  },
   verticalList: {
     width: 250
   },
@@ -26,26 +31,43 @@ const MainDrawer = ({ classes, anchor, open, onClose }) => {
       }
     >
       <List component="nav">
-        <ListItem button>
+        <ListItem>
+          <ListItemText primary="npm-registry-browser" />
+        </ListItem>
+        <Divider />
+        <ListItem
+          button
+          component="a"
+          href="https://github.com/topheman/npm-registry-browser"
+          title="npm-registry-browser on github"
+        >
           <ListItemIcon>
-            <InboxIcon />
+            <img src={githubIcon} alt="github" />
           </ListItemIcon>
-          <ListItemText primary="Inbox" />
+          <ListItemText primary="Github" />
         </ListItem>
-        <ListItem button>
+        <ListItem
+          button
+          component="a"
+          href="https://twitter.com/topheman"
+          title="@topheman on twitter"
+        >
           <ListItemIcon>
-            <DraftsIcon />
+            <img src={twitterIcon} alt="twitter" />
           </ListItemIcon>
-          <ListItemText primary="Drafts" />
+          <ListItemText primary="Twitter" />
         </ListItem>
-      </List>
-      <Divider />
-      <List component="nav">
-        <ListItem button>
-          <ListItemText primary="Trash" />
-        </ListItem>
-        <ListItem button component="a" href="#simple-list">
-          <ListItemText primary="Spam" />
+        <Divider />
+        <ListItem
+          button
+          component="a"
+          href="http://labs.topheman.com"
+          title="@topheman on twitter"
+        >
+          <ListItemIcon>
+            <HomeIcon className={classes.svgColor} />
+          </ListItemIcon>
+          <ListItemText primary="labs.topheman.com" />
         </ListItem>
       </List>
     </div>
