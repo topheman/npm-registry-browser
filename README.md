@@ -22,6 +22,14 @@ This project was bootstrapped with [create-react-app](https://github.com/faceboo
 
 The whole README from `create-react-app` is available [here](README.cra.md).
 
+Here's a list of some of the technologies I'm using:
+
+* [React](https://github.com/facebook/react) / [React Router](https://github.com/reactjs/react-router)
+* [material-ui](https://material-ui-next.com/) / [Downshift](https://github.com/paypal/downshift)
+* [Eslint](http://eslint.org/) (with [eslint-config-airbnb](https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb)) / [Prettier](https://github.com/prettier/prettier)
+* [Jest](https://facebook.github.io/jest/) / [Cypress.io](https://www.cypress.io/) - [enzyme](https://github.com/airbnb/enzyme) / [react-testing-library](https://github.com/kentcdodds/react-testing-library)
+* [Axios](https://github.com/axios/axios) / [nock](https://github.com/node-nock/nock)
+
 I took some notes along the way, they are available [here](NOTES.md).
 
 ## Install
@@ -221,3 +229,13 @@ Working with such a library was part of the constraints I set.
 I had never used `material-ui`, it was the opportunity of testing it (and also test the `css-in-js` paradigm that I knew of, but never coded with).
 
 ## Next
+
+This project is a work in progress, here are some of the next features I'll be working on:
+
+* Test pluging an other `css-in-js` library to [`material-ui`](https://material-ui-next.com/) (default one is [jss](https://material-ui-next.com/customization/css-in-js/#jss))
+* Form management use case (to show a more advanced way of state management - maybe using redux ?)
+* Add some i18n (since the content of the app is all in english, first find some adapted feature to apply it)
+* Use latest React 16.3 apis such as:
+  * New lifecycles such as [`getDerivedStateFromProps`](https://reactjs.org/docs/react-component.html#static-getderivedstatefromprops) / [`getSnapshotBeforeUpdate`](https://reactjs.org/docs/react-component.html#getsnapshotbeforeupdate)
+* Try out [React Suspense](https://www.youtube.com/watch?v=6g3g0Q_XVb4) (next versions of React)
+* Upgrade `react-scripts` / use webpack 4 ?
