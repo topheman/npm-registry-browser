@@ -1,5 +1,6 @@
 .git
 package-lock.json
+package.json
 .eslintignore
 .gitignore
 .prettierignore
