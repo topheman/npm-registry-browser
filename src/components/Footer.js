@@ -21,7 +21,7 @@ const Footer = ({ classes, fromFullYear, toFullYear }) => (
         ? toFullYear
         : `${fromFullYear}-${toFullYear}`}{" "}
       <a href="http://labs.topheman.com/">labs.topheman.com</a> - Christophe
-      Rosset
+      Rosset - v{process.env.REACT_APP_METADATAS_VERSION}
     </p>
     <p>
       All data comes directly from <a href="https://www.npmjs.com/">npm</a> /

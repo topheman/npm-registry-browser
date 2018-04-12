@@ -12,13 +12,15 @@
  * Example usage: "start": "react-scripts --require ./bin/expand-metadatas.js start"
  */
 
-const { getBanner } = require("../common");
+const { getBanner, getInfos } = require("../common");
 
 const isMock =
   process.env.REACT_APP_NPM_REGISTRY_API_MOCKS_ENABLED === "true" ||
   process.env.REACT_APP_NPM_API_MOCKS_ENABLED === "true";
 
-process.env.REACT_APP_BANNER_HTML = getBanner(
+process.env.REACT_APP_METADATAS_BANNER_HTML = getBanner(
   "formatted",
   isMock ? ["This is a mocked version", ""] : []
 );
+
+process.env.REACT_APP_METADATAS_VERSION = getInfos().pkg.version;
