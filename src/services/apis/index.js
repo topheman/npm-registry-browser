@@ -37,6 +37,7 @@ const decorateNpmApi = ({ client /* , cache, key */ }) => ({
 const config = {
   [TARGET_API_NPM_REGISTRY]: {
     httpClientBaseConfig: {
+      timeout: Number(process.env.REACT_APP_NPM_REGISTRY_API_TIMEOUT),
       baseURL: process.env.REACT_APP_NPM_REGISTRY_API_BASE_URL
     },
     managerConfig: {
@@ -63,6 +64,7 @@ const config = {
   },
   [TARGET_API_NPM_API]: {
     httpClientBaseConfig: {
+      timeout: Number(process.env.REACT_APP_NPM_API_TIMEOUT),
       baseURL: process.env.REACT_APP_NPM_API_BASE_URL
     },
     managerConfig: {
