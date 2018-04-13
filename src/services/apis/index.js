@@ -34,11 +34,34 @@ const decorateNpmApi = ({ client /* , cache, key */ }) => ({
   }
 });
 
+/**
+ * When the app is ran inside cypress, the calls to outside are proxied by cypress,
+ * the `Origin` header is not added on CORS requests.
+ * You can't manually set this header, you'll have the following error: `Refused to set unsafe header "Origin"`
+ *
+ * Since the CORS proxies used in production ask for this origin header and it's missing
+ * when ran in cypress, we don't run through the CORS proxy when running tests in cypress
+ *
+ * @param {String} baseURL
+ */
+const cypressStripBaseUrlFromCorsProxy = baseURL => {
+  if (typeof window.Cypress !== "undefined") {
+    const [, originalBaseURL] = baseURL.split("/https://");
+    console.log({ originalBaseURL });
+    if (originalBaseURL) {
+      return `https://${originalBaseURL}`;
+    }
+  }
+  return baseURL;
+};
+
 const config = {
   [TARGET_API_NPM_REGISTRY]: {
     httpClientBaseConfig: {
       timeout: Number(process.env.REACT_APP_NPM_REGISTRY_API_TIMEOUT),
-      baseURL: process.env.REACT_APP_NPM_REGISTRY_API_BASE_URL
+      baseURL: cypressStripBaseUrlFromCorsProxy(
+        process.env.REACT_APP_NPM_REGISTRY_API_BASE_URL
+      )
     },
     managerConfig: {
       decorateApi: decorateNpmRegistryApi,
@@ -65,7 +88,9 @@ const config = {
   [TARGET_API_NPM_API]: {
     httpClientBaseConfig: {
       timeout: Number(process.env.REACT_APP_NPM_API_TIMEOUT),
-      baseURL: process.env.REACT_APP_NPM_API_BASE_URL
+      baseURL: cypressStripBaseUrlFromCorsProxy(
+        process.env.REACT_APP_NPM_API_BASE_URL
+      )
     },
     managerConfig: {
       decorateApi: decorateNpmApi,

@@ -1,3 +1,4 @@
+/* eslint-disable no-undef, arrow-body-style */
 // ***********************************************
 // This example commands.js shows you how to
 // create various custom commands and overwrite
@@ -23,3 +24,20 @@
 //
 // -- This is will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+
+/**
+ * Call this before running a test suite to make sure you have the latest
+ * version of the code.
+ *
+ * See: https://github.com/cypress-io/cypress/issues/702
+ * @return {Promise}
+ */
+Cypress.Commands.add("clearSWCache", () => {
+  return window.caches.keys().then(cacheNames => {
+    return Promise.all(
+      cacheNames.map(cacheName => {
+        return window.caches.delete(cacheName);
+      })
+    ).then(() => console.info("Service Worker cache flushed"));
+  });
+});

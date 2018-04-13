@@ -14,5 +14,8 @@
   },
   "globals": {
     "cy": true
+  },
+  "env": {
+    "mocha": true
   }
 }

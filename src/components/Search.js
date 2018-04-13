@@ -132,6 +132,7 @@ class Search extends Component {
         }) => (
           <div className={classes.rootWrapper}>
             <input
+              data-testid="search-input"
               ref={node => {
                 this.inputEl = node;
               }}
@@ -162,6 +163,7 @@ class Search extends Component {
             {["loading", "error"].includes(state) && (
               <ul className={classes.itemsWrapper}>
                 <li
+                  data-testid="search-loading-indicator"
                   className={classes.item}
                   style={{
                     backgroundColor: "white"
@@ -189,6 +191,7 @@ class Search extends Component {
                 <ul className={classes.itemsWrapper}>
                   {items.map((item, index) => (
                     <li
+                      data-testid={`search-result-${index}`}
                       key={item.name}
                       className={classes.item}
                       {...getItemProps({

@@ -242,5 +242,6 @@ This project is a work in progress, here are some of the next features I'll be w
 * Add some i18n (since the content of the app is all in english, first find some adapted feature to apply it)
 * Use latest React 16.3 apis such as:
   * New lifecycles such as [`getDerivedStateFromProps`](https://reactjs.org/docs/react-component.html#static-getderivedstatefromprops) / [`getSnapshotBeforeUpdate`](https://reactjs.org/docs/react-component.html#getsnapshotbeforeupdate)
+* More unit tests and e2e tests
 * Try out [React Suspense](https://www.youtube.com/watch?v=6g3g0Q_XVb4) (next versions of React)
 * Upgrade `react-scripts` / use webpack 4 ?

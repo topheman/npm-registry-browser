@@ -129,6 +129,12 @@ Solution: add following in [cypress.json](cypress.json):
 
 Sources: https://github.com/cypress-io/cypress/issues/262
 
+Also, when the app is ran inside cypress, the calls to outside are proxied by cypress, the `Origin` header is not added on CORS requests.
+
+You can't manually set this header, you'll have the following error: `Refused to set unsafe header "Origin"`
+
+Since the CORS proxies used in production ask for this origin header and it's missing when ran in cypress, we don't run through the CORS proxy when running tests in cypress with a production build - see [src/services/apis/index.js](src/services/apis/index.js).
+
 ### CORS anywhere development proxy
 
 Deprecated: please use [API proxy for development](#api-proxy-for-development).
