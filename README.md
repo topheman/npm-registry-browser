@@ -35,6 +35,8 @@ I took some notes along the way, they are available [here](NOTES.md).
 ## Install
 
 ```shell
+git clone https://github.com/topheman/npm-registry-browser.git
+cd npm-registry-browser
 npm install
 ```
 
@@ -147,6 +149,8 @@ npm run deploy
 
 ### Mock mode
 
+You can test an [online demo of the mocked version of the app](https://mock.npm-registry-browser.surge.sh/) (open the console to see the mocked requests).
+
 #### Serve mocks
 
 Thanks to [src/services/apis](src/services/apis), the api calls can be mocked at any time. The following command will let the api manager serve the mocks saved in [src/services/apis/mocks](src/services/apis/mocks).
@@ -203,6 +207,7 @@ There are some points that I couldn't address with an unejected create-react-app
 * Not being able to add babel-presets/babel-plugins: usually I use a few ones such as:
   * [babel-plugin-dev-expression](https://www.npmjs.com/package/babel-plugin-dev-expression): I use [invariant](https://www.npmjs.com/package/invariant), it removes development checks added for development
 * Not being able to alias modules via webpack config: when hacking/forking a module, it can come handy. This is why there is a [src/libs](src/libs) folder (temporary).
+* Use `HtmlWebpackPlugin` and `webpack.DefinePlugin` to expose vars generated on the fly (such as retrieving the git hash, the date of the build ...) - I managed to do that with [bin/expand-metadatas.js](bin/expand-metadatas.js).
 
 For those who want to play with webpack configurations, you can access a starter kit I open sourced: [topheman/webpack-babel-starter](https://github.com/topheman/webpack-babel-starter).
 
