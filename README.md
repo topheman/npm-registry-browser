@@ -251,6 +251,12 @@ Working with such a library was part of the constraints I set.
 
 I had never used `material-ui`, it was the opportunity of testing it (and also test the `css-in-js` paradigm that I knew of, but never coded with).
 
+### Why use Recompose ?
+
+[Recompose](https://github.com/acdlite/recompose) is a "React utility belt for function components and higher-order components" that you're likely to run into if your coding on React projects.
+
+`material-ui` relies on it, so at least a part of the library is already shipping into the final bundle. That way, i get to show some code you might encounter on other projects.
+
 ## Next
 
 This project is a work in progress, here are some of the next features I'll be working on:
