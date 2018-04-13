@@ -162,7 +162,7 @@ The end to end test sessions are recorded, you can check them [here](https://das
 
 ### Mock mode
 
-You can test an [online demo of the mocked version of the app](https://mock.npm-registry-browser.surge.sh/) (open the console to see the mocked requests).
+You can test an [online demo of the mocked version of the app](https://mock-npm-registry-browser.surge.sh/) (open the console to see the mocked requests).
 
 #### Serve mocks
 
