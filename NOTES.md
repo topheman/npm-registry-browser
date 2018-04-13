@@ -85,9 +85,9 @@ In [.env.production](.env.production), a specific CORS proxy is setup that will 
 
 ### Eslint and Prettier
 
-Here is the commits where I setup prettier and eslint, you should check the infos in the commit messages:
+Here are the commits where I setup prettier and eslint, you should check the infos in the commit messages:
 
-* 3372bad - chore(prettier): setup prettier with eslint
+* [3372bad](https://github.com/topheman/npm-registry-browser/commit/3372badb3df6177c58533003a9d8852e149411e4) - chore(prettier): setup prettier with eslint
 
   Based on [Using Prettier with VS Code and Create React App](https://medium.com/technical-credit/using-prettier-with-vs-code-and-create-react-app-67c2449b9d08)
 
@@ -96,8 +96,8 @@ Here is the commits where I setup prettier and eslint, you should check the info
   npm install --save-dev eslint-plugin-prettier
   ```
 
-* a4a67b9 - style(\*): prettify code
-* 247d4ef - chore(eslint): setup airbnb rules
+* [a4a67b9](https://github.com/topheman/npm-registry-browser/commit/a4a67b9c70a085a18ca3399361f612f407f8de0f) - style(\*): prettify code
+* [247d4ef](https://github.com/topheman/npm-registry-browser/commit/247d4ef9de2f68a630d624a11fa24c44e707d77f) - chore(eslint): setup airbnb rules
 
   eslint-config-airbnb has peer dependencies, take the latest v15 to ensure compatibility with installed versions of the dependencies in create-react-app
 
@@ -111,7 +111,7 @@ Here is the commits where I setup prettier and eslint, you should check the info
   npm install --save-dev eslint-config-prettier
   ```
 
-* 4746848 - chore(prettier): add precommit hook
+* [4746848](https://github.com/topheman/npm-registry-browser/commit/474684810eceba17789167335f9e1221644e57db) - chore(prettier): add precommit hook
 
 ### Cypress with cross-origin
 

@@ -154,7 +154,7 @@ Each `git push` triggers a test suite on [travis](https://travis-ci.org/topheman
 
 * linting
 * unit tests
-* end to end test with cypher
+* end to end test with cypress
 
 The end to end test sessions are recorded, you can check them [here](https://dashboard.cypress.io/#/projects/8r5nf4/runs).
 
@@ -198,6 +198,8 @@ This could be used for e2e testing purposes.
 npm run build:mock
 ```
 
+[Online demo of the mocked version of the app](https://mock-npm-registry-browser.surge.sh/)
+
 ## FAQ
 
 ### Why use create-react-app ?
@@ -206,14 +208,14 @@ The goal of this project is to focus on how to put the pieces together to make a
 
 [Toolkits](https://blog.kentcdodds.com/concerning-toolkits-4db57296e1c3) are becoming more popular. Developers are tending to use them or make their own.
 
-Since create-react-app is the most popular toolkit in the react community, I chose this one, with a challenge/constaint: **NOT TO EJECT**.
+Since create-react-app is the most popular toolkit in the react community, I chose this one, with a challenge/constraint: **NOT TO EJECT**.
 
-Why not eject ?
+### Why not eject ?
 
 * So that when you dive in the project, you don't have any more overhead from enforcing any weird configuration or tool
 * To challenge some use-cases where people tell you that you should eject when you can still remain
 
-### What couldn't you do with create-react-app ?
+### What couldn't I do with create-react-app ?
 
 There are some points that I couldn't address with an unejected create-react-app:
 
