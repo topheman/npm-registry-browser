@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/topheman/npm-registry-browser.svg?branch=master)](https://travis-ci.org/topheman/npm-registry-browser)
 [![Cypress](https://img.shields.io/badge/cypress-dashboard-brightgreen.svg)](https://dashboard.cypress.io/#/projects/8r5nf4/runs)
+[![Demo](https://img.shields.io/badge/demo-online-blue.svg)](https://topheman.github.io/npm-registry-browser)
 
 There are lots of great resources on React out there. What might be missing is some projects mixing real world constraints like:
 
