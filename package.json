@@ -60,11 +60,12 @@
     "build:mock":
       "echo 'Mock mode' && cross-env REACT_APP_NPM_REGISTRY_API_MOCKS_ENABLED=true REACT_APP_NPM_API_MOCKS_ENABLED=true npm run build",
     "test": "npm-run-all --parallel --silent test:unit test:cypress",
-    "test:travis": "npm-run-all --parallel --silent test:unit test:cypress",
+    "test:travis": "npm-run-all --parallel --silent test:unit test:cypress:travis",
     "test:unit": "cross-env CI=true npm run test:unit:watch",
     "test:unit:watch":
       "react-scripts --require ./bin/expand-metadatas.js test --env=jsdom",
     "test:cypress": "npm-run-all build --parallel --race serve cy:run",
+    "test:cypress:travis": "npm-run-all build --parallel --race serve 'cy:run -- --record --config videoRecording=true'",
     "test:cypress:dev":
       "npm-run-all --parallel --race start 'cy:open -- --config baseUrl=http://localhost:3000'",
     "cy:open": "cypress open",

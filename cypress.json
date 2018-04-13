@@ -1,5 +1,6 @@
 {
   "baseUrl": "http://localhost:5000",
   "videoRecording": false,
-  "chromeWebSecurity": false
+  "chromeWebSecurity": false,
+  "projectId": "8r5nf4"
 }
