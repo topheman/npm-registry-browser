@@ -112,9 +112,17 @@ const Home = ({ classes }) => {
         available on{" "}
         <a
           href="https://github.com/topheman/npm-registry-browser"
-          title="npm-registry-brower sources on github"
+          title="topheman/npm-registry-browser sources on github"
         >
           github
+        </a>.
+      </p>
+      <p>
+        <a
+          href="http://dev.topheman.com/project-to-help-getting-into-making-react-apps/"
+          title="Why I made this project"
+        >
+          Read the blog post where I explain why I made the project
         </a>.
       </p>
       <p className={classes.explainChips}>

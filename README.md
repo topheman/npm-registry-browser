@@ -14,6 +14,8 @@ There are lots of great resources on React out there. What might be missing is s
 
 The hard part is often to be able to put all those together. This is the goal of this project: provide a well-documented example of a front-end app with real-world features and constraints.
 
+_[Read the blog post where I explain why I made the project](http://dev.topheman.com/project-to-help-getting-into-making-react-apps/)._
+
 ## What this project is not
 
 1.  A simple boilerplate. It aims to be more than that: expose quality sample code that you could learn from, at a project level.
