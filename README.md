@@ -1,5 +1,8 @@
 # npm-registry-browser
 
+[![Build Status](https://travis-ci.org/topheman/npm-registry-browser.svg?branch=master)](https://travis-ci.org/topheman/npm-registry-browser)
+[![Cypress](https://img.shields.io/badge/cypress-dashboard-brightgreen.svg)](https://dashboard.cypress.io/#/projects/8r5nf4/runs)
+
 There are lots of great resources on React out there. What might be missing is some projects mixing real world constraints like:
 
 * API calls
@@ -145,6 +148,16 @@ npm run deploy
 
 [More infos](README.cra.md#github-pages)
 
+## CI
+
+Each `git push` triggers a test suite on [travis](https://travis-ci.org/topheman/npm-registry-browser). The following will be ran:
+
+* linting
+* unit tests
+* end to end test with cypher
+
+The end to end test sessions are recorded, you can check them [here](https://dashboard.cypress.io/#/projects/8r5nf4/runs).
+
 ## Advanced
 
 ### Mock mode
@@ -243,5 +256,6 @@ This project is a work in progress, here are some of the next features I'll be w
 * Use latest React 16.3 apis such as:
   * New lifecycles such as [`getDerivedStateFromProps`](https://reactjs.org/docs/react-component.html#static-getderivedstatefromprops) / [`getSnapshotBeforeUpdate`](https://reactjs.org/docs/react-component.html#getsnapshotbeforeupdate)
 * More unit tests and e2e tests
+* Add prettier git-hook on travis
 * Try out [React Suspense](https://www.youtube.com/watch?v=6g3g0Q_XVb4) (next versions of React)
 * Upgrade `react-scripts` / use webpack 4 ?
