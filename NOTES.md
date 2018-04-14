@@ -11,6 +11,7 @@ Bellow, you will find some notes I took along the way.
 * [Miscellaneous](#miscellaneous)
   * [Eslint and Prettier](#eslint-and-prettier)
   * [Cypress with cross-origin](#cypress-with-cross-origin)
+  * [Cypress record on CI with pull requests from a fork](#cypress-record-on-ci-with-pull-requests-from-a-fork)
   * [CORS anywhere development proxy](#cors-anywhere-development-proxy)
 
 ## create-react-app related
@@ -134,6 +135,28 @@ Also, when the app is ran inside cypress, the calls to outside are proxied by cy
 You can't manually set this header, you'll have the following error: `Refused to set unsafe header "Origin"`
 
 Since the CORS proxies used in production ask for this origin header and it's missing when ran in cypress, we don't run through the CORS proxy when running tests in cypress with a production build - see [src/services/apis/index.js](src/services/apis/index.js).
+
+### Cypress record on CI with pull requests from a fork
+
+> A pull request sent from a fork of the upstream repository could be manipulated to expose environment variables.
+> Travis CI makes encrypted variables and data available only to pull requests coming from the same repository. These are considered trustworthy, as only members with write access to the repository can send them.
+> Pull requests sent from forked repositories do not have access to encrypted variables or data.
+
+[Sources on travis-ci.org](https://docs.travis-ci.com/user/pull-requests/#Pull-Requests-and-Security-Restrictions)
+
+Since cypress needs a record key passed as an environment value, on PRs from forks, you would come against the following error:
+
+```
+You passed the --record flag but did not provide us your Record Key.
+You can pass us your Record Key like this:
+  cypress run --record --key <record_key>
+You can also set the key as an environment variable with the name CYPRESS_RECORD_KEY.
+https://on.cypress.io/how-do-i-record-runs
+```
+
+[Example of build failing](https://travis-ci.org/topheman/npm-registry-browser/builds/366468341)
+
+To avoid that, [I disable the record on PRs](.travis.yml).
 
 ### CORS anywhere development proxy
 

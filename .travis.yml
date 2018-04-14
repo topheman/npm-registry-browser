@@ -5,4 +5,4 @@ node_js:
 install: npm install
 script:
   - npm run lint
-  - npm run test:travis
+  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && npm run test:travis || npm run test:travis:pr'
