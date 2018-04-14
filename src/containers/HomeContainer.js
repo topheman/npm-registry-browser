@@ -126,7 +126,7 @@ const Home = ({ classes }) => {
         </a>.
       </p>
       <p className={classes.explainChips}>
-        Use the serch engine to find a package{" "}
+        Use the search engine to find a package{" "}
         <span role="img" aria-label="look up">
           👆
         </span>
