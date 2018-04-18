@@ -38,6 +38,11 @@ Here's a list of some of the technologies I'm using:
 
 I took some notes along the way, they are available [here](NOTES.md).
 
+## Prerequisites
+
+* Nodejs v8
+* npm v5
+
 ## Install
 
 ```shell
@@ -77,6 +82,8 @@ The following command will run both unit and e2e (cypress) tests.
 ```shell
 npm test
 ```
+
+Check out [Error npm test on MacOs Sierra](NOTES.md#error-npm-test-on-macos-sierra) if you're experimenting some troubles.
 
 You can choose to run them separately.
 
@@ -160,6 +167,12 @@ Each `git push` triggers a test suite on [travis](https://travis-ci.org/topheman
 * end to end test with cypress
 
 The end to end test sessions are recorded, you can check them [here](https://dashboard.cypress.io/#/projects/8r5nf4/runs).
+
+## Commit guidelines
+
+To have uniform commit messages, I follow the [AngularJS git commit guidelines](https://github.com/angular/angular.js/blob/master/CONTRIBUTING.md#-git-commit-guidelines), please take a look at it.
+
+It also makes it easier to generate changelogs.
 
 ## Advanced
 
