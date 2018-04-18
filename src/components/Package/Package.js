@@ -99,13 +99,6 @@ const Package = ({
             packageInfos.versions[version].description) ||
             "\u00A0"}
         </Typography>
-        <Typography>
-          {(packageInfos &&
-            packageInfos.time &&
-            packageInfos.time[version] &&
-            new Date(packageInfos.time[version]).toLocaleDateString()) ||
-            "\u00A0"}
-        </Typography>
       </Fragment>
     </header>
     <aside className={classes.areaAside}>

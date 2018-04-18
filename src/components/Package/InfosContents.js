@@ -53,6 +53,13 @@ const InfosContent = ({ packageInfos, version, classes, className, style }) => {
           <strong>v{version}</strong> published <i>{datePublishedRelative}</i>
         </div>
       )}
+      <Typography style={{ textAlign: "right" }}>
+        {(packageInfos &&
+          packageInfos.time &&
+          packageInfos.time[version] &&
+          new Date(packageInfos.time[version]).toLocaleDateString()) ||
+          "\u00A0"}
+      </Typography>
       {licenseInfos && (
         <div className={`${classes.licence} ${classes.block}`}>
           <Typography variant="subheading">License</Typography>
