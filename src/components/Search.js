@@ -58,7 +58,8 @@ const styles = theme => ({
   },
   item: {
     padding: "8px 16px",
-    borderBottom: "1px solid #ececec"
+    borderBottom: "1px solid #ececec",
+    cursor: "pointer"
   },
   safeItem: {
     maxWidth: "80%",
