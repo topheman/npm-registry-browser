@@ -24,6 +24,9 @@ const styles = theme => ({
     [theme.breakpoints.up("md")]: {
       maxWidth: "64vw" // adjust for regular screens
     },
+    [theme.breakpoints.up("xl")]: {
+      maxWidth: "53vw" // adjust for very-wide screens
+    },
     wordBreak: "normal",
     overflow: "auto"
   }
