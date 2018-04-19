@@ -93,6 +93,28 @@ class Search extends Component {
     this.state = { items: [], inputValue: "" };
     this.inputEl = null;
   }
+  componentDidMount() {
+    window.addEventListener("touchstart", this.blurInputOnTouchOut, false);
+  }
+  componentWillUnmount() {
+    window.removeEventListener("touchstart", this.blurInputOnTouchOut);
+  }
+  /**
+   * On iOs, clicking out doesn't blur the search field (neither close the search dropdown)
+   * This fixes it
+   */
+  blurInputOnTouchOut = event => {
+    // go up the DOM tree from the touch to check if we are in the dropdown
+    const ulAncestor = event.target.closest("ul") || { dataset: { type: {} } };
+    // only trigger blur if touch not in input or in dropdown
+    if (
+      this.inputEl &&
+      event.target !== this.inputEl &&
+      ulAncestor.dataset.type !== "search-results"
+    ) {
+      this.inputEl.blur();
+    }
+  };
   debouncedSearch = debounce(
     value =>
       this.props
@@ -162,7 +184,7 @@ class Search extends Component {
               })}
             />
             {["loading", "error"].includes(state) && (
-              <ul className={classes.itemsWrapper}>
+              <ul className={classes.itemsWrapper} data-type="search-results">
                 <li
                   data-testid="search-loading-indicator"
                   className={classes.item}
@@ -189,7 +211,7 @@ class Search extends Component {
               state === "loaded" &&
               items &&
               items.length > 0 && (
-                <ul className={classes.itemsWrapper}>
+                <ul className={classes.itemsWrapper} data-type="search-results">
                   {items.map((item, index) => (
                     <li
                       data-testid={`search-result-${index}`}
