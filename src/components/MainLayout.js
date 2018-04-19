@@ -22,7 +22,15 @@ const styles = theme => ({
   },
   content: {
     margin: "0px auto",
-    maxWidth: "1180px"
+    [theme.breakpoints.up("xs")]: {
+      maxWidth: "1180px" // adjust for regular and small screens (default fixed maxWidth)
+    },
+    [theme.breakpoints.up("lg")]: {
+      maxWidth: "90vw" // adjust for wide screens
+    },
+    [theme.breakpoints.up("xl")]: {
+      maxWidth: "70vw" // adjust for very-wide screens
+    }
   },
   mockWarning: {
     position: "fixed",
