@@ -31,7 +31,7 @@ const styles = theme => ({
     wordBreak: "break-word", // revent long word from overflowing the layout
     "& pre": {
       wordBreak: "normal",
-      overflow: "scroll"
+      overflow: "auto"
     },
     "& code": {
       fontSize: "1.1em"
