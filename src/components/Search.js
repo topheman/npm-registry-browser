@@ -165,13 +165,21 @@ class Search extends Component {
                 placeholder: "Search packages",
                 onChange: event => {
                   const value = event.target.value;
-                  this.setState(
-                    {
+                  // the API only answer to queries with 2 chars or more
+                  if (value.length > 1) {
+                    this.setState(
+                      {
+                        inputValue: value, // keep track of the value of the input
+                        state: "loading"
+                      },
+                      () => this.debouncedSearch(value)
+                    );
+                  } else {
+                    this.setState({
                       inputValue: value, // keep track of the value of the input
-                      state: "loading"
-                    },
-                    () => this.debouncedSearch(value)
-                  );
+                      items: []
+                    });
+                  }
                 },
                 onFocus: () => {
                   // on mobile, the keyboard will pop up. Give it some space
