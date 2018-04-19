@@ -25,7 +25,7 @@ const styles = theme => ({
       maxWidth: "64vw" // adjust for regular screens
     },
     wordBreak: "normal",
-    overflow: "scroll"
+    overflow: "auto"
   }
 });
 
