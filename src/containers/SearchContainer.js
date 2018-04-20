@@ -2,11 +2,18 @@ import React from "react";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
 
-import { apiNpmRegistry } from "../services/apis";
+import { apiNpmsIo } from "../services/apis";
 import Search from "../components/Search";
 
-const compileSearchPackage = registryClient => value =>
-  registryClient.search(value).then(({ results }) => results);
+/**
+ * You can pass the following (they are switchable - take same args + return same shape of objects):
+ * - apiNpmRegistry().search
+ * - apiNpmsIo().suggestions
+ *
+ * @param {Function} search function from the API
+ */
+const compileSearchPackage = searchApi => value =>
+  searchApi(value).then(({ results }) => results);
 
 const compileGoToPackage = history => packageName =>
   history.push(`/package/${packageName}`);
@@ -14,7 +21,7 @@ const compileGoToPackage = history => packageName =>
 const SearchContainer = ({ history, className, style }) => (
   <div className={className} style={style}>
     <Search
-      fetchInfos={compileSearchPackage(apiNpmRegistry())}
+      fetchInfos={compileSearchPackage(apiNpmsIo().suggestions)}
       goToPackage={compileGoToPackage(history)}
     />
   </div>

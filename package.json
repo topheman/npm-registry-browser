@@ -52,9 +52,9 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "dev": "npm start",
-    "dev:mock": "echo 'Mock mode' && cross-env REACT_APP_NPM_REGISTRY_API_MOCKS_ENABLED=true REACT_APP_NPM_API_MOCKS_ENABLED=true npm start",
+    "dev:mock": "echo 'Mock mode' && cross-env REACT_APP_NPM_REGISTRY_API_MOCKS_ENABLED=true REACT_APP_NPM_API_MOCKS_ENABLED=true REACT_APP_NPMS_IO_API_MOCKS_ENABLED=true npm start",
     "build": "react-scripts --require ./bin/expand-metadatas.js build",
-    "build:mock": "echo 'Mock mode' && cross-env REACT_APP_NPM_REGISTRY_API_MOCKS_ENABLED=true REACT_APP_NPM_API_MOCKS_ENABLED=true npm run build",
+    "build:mock": "echo 'Mock mode' && cross-env REACT_APP_NPM_REGISTRY_API_MOCKS_ENABLED=true REACT_APP_NPM_API_MOCKS_ENABLED=true REACT_APP_NPMS_IO_API_MOCKS_ENABLED=true npm run build",
     "test": "npm-run-all --parallel --silent test:unit test:cypress",
     "test:travis": "npm-run-all --parallel --silent test:unit test:cypress:travis",
     "test:travis:pr": "npm test",
@@ -118,6 +118,13 @@
       "changeOrigin": true,
       "pathRewrite": {
         "^/api/npm-api": ""
+      }
+    },
+    "/api/npms-io": {
+      "target": "https://api.npms.io",
+      "changeOrigin": true,
+      "pathRewrite": {
+        "^/api/npms-io": ""
       }
     }
   },

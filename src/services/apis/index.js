@@ -7,7 +7,11 @@
 
 import { configure, getInstance } from "./apiManager";
 
-import { TARGET_API_NPM_API, TARGET_API_NPM_REGISTRY } from "./constants";
+import {
+  TARGET_API_NPM_API,
+  TARGET_API_NPM_REGISTRY,
+  TARGET_API_NPMS_IO
+} from "./constants";
 
 /**
  * Make scoped packages names safe
@@ -40,6 +44,14 @@ const decorateNpmApi = ({ client /* , cache, key */ }) => ({
   downloads: (name, range = "last-month") => {
     const query = "/downloads/range/" + range + "/" + encodePackageName(name);
     return client.get(query).then(({ data }) => data);
+  }
+});
+
+const decorateNpmsIoApi = ({ client /* , cache, key */ }) => ({
+  suggestions: value => {
+    const query = `/v2/search/suggestions?q=${encodeURIComponent(value)}`;
+    // return the same shape of object as npmRegistryApi#search (so that they could be interchangeable)
+    return client.get(query).then(({ data }) => ({ results: data }));
   }
 });
 
@@ -121,6 +133,35 @@ const config = {
         }
       ]
     }
+  },
+  [TARGET_API_NPMS_IO]: {
+    httpClientBaseConfig: {
+      timeout: Number(process.env.REACT_APP_NPMS_IO_API_TIMEOUT),
+      baseURL: cypressStripBaseUrlFromCorsProxy(
+        process.env.REACT_APP_NPMS_IO_API_BASE_URL
+      )
+    },
+    managerConfig: {
+      decorateApi: decorateNpmsIoApi,
+      isCacheEnabled:
+        process.env.REACT_APP_NPMS_IO_API_CACHE_ENABLED === "true",
+      mocks:
+        process.env.REACT_APP_NPMS_IO_API_MOCKS_ENABLED === "true"
+          ? [].concat(require("./mocks/npmsIo.fixtures.json"))
+          : undefined,
+      makeMockedClient:
+        process.env.REACT_APP_NPMS_IO_API_MOCKS_ENABLED === "true"
+          ? require("./httpClientMock").makeMockedClient
+          : undefined,
+      preprocessMocking: ([status, response, headers] /* , config */) => [
+        status,
+        response,
+        {
+          ...headers,
+          Date: new Date().toString() // adjust date header
+        }
+      ]
+    }
   }
 };
 
@@ -129,3 +170,5 @@ export const init = () => configure(config);
 export const apiNpmRegistry = () => getInstance(TARGET_API_NPM_REGISTRY);
 
 export const apiNpmApi = () => getInstance(TARGET_API_NPM_API);
+
+export const apiNpmsIo = () => getInstance(TARGET_API_NPMS_IO);

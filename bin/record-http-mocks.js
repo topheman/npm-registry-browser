@@ -17,7 +17,8 @@ const path = require("path");
 const { recordAll } = require("./lib/record-http-mocks");
 const {
   TARGET_API_NPM_API,
-  TARGET_API_NPM_REGISTRY
+  TARGET_API_NPM_REGISTRY,
+  TARGET_API_NPMS_IO
 } = require("../src/services/apis/constants");
 
 const recordConfig = {
@@ -45,6 +46,7 @@ const recordConfig = {
       "..",
       "src",
       "services",
+      "apis",
       "mocks",
       `${TARGET_API_NPM_REGISTRY}.fixtures.json`
     )
@@ -62,8 +64,33 @@ const recordConfig = {
       "..",
       "src",
       "services",
+      "apis",
       "mocks",
       `${TARGET_API_NPM_API}.fixtures.json`
+    )
+  },
+  [TARGET_API_NPMS_IO]: {
+    config: {
+      baseURL: process.env.REACT_APP_NPMS_IO_API_BASE_URL
+    },
+    requests: [
+      {
+        url: "/v2/search/suggestions?q=react",
+        match: "/v2/search/suggestions\\?q=react(\\.*)"
+      },
+      {
+        url: "/v2/search/suggestions?q=%40angular",
+        match: "/v2/search/suggestions\\?q=%40angular(\\.*)"
+      }
+    ],
+    outputPath: path.join(
+      __dirname,
+      "..",
+      "src",
+      "services",
+      "apis",
+      "mocks",
+      `${TARGET_API_NPMS_IO}.fixtures.json`
     )
   }
 };
