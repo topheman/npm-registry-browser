@@ -81,7 +81,7 @@ class PackageContainer extends Component {
   async loadRegistryInfos(scope, name, range) {
     this.setState({ stateNpmRegistry: "loading" });
     try {
-      const { data: packageInfos } = await apiNpmRegistry().packageInfos(
+      const packageInfos = await apiNpmRegistry().packageInfos(
         formatPackageString({ scope, name })
       );
       console.log(packageInfos.name, "packageInfos", packageInfos);
@@ -103,7 +103,7 @@ class PackageContainer extends Component {
   async loadApiInfos(scope, name) {
     this.setState({ stateNpmApi: "loading" });
     try {
-      const { data: downloads } = await apiNpmApi().downloads(
+      const downloads = await apiNpmApi().downloads(
         formatPackageString({ scope, name }),
         "last-year"
       );

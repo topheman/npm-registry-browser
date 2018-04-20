@@ -19,7 +19,7 @@ const decorateNpmRegistryApi = ({ client /* , cache, key */ }) => ({
     const query =
       encodePackageName(name) +
       (typeof version !== "undefined" ? `/${version}` : "");
-    return client.get(query);
+    return client.get(query).then(({ data }) => data);
   },
   search: value => {
     const query = `/-/v1/search?text=${encodeURIComponent(value)}`;
@@ -39,7 +39,7 @@ const decorateNpmRegistryApi = ({ client /* , cache, key */ }) => ({
 const decorateNpmApi = ({ client /* , cache, key */ }) => ({
   downloads: (name, range = "last-month") => {
     const query = "/downloads/range/" + range + "/" + encodePackageName(name);
-    return client.get(query);
+    return client.get(query).then(({ data }) => data);
   }
 });
 
