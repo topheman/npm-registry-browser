@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { withStyles } from "material-ui/styles";
 import List, { ListItem, ListItemIcon, ListItemText } from "material-ui/List";
 import Divider from "material-ui/Divider";
+import CloseIcon from "@material-ui/icons/Close";
 import HomeIcon from "@material-ui/icons/Home";
 import MuiDrawer from "material-ui/Drawer";
 
@@ -10,6 +11,13 @@ import twitterIcon from "../assets/images/twitter-retina.png";
 import githubIcon from "../assets/images/github-retina.png";
 
 const styles = {
+  closeIcon: {
+    cursor: "pointer",
+    color: "gray",
+    "&:hover": {
+      color: "black"
+    }
+  },
   svgColor: {
     fill: "#900000"
   },
@@ -31,6 +39,9 @@ const MainDrawer = ({ classes, anchor, open, onClose }) => {
       }
     >
       <List component="nav">
+        <ListItem>
+          <CloseIcon className={classes.closeIcon} aria-label="Close" />
+        </ListItem>
         <ListItem>
           <ListItemText primary="npm-registry-browser" />
         </ListItem>
@@ -75,7 +86,13 @@ const MainDrawer = ({ classes, anchor, open, onClose }) => {
 
   return (
     <MuiDrawer anchor={anchor} open={open} onClose={onClose}>
-      <div tabIndex={0} role="button" onClick={onClose} onKeyDown={onClose}>
+      <div
+        tabIndex={0}
+        role="button"
+        onClick={onClose}
+        onKeyDown={onClose}
+        style={{ outline: "0px" }}
+      >
         {sideList}
       </div>
     </MuiDrawer>
