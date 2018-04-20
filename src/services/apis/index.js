@@ -23,7 +23,16 @@ const decorateNpmRegistryApi = ({ client /* , cache, key */ }) => ({
   },
   search: value => {
     const query = `/-/v1/search?text=${encodeURIComponent(value)}`;
-    return client.get(query);
+    return client.get(query).then(({ data }) => {
+      const { objects: results, ...remainingAttributes } = data;
+      return {
+        results: (results || []).map(result => ({
+          ...result,
+          highlight: result.package.name.replace(value, `<em>${value}</em>`)
+        })),
+        ...remainingAttributes
+      };
+    });
   }
 });
 

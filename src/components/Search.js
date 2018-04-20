@@ -67,7 +67,13 @@ const styles = theme => ({
     whiteSpace: "nowrap",
     textOverflow: "ellipsis"
   },
-  itemName: {},
+  itemName: {
+    fontWeight: "bold",
+    "& > em": {
+      fontWeight: "normal",
+      fontStyle: "normal"
+    }
+  },
   itemDescription: {},
   itemVersion: {
     textAlign: "right",
@@ -136,7 +142,7 @@ class Search extends Component {
     const { inputValue, items, state } = this.state;
     return (
       <Downshift
-        itemToString={item => (item && item.name) || ""}
+        itemToString={item => (item && item.package && item.package.name) || ""}
         onChange={item => {
           this.setState({
             inputValue: "" // reset the value of the controlled input
@@ -144,7 +150,7 @@ class Search extends Component {
           if (this.inputEl) {
             this.inputEl.blur();
           }
-          goToPackage(item.name);
+          goToPackage(item.package.name);
         }}
         render={({
           selectedItem,
@@ -223,7 +229,7 @@ class Search extends Component {
                   {items.map((item, index) => (
                     <li
                       data-testid={`search-result-${index}`}
-                      key={item.name}
+                      key={item.package.name}
                       className={classes.item}
                       {...getItemProps({
                         item,
@@ -237,18 +243,17 @@ class Search extends Component {
                       <Typography
                         variant="subheading"
                         className={`${classes.itemName} ${classes.safeItem}`}
-                      >
-                        {item.name}
-                      </Typography>
+                        dangerouslySetInnerHTML={{ __html: item.highlight }}
+                      />
                       <Typography
                         className={`${classes.itemDescription} ${
                           classes.safeItem
                         }`}
                       >
-                        {item.description}
+                        {item.package.description}
                       </Typography>
                       <Typography className={classes.itemVersion}>
-                        {item.version}
+                        {item.package.version}
                       </Typography>
                     </li>
                   ))}

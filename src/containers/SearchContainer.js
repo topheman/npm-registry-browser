@@ -6,12 +6,7 @@ import { apiNpmRegistry } from "../services/apis";
 import Search from "../components/Search";
 
 const compileSearchPackage = registryClient => value =>
-  registryClient.search(value).then(({ data }) => {
-    if (data && data.objects && data.objects.length > 0) {
-      return data.objects.map(item => item.package);
-    }
-    return [];
-  });
+  registryClient.search(value).then(({ results }) => results);
 
 const compileGoToPackage = history => packageName =>
   history.push(`/package/${packageName}`);
