@@ -45,16 +45,9 @@ const styles = theme => ({
     left: 0,
     right: 0,
     border: "1px solid rgba(34,36,38,.15)",
-    overflowY: "scroll",
-    [theme.breakpoints.down("sm")]: {
-      maxHeight: 200
-    },
-    [theme.breakpoints.up("sm")]: {
-      maxHeight: 450
-    },
-    "& li:last-child": {
-      border: 0
-    }
+    boxShadow: theme.shadows[1]
+    // overflowY: "scroll", // this style is set inline based on props.isMobile
+    // maxHeight: 450, // this style is set inline based on props.isMobile
   },
   item: {
     padding: "8px 16px",
@@ -124,7 +117,7 @@ class Search extends Component {
   debouncedSearch = debounce(
     value =>
       this.props
-        .fetchInfos(value)
+        .fetchInfos(value, { size: this.props.isMobile ? 10 : undefined }) // limit results on mobile
         .then(items => {
           this.setState({ items, state: "loaded" });
         })
@@ -138,7 +131,7 @@ class Search extends Component {
     300
   );
   render() {
-    const { goToPackage, windowInfos, classes, theme } = this.props;
+    const { goToPackage, windowInfos, classes, theme, isMobile } = this.props;
     const { inputValue, items, state } = this.state;
     return (
       <Downshift
@@ -225,7 +218,14 @@ class Search extends Component {
               state === "loaded" &&
               items &&
               items.length > 0 && (
-                <ul className={classes.itemsWrapper} data-type="search-results">
+                <ul
+                  className={classes.itemsWrapper}
+                  data-type="search-results"
+                  style={{
+                    overflowY: isMobile ? "visible" : "scroll",
+                    maxHeight: isMobile ? "none" : 450
+                  }}
+                >
                   {items.map((item, index) => (
                     <li
                       data-testid={`search-result-${index}`}
@@ -269,6 +269,7 @@ class Search extends Component {
 Search.propTypes = {
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
+  isMobile: PropTypes.bool.isRequired,
   fetchInfos: PropTypes.func.isRequired,
   goToPackage: PropTypes.func.isRequired,
   windowInfos: PropTypes.object.isRequired

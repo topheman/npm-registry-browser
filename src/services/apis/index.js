@@ -25,8 +25,15 @@ const decorateNpmRegistryApi = ({ client /* , cache, key */ }) => ({
       (typeof version !== "undefined" ? `/${version}` : "");
     return client.get(query).then(({ data }) => data);
   },
-  search: value => {
-    const query = `/-/v1/search?text=${encodeURIComponent(value)}`;
+  /**
+   * @param {String} value to search
+   * @param {Object} [options]
+   * @param {Number} [options.size] To limit the number of results
+   */
+  search: (value, { size } = {}) => {
+    const query = `/-/v1/search?text=${encodeURIComponent(value)}${
+      size ? `&size=${size}` : ""
+    }`;
     return client.get(query).then(({ data }) => {
       const { objects: results, ...remainingAttributes } = data;
       return {
@@ -48,8 +55,15 @@ const decorateNpmApi = ({ client /* , cache, key */ }) => ({
 });
 
 const decorateNpmsIoApi = ({ client /* , cache, key */ }) => ({
-  suggestions: value => {
-    const query = `/v2/search/suggestions?q=${encodeURIComponent(value)}`;
+  /**
+   * @param {String} value to search
+   * @param {Object} [options]
+   * @param {Number} [options.size] To limit the number of results
+   */
+  suggestions: (value, { size } = {}) => {
+    const query = `/v2/search/suggestions?q=${encodeURIComponent(value)}${
+      size ? `&size=${size}` : ""
+    }`;
     // return the same shape of object as npmRegistryApi#search (so that they could be interchangeable)
     return client.get(query).then(({ data }) => ({ results: data }));
   }

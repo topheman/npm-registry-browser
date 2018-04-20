@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
 
+import { isMobile } from "../utils/helpers";
 import { apiNpmsIo } from "../services/apis";
 import Search from "../components/Search";
 
@@ -12,8 +13,8 @@ import Search from "../components/Search";
  *
  * @param {Function} search function from the API
  */
-const compileSearchPackage = searchApi => value =>
-  searchApi(value).then(({ results }) => results);
+const compileSearchPackage = searchApi => (...args) =>
+  searchApi(...args).then(({ results }) => results);
 
 const compileGoToPackage = history => packageName =>
   history.push(`/package/${packageName}`);
@@ -21,6 +22,7 @@ const compileGoToPackage = history => packageName =>
 const SearchContainer = ({ history, className, style }) => (
   <div className={className} style={style}>
     <Search
+      isMobile={isMobile(navigator && navigator.userAgent)}
       fetchInfos={compileSearchPackage(apiNpmsIo().suggestions)}
       goToPackage={compileGoToPackage(history)}
     />

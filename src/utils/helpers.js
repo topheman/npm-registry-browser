@@ -20,3 +20,15 @@ export function debounce(func, wait, immediate) {
     }
   };
 }
+
+/**
+ * Very simple utility to detect mobile based on userAgent
+ * If you need to cover 100% of use-case, install a library (userAgent is not completly reliable)
+ *
+ * @param {String} userAgent from navigator.userAgent
+ */
+export function isMobile(userAgent) {
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+    userAgent
+  );
+}
