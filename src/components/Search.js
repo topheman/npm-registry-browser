@@ -68,9 +68,9 @@ const styles = theme => ({
     textOverflow: "ellipsis"
   },
   itemName: {
-    fontWeight: "bold",
+    fontWeight: 500,
     "& > em": {
-      fontWeight: "normal",
+      fontWeight: "bold",
       fontStyle: "normal"
     }
   },
