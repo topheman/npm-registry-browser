@@ -24,8 +24,9 @@ const Footer = ({ classes, fromFullYear, toFullYear }) => (
       Rosset - v{process.env.REACT_APP_METADATAS_VERSION}
     </p>
     <p>
-      All data comes directly from <a href="https://www.npmjs.com/">npm</a> /
-      This project is not affiliated with npm, Inc. in any way.
+      All data comes from <a href="https://www.npmjs.com/">npm</a> &amp;{" "}
+      <a href="https://npms.io/">npms</a> / This project is not affiliated with
+      npm, Inc. in any way.
     </p>
     <p>
       <TwitterButton
