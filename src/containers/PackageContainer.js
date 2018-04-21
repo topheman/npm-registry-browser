@@ -7,6 +7,7 @@ import { formatPackageString } from "../utils/string";
 import { apiNpmApi, apiNpmRegistry } from "../services/apis";
 
 import Package from "../components/Package";
+import NotFound from "../components/Package/NotFound";
 
 class PackageContainer extends Component {
   static propTypes = {
@@ -97,7 +98,14 @@ class PackageContainer extends Component {
       }
     } catch (e) {
       console.error(e);
-      this.setState({ packageInfos: null, stateNpmRegistry: "error" });
+      if (e.response && e.response.status === 404) {
+        this.setState({
+          packageInfos: null,
+          stateNpmRegistry: "errorNotFound"
+        });
+      } else {
+        this.setState({ packageInfos: null, stateNpmRegistry: "error" });
+      }
     }
   }
   async loadApiInfos(scope, name) {
@@ -124,6 +132,9 @@ class PackageContainer extends Component {
       packageInfos,
       downloads
     } = this.state;
+    if (stateNpmRegistry === "errorNotFound") {
+      return <NotFound packageName={formatPackageString({ scope, name })} />;
+    }
     return (
       <Package
         {...{
