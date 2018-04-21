@@ -118,11 +118,28 @@ const Home = ({ classes }) => {
         </a>.
       </p>
       <p>
+        <span role="img" aria-label="Notebook">
+          📔
+        </span>{" "}
         <a
           href="http://dev.topheman.com/project-to-help-getting-into-making-react-apps/"
           title="Why I made this project"
         >
           Read the blog post where I explain why I made the project
+        </a>.
+      </p>
+      <p>
+        <span role="img" aria-label="TV">
+          📺
+        </span>{" "}
+        <a
+          href="http://dev.topheman.com/pourquoi-realiser-topheman-npm-registry-browser-video-talk/"
+          title="Video of the talk about why I made this project"
+        >
+          Watch the video of the talk{" "}
+          <span role="img" aria-label="FR">
+            🇫🇷
+          </span>
         </a>.
       </p>
       <p className={classes.explainChips}>
