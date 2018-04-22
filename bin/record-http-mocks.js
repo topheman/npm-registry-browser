@@ -74,6 +74,8 @@ const recordConfig = {
       baseURL: process.env.REACT_APP_NPMS_IO_API_BASE_URL
     },
     requests: [
+      "/v2/search?q=react",
+      "/v2/search?q=%40angular",
       {
         url: "/v2/search/suggestions?q=react",
         match: "/v2/search/suggestions\\?q=react(\\.*)"
