@@ -1,0 +1,24 @@
+import React from "react";
+import PropTypes from "prop-types";
+
+import SearchResultItem from "./SearchResultItem";
+
+const SearchResults = ({ results, total }) => (
+  <div style={{ marginTop: "20px" }}>
+    {results.map(result => (
+      <SearchResultItem key={result.package.name} {...result} />
+    ))}
+    {total && total > results.length && <div>...</div>}
+  </div>
+);
+
+SearchResults.propTypes = {
+  total: PropTypes.number,
+  results: PropTypes.array.isRequired
+};
+
+SearchResults.defaultProps = {
+  total: undefined
+};
+
+export default SearchResults;
