@@ -205,17 +205,16 @@ class Search extends Component {
                   placeholder: "Search packages",
                   onKeyDown: event => {
                     // when type enter inside text input : go to search results and close menu
-                    if (
-                      event.key === "Enter" &&
-                      highlightedIndex === null &&
-                      event.target.value !== ""
-                    ) {
+                    if (event.key === "Enter" && highlightedIndex === null) {
                       event.preventDefault(); // prevent submitting the form
-                      if (isMobile) {
-                        event.target.blur();
+                      // only go to search results if any value is set
+                      if (event.target.value !== "") {
+                        if (isMobile) {
+                          event.target.blur();
+                        }
+                        closeMenu();
+                        goToSearchResults(event.target.value);
                       }
-                      closeMenu();
-                      goToSearchResults(event.target.value);
                     }
                   },
                   onChange: event => {

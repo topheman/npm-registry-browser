@@ -1,15 +1,28 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
+import { LinearProgress } from "material-ui/Progress";
+import { withStyles } from "material-ui/styles";
 
 import { apiNpmsIo } from "../services/apis";
 import { parseQueryString } from "../utils/url";
 
 import SearchResults from "../components/SearchResults";
 
+const styles = {
+  progressWrapper: {
+    position: "fixed",
+    top: "0px",
+    left: "0px",
+    zIndex: 1101 // the header has a z-index
+  },
+  progress: { width: "100vw" }
+};
+
 class SearchResultsContainer extends Component {
   static propTypes = {
-    location: PropTypes.object.isRequired
+    location: PropTypes.object.isRequired,
+    classes: PropTypes.object.isRequired
   };
   /**
    * Track props.location.search and save it internally in state.search
@@ -20,7 +33,8 @@ class SearchResultsContainer extends Component {
     if (nextProps.location.search !== prevState.search) {
       return {
         search: nextProps.location.search,
-        state: "loading"
+        state:
+          nextProps.location.search.length > 0 ? "loading" : prevState.state // dont launch fetch until there is a query specified
       };
     }
     return null; // the new props do not require state updates
@@ -32,7 +46,9 @@ class SearchResultsContainer extends Component {
     total: null
   };
   componentDidMount() {
-    this.fetchSearchResults(this.retrieveSearchQuery());
+    if (this.state.state === "loading") {
+      this.fetchSearchResults(this.retrieveSearchQuery());
+    }
   }
   componentDidUpdate() {
     if (this.state.state === "loading") {
@@ -60,11 +76,19 @@ class SearchResultsContainer extends Component {
     }
   }
   render() {
-    console.log(this.state.results);
+    const { state: loadingState, results, total } = this.state;
+    const { classes } = this.props;
     return (
-      <SearchResults results={this.state.results} total={this.state.total} />
+      <Fragment>
+        {loadingState === "loading" && (
+          <div className={classes.progressWrapper}>
+            <LinearProgress className={classes.progress} />
+          </div>
+        )}
+        <SearchResults results={results} total={total} />
+      </Fragment>
     );
   }
 }
 
-export default withRouter(SearchResultsContainer);
+export default withRouter(withStyles(styles)(SearchResultsContainer));
