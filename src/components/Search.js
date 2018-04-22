@@ -34,8 +34,9 @@ const styles = theme => ({
     fontSize: "1.1rem",
     fontWeight: 500,
     fontFamily: `"Roboto", "Arial", sans-serif`,
-    borderRadius: 5,
-    outline: "none"
+    borderRadius: "5px",
+    outline: "none",
+    "-webkit-appearance": "none" // remove weird border radius on iOs devices
   },
   itemsWrapper: {
     padding: 0,
@@ -50,6 +51,7 @@ const styles = theme => ({
     // maxHeight: 450, // this style is set inline based on props.isMobile
   },
   item: {
+    listStyle: "none",
     padding: "8px 16px",
     borderBottom: "1px solid #ececec",
     cursor: "pointer"
@@ -87,6 +89,22 @@ const styles = theme => ({
 });
 
 class Search extends Component {
+  /**
+   * That way, state.inputValue can have its own internal state and sometimes,
+   * when props.searchQuery changes from the parent, it can change with it.
+   *
+   * Track props.searchQuery and update our internal state.searchQuery
+   * that way, if we have state.searchQuery in componentDidUpdate,
+   * we need to update the state.inputValue
+   */
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.searchQuery !== prevState.searchQuery) {
+      return {
+        searchQuery: nextProps.searchQuery
+      };
+    }
+    return null; // the new props do not require state updates
+  }
   constructor(props) {
     super(props);
     this.state = { items: [], inputValue: "" };
@@ -95,8 +113,20 @@ class Search extends Component {
   componentDidMount() {
     window.addEventListener("touchstart", this.blurInputOnTouchOut, false);
   }
+  componentDidUpdate() {
+    // update state.inputValue when props.searchQuery changes (see getDerivedStateFromProps above)
+    if (this.state.searchQuery !== null) {
+      this.updateInputeValueWithSearchQuery();
+    }
+  }
   componentWillUnmount() {
     window.removeEventListener("touchstart", this.blurInputOnTouchOut);
+  }
+  updateInputeValueWithSearchQuery() {
+    this.setState({
+      inputValue: this.state.searchQuery,
+      searchQuery: null
+    });
   }
   /**
    * On iOs, clicking out doesn't blur the search field (neither close the search dropdown)
@@ -131,7 +161,14 @@ class Search extends Component {
     300
   );
   render() {
-    const { goToPackage, windowInfos, classes, theme, isMobile } = this.props;
+    const {
+      goToPackage,
+      goToSearchResults,
+      windowInfos,
+      classes,
+      theme,
+      isMobile
+    } = this.props;
     const { inputValue, items, state } = this.state;
     return (
       <Downshift
@@ -150,52 +187,72 @@ class Search extends Component {
           getInputProps,
           getItemProps,
           highlightedIndex,
-          isOpen
+          isOpen,
+          closeMenu
         }) => (
           <div className={classes.rootWrapper}>
-            <input
-              data-testid="search-input"
-              ref={node => {
-                this.inputEl = node;
-              }}
-              className={classes.input}
-              {...getInputProps({
-                value: inputValue,
-                placeholder: "Search packages",
-                onChange: event => {
-                  const value = event.target.value;
-                  // the API only answer to queries with 2 chars or more
-                  if (value.length > 1) {
-                    this.setState(
-                      {
+            {/* To have a "Search" button on mobile virtual keyboards */}
+            <form action=".">
+              <input
+                data-testid="search-input"
+                ref={node => {
+                  this.inputEl = node;
+                }}
+                className={classes.input}
+                {...getInputProps({
+                  type: "search",
+                  value: inputValue,
+                  placeholder: "Search packages",
+                  onKeyDown: event => {
+                    // when type enter inside text input : go to search results and close menu
+                    if (event.key === "Enter" && highlightedIndex === null) {
+                      event.preventDefault(); // prevent submitting the form
+                      // only go to search results if any value is set
+                      if (event.target.value !== "") {
+                        if (isMobile) {
+                          event.target.blur();
+                        }
+                        closeMenu();
+                        goToSearchResults(event.target.value);
+                      }
+                    }
+                  },
+                  onChange: event => {
+                    const value = event.target.value;
+                    // the API only answer to queries with 2 chars or more
+                    if (value.length > 1) {
+                      this.setState(
+                        {
+                          inputValue: value, // keep track of the value of the input
+                          state: "loading"
+                        },
+                        () => this.debouncedSearch(value)
+                      );
+                    } else {
+                      this.setState({
                         inputValue: value, // keep track of the value of the input
-                        state: "loading"
-                      },
-                      () => this.debouncedSearch(value)
-                    );
-                  } else {
-                    this.setState({
-                      inputValue: value, // keep track of the value of the input
-                      items: []
-                    });
+                        items: []
+                      });
+                    }
+                  },
+                  onFocus: () => {
+                    // on mobile, the keyboard will pop up. Give it some space
+                    if (windowInfos.windowWidth < theme.breakpoints.values.sm) {
+                      setTimeout(() => {
+                        animatedScrollTo(document.body, 75, 400);
+                      }, 75);
+                    }
                   }
-                },
-                onFocus: () => {
-                  // on mobile, the keyboard will pop up. Give it some space
-                  if (windowInfos.windowWidth < theme.breakpoints.values.sm) {
-                    setTimeout(() => {
-                      animatedScrollTo(document.body, 75, 400);
-                    }, 75);
-                  }
-                }
-              })}
-            />
+                })}
+              />
+            </form>
             {["loading", "error"].includes(state) && (
               <ul className={classes.itemsWrapper} data-type="search-results">
                 <li
                   data-testid="search-loading-indicator"
                   className={classes.item}
                   style={{
+                    marginTop: "20px",
                     backgroundColor: "white"
                   }}
                 >
@@ -272,6 +329,7 @@ Search.propTypes = {
   isMobile: PropTypes.bool.isRequired,
   fetchInfos: PropTypes.func.isRequired,
   goToPackage: PropTypes.func.isRequired,
+  goToSearchResults: PropTypes.func.isRequired,
   windowInfos: PropTypes.object.isRequired
 };
 

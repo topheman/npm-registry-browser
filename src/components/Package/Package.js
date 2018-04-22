@@ -6,6 +6,7 @@ import Paper from "material-ui/Paper";
 import Typography from "material-ui/Typography";
 
 import Title from "./Title";
+import KeywordsList from "../KeywordsList";
 import Readme from "./Readme";
 import VersionsTab from "./VersionsTab";
 import DependenciesTab from "./DependenciesTab";
@@ -44,7 +45,9 @@ const styles = theme => ({
   },
   areaHeader: {
     gridArea: "header",
-    paddingLeft: 0
+    paddingLeft: 0,
+    paddingBottom: 0,
+    marginBottom: 0
   },
   areaAside: {
     gridArea: "aside"
@@ -99,6 +102,11 @@ const Package = ({
             packageInfos.versions[version].description) ||
             "\u00A0"}
         </Typography>
+        {packageInfos &&
+          packageInfos.versions[version] &&
+          packageInfos.versions[version].keywords && (
+            <KeywordsList keywords={packageInfos.versions[version].keywords} />
+          )}
       </Fragment>
     </header>
     <aside className={classes.areaAside}>

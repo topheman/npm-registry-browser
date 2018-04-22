@@ -6,6 +6,7 @@ import MainLayout from "./components/MainLayout";
 // Containers that will be loaded by the router
 import HomeContainer from "./containers/HomeContainer";
 import PackageContainer from "./containers/PackageContainer";
+import SearchResultsContainer from "./containers/SearchResultsContainer";
 
 /**
  * Compiles a render method to pass to a Route that will redirect to "latest" version
@@ -53,6 +54,7 @@ const Routes = () => (
           path="/package/:name"
           render={compileRedirectToLatest(false)}
         />
+        <Route exact path="/search" component={SearchResultsContainer} />
       </Switch>
     </MainLayout>
   </HashRouter>

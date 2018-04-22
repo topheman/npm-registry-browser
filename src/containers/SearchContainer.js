@@ -4,6 +4,8 @@ import { withRouter } from "react-router-dom";
 
 import { isMobile } from "../utils/helpers";
 import { apiNpmsIo } from "../services/apis";
+import { parseQueryString } from "../utils/url";
+
 import Search from "../components/Search";
 
 /**
@@ -19,17 +21,23 @@ const compileSearchPackage = searchApi => (...args) =>
 const compileGoToPackage = history => packageName =>
   history.push(`/package/${packageName}`);
 
-const SearchContainer = ({ history, className, style }) => (
+const compileGoToSearchResults = history => searchValue =>
+  history.push(`/search?q=${searchValue}`);
+
+const SearchContainer = ({ history, location, className, style }) => (
   <div className={className} style={style}>
     <Search
+      searchQuery={parseQueryString(location.search).q || ""}
       isMobile={isMobile(navigator && navigator.userAgent)}
       fetchInfos={compileSearchPackage(apiNpmsIo().suggestions)}
       goToPackage={compileGoToPackage(history)}
+      goToSearchResults={compileGoToSearchResults(history)}
     />
   </div>
 );
 
 SearchContainer.propTypes = {
+  location: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
   className: PropTypes.string,
   style: PropTypes.object
