@@ -8,7 +8,10 @@ const SearchResults = ({ results, total }) => (
     {results.map(result => (
       <SearchResultItem key={result.package.name} {...result} />
     ))}
-    {total && total > results.length && <div>...</div>}
+    {results.length === 0 && (
+      <div style={{ textAlign: "center  " }}>No Results</div>
+    )}
+    {results.length > 0 && total && total > results.length && <div>...</div>}
   </div>
 );
 

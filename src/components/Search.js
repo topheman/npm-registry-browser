@@ -34,8 +34,9 @@ const styles = theme => ({
     fontSize: "1.1rem",
     fontWeight: 500,
     fontFamily: `"Roboto", "Arial", sans-serif`,
-    borderRadius: 5,
-    outline: "none"
+    borderRadius: "5px",
+    outline: "none",
+    "-webkit-appearance": "none" // remove weird border radius on iOs devices
   },
   itemsWrapper: {
     padding: 0,
@@ -50,6 +51,7 @@ const styles = theme => ({
     // maxHeight: 450, // this style is set inline based on props.isMobile
   },
   item: {
+    listStyle: "none",
     padding: "8px 16px",
     borderBottom: "1px solid #ececec",
     cursor: "pointer"
@@ -189,61 +191,69 @@ class Search extends Component {
           closeMenu
         }) => (
           <div className={classes.rootWrapper}>
-            <input
-              data-testid="search-input"
-              ref={node => {
-                this.inputEl = node;
-              }}
-              className={classes.input}
-              {...getInputProps({
-                type: "search",
-                value: inputValue,
-                placeholder: "Search packages",
-                onKeyDown: event => {
-                  // when type enter inside text input : go to search results and close menu
-                  if (
-                    event.key === "Enter" &&
-                    highlightedIndex === null &&
-                    event.target.value !== ""
-                  ) {
-                    closeMenu();
-                    goToSearchResults(event.target.value);
-                  }
-                },
-                onChange: event => {
-                  const value = event.target.value;
-                  // the API only answer to queries with 2 chars or more
-                  if (value.length > 1) {
-                    this.setState(
-                      {
+            {/* To have a "Search" button on mobile virtual keyboards */}
+            <form action=".">
+              <input
+                data-testid="search-input"
+                ref={node => {
+                  this.inputEl = node;
+                }}
+                className={classes.input}
+                {...getInputProps({
+                  type: "search",
+                  value: inputValue,
+                  placeholder: "Search packages",
+                  onKeyDown: event => {
+                    // when type enter inside text input : go to search results and close menu
+                    if (
+                      event.key === "Enter" &&
+                      highlightedIndex === null &&
+                      event.target.value !== ""
+                    ) {
+                      event.preventDefault(); // prevent submitting the form
+                      if (isMobile) {
+                        event.target.blur();
+                      }
+                      closeMenu();
+                      goToSearchResults(event.target.value);
+                    }
+                  },
+                  onChange: event => {
+                    const value = event.target.value;
+                    // the API only answer to queries with 2 chars or more
+                    if (value.length > 1) {
+                      this.setState(
+                        {
+                          inputValue: value, // keep track of the value of the input
+                          state: "loading"
+                        },
+                        () => this.debouncedSearch(value)
+                      );
+                    } else {
+                      this.setState({
                         inputValue: value, // keep track of the value of the input
-                        state: "loading"
-                      },
-                      () => this.debouncedSearch(value)
-                    );
-                  } else {
-                    this.setState({
-                      inputValue: value, // keep track of the value of the input
-                      items: []
-                    });
+                        items: []
+                      });
+                    }
+                  },
+                  onFocus: () => {
+                    // on mobile, the keyboard will pop up. Give it some space
+                    if (windowInfos.windowWidth < theme.breakpoints.values.sm) {
+                      setTimeout(() => {
+                        animatedScrollTo(document.body, 75, 400);
+                      }, 75);
+                    }
                   }
-                },
-                onFocus: () => {
-                  // on mobile, the keyboard will pop up. Give it some space
-                  if (windowInfos.windowWidth < theme.breakpoints.values.sm) {
-                    setTimeout(() => {
-                      animatedScrollTo(document.body, 75, 400);
-                    }, 75);
-                  }
-                }
-              })}
-            />
+                })}
+              />
+            </form>
             {["loading", "error"].includes(state) && (
               <ul className={classes.itemsWrapper} data-type="search-results">
                 <li
                   data-testid="search-loading-indicator"
                   className={classes.item}
                   style={{
+                    marginTop: "20px",
                     backgroundColor: "white"
                   }}
                 >

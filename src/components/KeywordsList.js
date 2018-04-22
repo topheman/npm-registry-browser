@@ -44,7 +44,7 @@ const KeywordsList = ({ keywords, classes }) => {
         <LocalOfferIcon />
         {keywords.map((keyword, index) => (
           <Link
-            to={`/search?q=keywords:${keyword}`}
+            to={`/search?q=keywords:"${keyword}"`}
             key={`${keyword}-${index}`}
           >
             {keyword}
