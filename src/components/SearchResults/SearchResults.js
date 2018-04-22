@@ -9,7 +9,7 @@ const SearchResults = ({ results, total }) => (
       <SearchResultItem key={result.package.name} {...result} />
     ))}
     {results.length === 0 && (
-      <div style={{ textAlign: "center  " }}>No Results</div>
+      <div style={{ textAlign: "center" }}>No Results</div>
     )}
     {results.length > 0 && total && total > results.length && <div>...</div>}
   </div>

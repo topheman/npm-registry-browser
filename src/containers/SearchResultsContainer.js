@@ -16,7 +16,11 @@ const styles = {
     left: "0px",
     zIndex: 1101 // the header has a z-index
   },
-  progress: { width: "100vw" }
+  progress: { width: "100vw" },
+  errorWrapper: {
+    textAlign: "center",
+    marginTop: "20px"
+  }
 };
 
 class SearchResultsContainer extends Component {
@@ -85,7 +89,14 @@ class SearchResultsContainer extends Component {
             <LinearProgress className={classes.progress} />
           </div>
         )}
-        <SearchResults results={results} total={total} />
+        {["loading", "loaded"].includes(loadingState) && (
+          <SearchResults results={results} total={total} />
+        )}
+        {loadingState === "error" && (
+          <div className={classes.errorWrapper}>
+            An error occured, please try again.
+          </div>
+        )}
       </Fragment>
     );
   }
