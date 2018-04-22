@@ -60,6 +60,18 @@ const decorateNpmsIoApi = ({ client /* , cache, key */ }) => ({
    * @param {Object} [options]
    * @param {Number} [options.size] To limit the number of results
    */
+  search: (value, { size } = {}) => {
+    const query = `/v2/search?q=${encodeURIComponent(value)}${
+      size ? `&size=${size}` : ""
+    }`;
+    // return the same shape of object as npmRegistryApi#search (so that they could be interchangeable)
+    return client.get(query).then(({ data }) => data);
+  },
+  /**
+   * @param {String} value to search
+   * @param {Object} [options]
+   * @param {Number} [options.size] To limit the number of results
+   */
   suggestions: (value, { size } = {}) => {
     const query = `/v2/search/suggestions?q=${encodeURIComponent(value)}${
       size ? `&size=${size}` : ""
