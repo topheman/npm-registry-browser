@@ -3,7 +3,7 @@ import { renderWithRouter } from "../../testUtils";
 
 import Header from "../Header";
 
-describe.only("/components/Header", () => {
+describe("/components/Header", () => {
   describe("render", () => {
     it("should pass down className and style", () => {
       const { container } = renderWithRouter(

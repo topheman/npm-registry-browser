@@ -3,7 +3,7 @@ import { render } from "../../testUtils";
 
 import CodeBlock from "../CodeBlock";
 
-describe.only("/components/CodeBlock", () => {
+describe("/components/CodeBlock", () => {
   describe("render", () => {
     it("should pass down className and style", () => {
       const { container } = render(
