@@ -61,13 +61,16 @@
     "test:travis:pr": "npm test",
     "test:unit": "cross-env CI=true npm run test:unit:watch",
     "test:unit:watch": "react-scripts --require ./bin/expand-metadatas.js test --env=jsdom",
-    "test:cypress": "npm-run-all build --parallel --race serve cy:run",
-    "test:cypress:travis": "npm-run-all build --parallel --race serve 'cy:run -- --record --config videoRecording=true'",
+    "test:cypress": "npm run build && npm run cy:start-server-and-test",
+    "test:cypress:travis": "npm run build && npm run cy:start-server-and-test:travis",
     "test:cypress:dev": "npm-run-all --parallel --race start 'cy:open -- --config baseUrl=http://localhost:3000'",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
+    "cy:run:travis": "npm run cy:run -- --record --config videoRecording=true",
+    "cy:start-server-and-test": "npx start-server-and-test serve :5000 cy:run",
+    "cy:start-server-and-test:travis": "npx start-server-and-test serve :5000 cy:run:travis",
     "test:precommit": "npm test",
-    "serve": "npx serve build",
+    "serve": "npx serve --port 5000 build",
     "eject": "react-scripts eject",
     "lint": "npx eslint .",
     "pretty": "npx prettier --write '**/*.{js,jsx,json,css,scss}'",
@@ -105,7 +108,8 @@
     "npm-run-all": "^4.1.2",
     "prettier": "1.11.1",
     "react-testing-library": "^2.0.0",
-    "serve": "^6.5.3"
+    "serve": "^6.5.3",
+    "start-server-and-test": "^1.4.1"
   },
   "proxy": {
     "/api/npm-registry": {
