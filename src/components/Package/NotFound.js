@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "material-ui/styles";
+import classNames from "classnames";
 
 const styles = {
   root: {
@@ -14,8 +15,8 @@ const styles = {
   }
 };
 
-const NotFound = ({ classes, packageName }) => (
-  <div className={classes.root}>
+const NotFound = ({ classes, packageName, className, style }) => (
+  <div className={classNames(classes.root, className)} style={style}>
     <h2>Not Found</h2>
     <p>Package &quot;{packageName}&quot; not found</p>
     <p>
@@ -28,7 +29,13 @@ const NotFound = ({ classes, packageName }) => (
 
 NotFound.propTypes = {
   packageName: PropTypes.string.isRequired,
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  className: PropTypes.string,
+  style: PropTypes.object
+};
+NotFound.defaultProps = {
+  className: undefined,
+  style: undefined
 };
 
 export default withStyles(styles)(NotFound);

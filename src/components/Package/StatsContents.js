@@ -24,8 +24,8 @@ class StatsContents extends Component {
     theme: PropTypes.object.isRequired
   };
   static defaultProps = {
-    className: "",
-    style: {}
+    className: undefined,
+    style: undefined
   };
   constructor(props) {
     super(props);

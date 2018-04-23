@@ -111,8 +111,8 @@ InfosContent.propTypes = {
   style: PropTypes.object
 };
 InfosContent.defaultProps = {
-  className: "",
-  style: {}
+  className: undefined,
+  style: undefined
 };
 
 export default withStyles(styles)(InfosContent);

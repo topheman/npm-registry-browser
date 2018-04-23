@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import PropTypes from "prop-types";
+import classNames from "classnames";
 
 import { withStyles } from "material-ui/styles";
 import Paper from "material-ui/Paper";
@@ -85,9 +86,11 @@ const Package = ({
   downloads,
   loadApiInfos,
   loadRegistryInfos,
-  classes
+  classes,
+  className,
+  style
 }) => (
-  <section className={classes.root}>
+  <section className={classNames(classes.root, className)} style={style}>
     <header className={`${classes.blocks} ${classes.areaHeader}`}>
       <Title
         scope={scope}
@@ -238,13 +241,17 @@ Package.propTypes = {
   downloads: PropTypes.object,
   loadApiInfos: PropTypes.func.isRequired,
   loadRegistryInfos: PropTypes.func.isRequired,
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  className: PropTypes.string,
+  style: PropTypes.object
 };
 Package.defaultProps = {
   scope: undefined,
   version: undefined,
   packageInfos: undefined,
-  downloads: undefined
+  downloads: undefined,
+  className: undefined,
+  style: undefined
 };
 
 export default withStyles(styles)(Package);

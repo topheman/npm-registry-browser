@@ -90,7 +90,11 @@ class SearchResultsContainer extends Component {
           </div>
         )}
         {["loading", "loaded"].includes(loadingState) && (
-          <SearchResults results={results} total={total} />
+          <SearchResults
+            results={results}
+            total={total}
+            style={{ marginTop: "20px" }}
+          />
         )}
         {loadingState === "error" && (
           <div className={classes.errorWrapper}>

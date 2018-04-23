@@ -9,6 +9,7 @@ import Typography from "material-ui/Typography";
 import IconButton from "material-ui/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import { compose, withStateHandlers } from "recompose";
+import classNames from "classnames";
 
 import { Link } from "react-router-dom";
 
@@ -55,10 +56,10 @@ const styles = theme => ({
 });
 
 const Header = props => {
-  const { classes, drawerOpen, toggleDrawer } = props;
+  const { classes, drawerOpen, toggleDrawer, className, style } = props;
   return (
     <Fragment>
-      <header className={classes.root}>
+      <header className={classNames(classes.root, className)} style={style}>
         <AppBar position="absolute">
           <Toolbar>
             <IconButton
@@ -120,7 +121,14 @@ const Header = props => {
 Header.propTypes = {
   classes: PropTypes.object.isRequired,
   drawerOpen: PropTypes.bool.isRequired, // from withStateHandlers()
-  toggleDrawer: PropTypes.func.isRequired // from withStateHandlers()
+  toggleDrawer: PropTypes.func.isRequired, // from withStateHandlers()
+  className: PropTypes.string,
+  style: PropTypes.object
+};
+
+Header.defaultProps = {
+  className: undefined,
+  style: undefined
 };
 
 export default compose(

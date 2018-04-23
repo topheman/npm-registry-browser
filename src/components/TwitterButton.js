@@ -27,7 +27,9 @@ const TwitterButton = props => {
     hashtags,
     via,
     related,
-    buttonTitle
+    buttonTitle,
+    className,
+    style
   } = props;
   const params = [
     `size=${size}`,
@@ -49,13 +51,19 @@ const TwitterButton = props => {
   ]
     .filter(item => item !== undefined)
     .join("&");
+  const mergedStyles = {
+    border: 0,
+    overflow: "hidden",
+    ...style
+  };
   return (
     <iframe
       width="78px"
       height="28px"
       title={buttonTitle}
-      style={{ border: 0, overflow: "hidden" }}
+      style={mergedStyles}
       scrolling="no"
+      className={className}
       src={`https://platform.twitter.com/widgets/tweet_button.html?${params}`}
     />
   );
@@ -70,7 +78,9 @@ TwitterButton.propTypes = {
   hashtags: PropTypes.string,
   via: PropTypes.string,
   related: PropTypes.string,
-  buttonTitle: PropTypes.string.isRequired
+  buttonTitle: PropTypes.string.isRequired,
+  className: PropTypes.string,
+  style: PropTypes.object
 };
 TwitterButton.defaultProps = {
   size: "l",
@@ -81,7 +91,9 @@ TwitterButton.defaultProps = {
   url: undefined,
   hashtags: undefined,
   via: undefined,
-  related: undefined
+  related: undefined,
+  className: undefined,
+  style: undefined
 };
 
 export default TwitterButton;
