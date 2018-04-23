@@ -21,14 +21,18 @@ export default class Sparkline extends Component {
     height: PropTypes.number.isRequired,
     strokeWidth: PropTypes.number.isRequired,
     onMouseMove: PropTypes.func,
-    onMouseOut: PropTypes.func
+    onMouseOut: PropTypes.func,
+    className: PropTypes.string,
+    style: PropTypes.object
   };
   static defaultProps = {
     width: 100,
     height: 30,
     strokeWidth: 3,
     onMouseMove: undefined,
-    onMouseOut: undefined
+    onMouseOut: undefined,
+    className: undefined,
+    style: undefined
   };
   componentDidMount() {
     this.init(); // only init on mount
@@ -43,17 +47,26 @@ export default class Sparkline extends Component {
     }
   }
   render() {
-    const { width, height, strokeWidth, ...props } = this.props;
+    const {
+      data, // remove data from the props
+      width,
+      height,
+      strokeWidth,
+      className,
+      style,
+      ...remainingProps
+    } = this.props;
     return (
       <svg
         ref={node => {
           this.node = node;
         }}
-        className={root}
+        className={className}
+        style={style}
         width={width}
         height={height}
         strokeWidth={strokeWidth}
-        {...props}
+        {...remainingProps}
       />
     );
   }

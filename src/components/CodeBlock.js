@@ -39,8 +39,8 @@ CodeBlock.propTypes = {
 };
 CodeBlock.defaultProps = {
   language: "",
-  className: "",
-  style: {}
+  className: undefined,
+  style: undefined
 };
 
 export default CodeBlock;

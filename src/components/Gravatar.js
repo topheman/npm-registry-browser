@@ -9,6 +9,7 @@ const Gravatar = ({ email, size, ...props }) => (
     src={`https://s.gravatar.com/avatar/${md5(email)}${
       size ? `?s=${size}` : ""
     }`}
+    alt="avatar"
     {...props}
   />
 );

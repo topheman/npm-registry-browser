@@ -156,8 +156,8 @@ VersionsTab.propTypes = {
 };
 VersionsTab.defaultProps = {
   scope: undefined,
-  className: "",
-  style: {}
+  className: undefined,
+  style: undefined
 };
 
 export default withStyles(styles)(VersionsTab);

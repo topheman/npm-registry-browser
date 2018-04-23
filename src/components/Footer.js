@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "material-ui/styles";
+import classNames from "classnames";
 
 import TwitterButton from "./TwitterButton";
 
@@ -14,8 +15,8 @@ const styles = {
   }
 };
 
-const Footer = ({ classes, fromFullYear, toFullYear }) => (
-  <footer className={classes.root}>
+const Footer = ({ classes, fromFullYear, toFullYear, className, style }) => (
+  <footer className={classNames(classes.root, className)} style={style}>
     <p>
       ©{fromFullYear === toFullYear
         ? toFullYear
@@ -43,10 +44,14 @@ const Footer = ({ classes, fromFullYear, toFullYear }) => (
 Footer.propTypes = {
   toFullYear: PropTypes.number,
   fromFullYear: PropTypes.number.isRequired,
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  className: PropTypes.string,
+  style: PropTypes.object
 };
 Footer.defaultProps = {
-  toFullYear: new Date().getFullYear()
+  toFullYear: new Date().getFullYear(),
+  className: undefined,
+  style: undefined
 };
 
 export default withStyles(styles)(Footer);

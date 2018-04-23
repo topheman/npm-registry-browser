@@ -116,8 +116,8 @@ DependenciesTab.propTypes = {
   style: PropTypes.object
 };
 DependenciesTab.defaultProps = {
-  className: "",
-  style: {}
+  className: undefined,
+  style: undefined
 };
 
 export default withStyles(styles)(DependenciesTab);

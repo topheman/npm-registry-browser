@@ -7,6 +7,7 @@ import ExpansionPanel, {
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Typography from "material-ui/Typography";
 import { withStyles } from "material-ui/styles";
+import classNames from "classnames";
 
 import CodeBlock from "../CodeBlock";
 
@@ -41,7 +42,7 @@ const PackageJson = ({ value, classes, className, style }) => {
     "  "
   );
   return (
-    <div className={`${className} ${classes.root}`} style={style}>
+    <div className={classNames(classes.root, className)} style={style}>
       <ExpansionPanel>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
           <Typography className={classes.heading}>
@@ -66,8 +67,8 @@ PackageJson.propTypes = {
   style: PropTypes.object
 };
 PackageJson.defaultProps = {
-  className: "",
-  style: {}
+  className: undefined,
+  style: undefined
 };
 
 export default withStyles(styles)(PackageJson);

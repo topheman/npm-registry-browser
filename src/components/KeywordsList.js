@@ -3,6 +3,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { withStyles } from "material-ui/styles";
+import classNames from "classnames";
 
 import LocalOfferIcon from "@material-ui/icons/LocalOffer";
 
@@ -37,10 +38,10 @@ const styles = {
   }
 };
 
-const KeywordsList = ({ keywords, classes }) => {
+const KeywordsList = ({ keywords, classes, className, style }) => {
   if (keywords && keywords.length > 0) {
     return (
-      <div className={classes.root}>
+      <div className={classNames(classes.root, className)} style={style}>
         <LocalOfferIcon />
         {keywords.map((keyword, index) => (
           <Link
@@ -58,11 +59,15 @@ const KeywordsList = ({ keywords, classes }) => {
 
 KeywordsList.propTypes = {
   classes: PropTypes.object.isRequired,
-  keywords: PropTypes.array
+  keywords: PropTypes.array,
+  className: PropTypes.string,
+  style: PropTypes.object
 };
 
 KeywordsList.defaultProps = {
-  keywords: []
+  keywords: [],
+  className: undefined,
+  style: undefined
 };
 
 export default withStyles(styles)(KeywordsList);

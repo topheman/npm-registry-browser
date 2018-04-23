@@ -1,5 +1,5 @@
 import React from "react";
-import { shallow } from "enzyme";
+import { shallow, mount } from "enzyme";
 import toJSON from "enzyme-to-json";
 
 import TwitterButton from "../TwitterButton";
@@ -34,6 +34,13 @@ describe("/components/TwitterButton", () => {
         />
       );
       expect(toJSON(wrapper)).toMatchSnapshot();
+    });
+    it("should pass down className and style", () => {
+      const wrapper = mount(
+        <TwitterButton className="hello-world" style={{ color: "red" }} />
+      );
+      expect(wrapper.find("iframe").prop("className")).toContain("hello-world");
+      expect(wrapper.find("iframe").prop("style").color).toBe("red");
     });
   });
 });
