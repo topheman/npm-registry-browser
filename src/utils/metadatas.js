@@ -121,10 +121,9 @@ export const extractReadme = (packageInfos, targetVersion) => {
     const result =
       Object.values(packageInfos.versions)
         .reverse()
-        // eslint-disable-next-line
         .reduce((acc, packageInfo) => {
           if (!acc && packageInfo.readme) {
-            return packageInfo.readme; // eslint-disable-line
+            return packageInfo.readme;
           }
           return acc;
         }, "") || undefined;
@@ -155,10 +154,9 @@ export const extractMaintainers = (packageInfos, targetVersion) => {
     // fallback on the latest maintainers published
     const result = Object.values(packageInfos.versions)
       .reverse()
-      // eslint-disable-next-line
       .reduce((acc, packageInfo) => {
         if (acc.length === 0 && packageInfo.maintainers) {
-          return packageInfo.maintainers; // eslint-disable-line
+          return packageInfo.maintainers;
         }
         return acc;
       }, []);

@@ -1,5 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
-
 // inpired by https://github.com/kentcdodds/testing-workshop/blob/master/client/test/til-client-test-utils.js
 
 import React from "react";

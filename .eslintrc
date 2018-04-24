@@ -10,7 +10,15 @@
     "import/prefer-default-export": "off",
     "prefer-template": "off",
     "no-underscore-dangle": ["error", { "allowAfterThis": true }],
-    "global-require": "off"
+    "global-require": "off",
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": true,
+        "optionalDependencies": false,
+        "peerDependencies": false
+      }
+    ]
   },
   "globals": {
     "cy": true
