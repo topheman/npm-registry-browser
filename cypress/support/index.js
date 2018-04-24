@@ -13,6 +13,9 @@
 // https://on.cypress.io/configuration
 // ***********************************************************
 
+// cypress lacks support for some method in `cypress open` mode (not same chrome version as in `cypress run`)
+import "babel-polyfill";
+
 // Import commands.js using ES2015 syntax:
 import "./commands";
 

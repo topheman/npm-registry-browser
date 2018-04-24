@@ -86,6 +86,7 @@
     ]
   },
   "devDependencies": {
+    "babel-polyfill": "^6.26.0",
     "cors-anywhere": "^0.4.1",
     "cross-env": "^5.1.4",
     "cypress": "^2.1.0",

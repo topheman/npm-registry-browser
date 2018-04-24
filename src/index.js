@@ -2,10 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { MuiThemeProvider, createMuiTheme } from "material-ui/styles";
 
-// cypress:open doesn't support the following, we need to pollyfill ...
-import "mdn-polyfills/Array.prototype.includes";
-import "mdn-polyfills/Object.entries";
-
 import "./index.css";
 import RootContainer from "./containers/RootContainer";
 import registerServiceWorker from "./registerServiceWorker";
