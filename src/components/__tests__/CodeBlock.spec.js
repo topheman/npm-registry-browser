@@ -20,11 +20,17 @@ describe("/components/CodeBlock", () => {
         "Hello world"
       );
     });
-    it("should set className on <code> element according to props.language", () => {
-      const { container } = render(<CodeBlock value="" language="js" />);
-      const [codeElement] = container.getElementsByClassName("language-js");
-      expect(codeElement).toBeTruthy();
+    it("should pass value as child", () => {
+      const { getByText } = render(
+        <CodeBlock value="some code" language="js" />
+      );
+      expect(getByText("some code")).toBeTruthy();
     });
-    // @todo test markdown formatting
+    it("should set className on <code> element according to props.language", () => {
+      const { getByText } = render(
+        <CodeBlock value="some code" language="js" />
+      );
+      expect(getByText("some code")).toHaveClass("language-js");
+    });
   });
 });

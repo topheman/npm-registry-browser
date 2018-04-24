@@ -46,6 +46,7 @@ const styles = theme => ({
   }
 });
 
+// note: Markdown component only transfers className as remaining props (not style or others) - so does Readme
 const Readme = ({
   classes,
   source,

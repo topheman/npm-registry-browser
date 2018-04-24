@@ -116,6 +116,7 @@ LinkRenderer.defaultProps = {
 
 /** Markdown component */
 
+// note: Markdown component only transfers className as remaining props (not style or others)
 const Markdown = ({ repository, source, ...remainingProps }) => (
   <ReactMarkdown
     source={source}
