@@ -12,6 +12,7 @@ Bellow, you will find some notes I took along the way.
   * [Eslint and Prettier](#eslint-and-prettier)
   * [Cypress with cross-origin](#cypress-with-cross-origin)
   * [Cypress record on CI with pull requests from a fork](#cypress-record-on-ci-with-pull-requests-from-a-fork)
+  * [Api fallback](#api-fallback)
   * [CORS anywhere development proxy](#cors-anywhere-development-proxy)
 
 ## create-react-app related
@@ -157,6 +158,32 @@ https://on.cypress.io/how-do-i-record-runs
 [Example of build failing](https://travis-ci.org/topheman/npm-registry-browser/builds/366468341)
 
 To avoid that, [I disable the record on PRs](.travis.yml).
+
+### Api fallback
+
+The app relies on [three APIs](src/services/apis/index.js):
+
+* https://registry.npmjs.org
+  * the API used by the npm cli
+  * provides package details and search results
+* https://api.npmjs.org
+  * provides stats
+* https://api.npms.io
+  * provides search and suggestions
+
+#### Why use api.npms.io, since registry.npmjs.org seams to provide search results as well ?
+
+`api.npms.io` provides sharper search results (even the [npmjs.com](https://www.npmjs.com/) website uses it under the hood). It also has an interresting api `/search/suggestions` (more oriented for autocomplete).
+
+#### What if api.npms.io went down ?
+
+From the beginning I made wrappers for the API calls of both `registry.npmjs.org` and `api.npms.io` that took the same kind of input/output, so they could be switchable.
+
+Some day, `api.npms.io` went down and all the search features were broken. All I had to do was [switch the api client](https://github.com/topheman/npm-registry-browser/commit/29689f37e1d580d7d8966ac7f5a690e492a0c322) (temporary solution) - see bellow for the final fix 👇.
+
+I went back enventually, but made sure that, if `api.npms.io` is down, the app automatically switches back to `registry.npmjs.org`. That way, the user can enjoy a great search experience and if the `api.npms.io` goes down, it will seamlessly switch, without any downtime, without him/her noticing.
+
+[PR where I implemented fallback](https://github.com/topheman/npm-registry-browser/pull/7).
 
 ### CORS anywhere development proxy
 
