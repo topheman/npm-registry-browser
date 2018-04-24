@@ -56,10 +56,19 @@ const styles = theme => ({
 });
 
 const Header = props => {
-  const { classes, drawerOpen, toggleDrawer, className, style } = props;
+  const {
+    classes,
+    drawerOpen,
+    toggleDrawer,
+    className,
+    ...remainingProps
+  } = props;
   return (
     <Fragment>
-      <header className={classNames(classes.root, className)} style={style}>
+      <header
+        className={classNames(classes.root, className)}
+        {...remainingProps}
+      >
         <AppBar position="absolute">
           <Toolbar>
             <IconButton

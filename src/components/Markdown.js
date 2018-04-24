@@ -116,9 +116,9 @@ LinkRenderer.defaultProps = {
 
 /** Markdown component */
 
-const Markdown = ({ repository, ...props }) => (
+const Markdown = ({ repository, source, ...remainingProps }) => (
   <ReactMarkdown
-    {...props}
+    source={source}
     renderers={{
       code: CodeBlock,
       heading: HeadingRenderer,
@@ -127,6 +127,7 @@ const Markdown = ({ repository, ...props }) => (
     escapeHtml={false}
     transformLinkUri={makeTransformLinkUri({ repository })}
     transformImageUri={makeTransformImageUri({ repository })}
+    {...remainingProps}
   />
 );
 Markdown.propTypes = {

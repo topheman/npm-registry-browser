@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import classNames from "classnames";
 
 import { withStyles } from "material-ui/styles";
 import Button from "material-ui/Button";
@@ -17,8 +18,8 @@ const styles = theme => ({
   }
 });
 
-const RetryButton = ({ onClick, classes }) => (
-  <div className={classes.root}>
+const RetryButton = ({ onClick, classes, className, ...remainingProps }) => (
+  <div className={classNames(classes.root, className)} {...remainingProps}>
     <Button variant="raised" color="primary" onClick={onClick}>
       <RefreshIcon /> Retry
     </Button>
@@ -27,7 +28,11 @@ const RetryButton = ({ onClick, classes }) => (
 
 RetryButton.propTypes = {
   onClick: PropTypes.func.isRequired,
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  className: PropTypes.string
+};
+RetryButton.defaultProps = {
+  className: undefined
 };
 
 export default withStyles(styles)(RetryButton);

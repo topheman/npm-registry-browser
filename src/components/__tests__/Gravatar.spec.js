@@ -5,16 +5,20 @@ import Gravatar from "../Gravatar";
 
 describe("/components/Footer", () => {
   describe("render", () => {
-    it("should pass down className and style", () => {
+    it("should pass down remainingProps", () => {
       const { container } = render(
         <Gravatar
           email="tophe@topheman.com"
           className="hello-world"
           style={{ color: "red" }}
+          data-infos="Hello world"
         />
       );
       expect(container.firstChild).toHaveClass("hello-world");
       expect(container.firstChild.style.color).toBe("red");
+      expect(container.firstChild.getAttribute("data-infos")).toBe(
+        "Hello world"
+      );
     });
     it("should render the correct img according to email", () => {
       const { getByAltText } = render(

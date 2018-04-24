@@ -47,8 +47,7 @@ const DependenciesTab = ({
   version,
   packageInfos,
   classes,
-  className,
-  style
+  ...remainingProps
 }) => {
   const dependencies =
     (packageInfos &&
@@ -77,7 +76,7 @@ const DependenciesTab = ({
     [`Peer Dependencies`]: peerDependencies
   };
   return (
-    <div className={className} style={style}>
+    <div {...remainingProps}>
       <ExpansionPanel>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
           <Typography>Dependencies ({dependencies.length})</Typography>
@@ -111,13 +110,7 @@ const DependenciesTab = ({
 DependenciesTab.propTypes = {
   version: PropTypes.string.isRequired,
   packageInfos: PropTypes.object.isRequired,
-  classes: PropTypes.object.isRequired,
-  className: PropTypes.string,
-  style: PropTypes.object
-};
-DependenciesTab.defaultProps = {
-  className: undefined,
-  style: undefined
+  classes: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(DependenciesTab);

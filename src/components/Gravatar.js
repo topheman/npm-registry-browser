@@ -4,13 +4,13 @@ import Avatar from "material-ui/Avatar";
 
 import md5 from "js-md5";
 
-const Gravatar = ({ email, size, ...props }) => (
+const Gravatar = ({ email, size, ...remainingProps }) => (
   <Avatar
     src={`https://s.gravatar.com/avatar/${md5(email)}${
       size ? `?s=${size}` : ""
     }`}
     alt="avatar"
-    {...props}
+    {...remainingProps}
   />
 );
 

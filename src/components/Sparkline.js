@@ -21,18 +21,14 @@ export default class Sparkline extends Component {
     height: PropTypes.number.isRequired,
     strokeWidth: PropTypes.number.isRequired,
     onMouseMove: PropTypes.func,
-    onMouseOut: PropTypes.func,
-    className: PropTypes.string,
-    style: PropTypes.object
+    onMouseOut: PropTypes.func
   };
   static defaultProps = {
     width: 100,
     height: 30,
     strokeWidth: 3,
     onMouseMove: undefined,
-    onMouseOut: undefined,
-    className: undefined,
-    style: undefined
+    onMouseOut: undefined
   };
   componentDidMount() {
     this.init(); // only init on mount
@@ -52,8 +48,6 @@ export default class Sparkline extends Component {
       width,
       height,
       strokeWidth,
-      className,
-      style,
       ...remainingProps
     } = this.props;
     return (
@@ -61,8 +55,6 @@ export default class Sparkline extends Component {
         ref={node => {
           this.node = node;
         }}
-        className={className}
-        style={style}
         width={width}
         height={height}
         strokeWidth={strokeWidth}

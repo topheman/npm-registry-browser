@@ -31,7 +31,12 @@ const styles = {
   maintainers: {}
 };
 
-const InfosContent = ({ packageInfos, version, classes, className, style }) => {
+const InfosContent = ({
+  packageInfos,
+  version,
+  classes,
+  ...remainingProps
+}) => {
   const licenseInfos = extractLicenseInfos(packageInfos, version);
   const homepage = extractUrl(
     safeExtractVersion(packageInfos, version).homepage
@@ -47,7 +52,7 @@ const InfosContent = ({ packageInfos, version, classes, className, style }) => {
       relativeDate(new Date(packageInfos.time[version]))) ||
     undefined;
   return (
-    <div className={className} style={style}>
+    <div {...remainingProps}>
       {datePublishedRelative && (
         <div>
           <strong>v{version}</strong> published <i>{datePublishedRelative}</i>
@@ -106,13 +111,7 @@ const InfosContent = ({ packageInfos, version, classes, className, style }) => {
 InfosContent.propTypes = {
   packageInfos: PropTypes.object.isRequired,
   version: PropTypes.string.isRequired,
-  classes: PropTypes.object.isRequired,
-  className: PropTypes.string,
-  style: PropTypes.object
-};
-InfosContent.defaultProps = {
-  className: undefined,
-  style: undefined
+  classes: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(InfosContent);

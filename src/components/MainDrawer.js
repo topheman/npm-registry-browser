@@ -29,7 +29,7 @@ const styles = {
   }
 };
 
-const MainDrawer = ({ classes, anchor, open, onClose }) => {
+const MainDrawer = ({ classes, anchor, open, onClose, ...remainingProps }) => {
   const sideList = (
     <div
       className={
@@ -85,7 +85,12 @@ const MainDrawer = ({ classes, anchor, open, onClose }) => {
   );
 
   return (
-    <MuiDrawer anchor={anchor} open={open} onClose={onClose}>
+    <MuiDrawer
+      anchor={anchor}
+      open={open}
+      onClose={onClose}
+      {...remainingProps}
+    >
       <div
         tabIndex={0}
         role="button"

@@ -3,10 +3,10 @@ import PropTypes from "prop-types";
 
 import SearchResultItem from "./SearchResultItem";
 
-const SearchResults = ({ results, total, ...props }) => (
-  <div {...props}>
+const SearchResults = ({ results, total, ...remainingProps }) => (
+  <div {...remainingProps}>
     {results.map(result => (
-      <SearchResultItem key={result.package.name} {...result} />
+      <SearchResultItem key={result.package.name} package={result.package} />
     ))}
     {results.length === 0 && (
       <div style={{ textAlign: "center" }}>No Results</div>

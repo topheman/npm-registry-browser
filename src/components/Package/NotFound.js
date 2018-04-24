@@ -15,8 +15,8 @@ const styles = {
   }
 };
 
-const NotFound = ({ classes, packageName, className, style }) => (
-  <div className={classNames(classes.root, className)} style={style}>
+const NotFound = ({ classes, packageName, className, ...remainingProps }) => (
+  <div className={classNames(classes.root, className)} {...remainingProps}>
     <h2>Not Found</h2>
     <p>Package &quot;{packageName}&quot; not found</p>
     <p>
@@ -30,12 +30,10 @@ const NotFound = ({ classes, packageName, className, style }) => (
 NotFound.propTypes = {
   packageName: PropTypes.string.isRequired,
   classes: PropTypes.object.isRequired,
-  className: PropTypes.string,
-  style: PropTypes.object
+  className: PropTypes.string
 };
 NotFound.defaultProps = {
-  className: undefined,
-  style: undefined
+  className: undefined
 };
 
 export default withStyles(styles)(NotFound);

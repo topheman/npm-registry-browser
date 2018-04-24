@@ -33,7 +33,7 @@ const styles = theme => ({
   }
 });
 
-const PackageJson = ({ value, classes, className, style }) => {
+const PackageJson = ({ value, classes, className, ...remainingProps }) => {
   const { version } = value;
   const formattedValue = JSON.stringify(
     value,
@@ -42,7 +42,7 @@ const PackageJson = ({ value, classes, className, style }) => {
     "  "
   );
   return (
-    <div className={classNames(classes.root, className)} style={style}>
+    <div className={classNames(classes.root, className)} {...remainingProps}>
       <ExpansionPanel>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
           <Typography className={classes.heading}>
@@ -63,12 +63,10 @@ const PackageJson = ({ value, classes, className, style }) => {
 PackageJson.propTypes = {
   value: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
-  className: PropTypes.string,
-  style: PropTypes.object
+  className: PropTypes.string
 };
 PackageJson.defaultProps = {
-  className: undefined,
-  style: undefined
+  className: undefined
 };
 
 export default withStyles(styles)(PackageJson);

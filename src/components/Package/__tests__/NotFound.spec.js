@@ -5,7 +5,7 @@ import NotFound from "../NotFound";
 
 describe("/components/NotFound", () => {
   describe("render", () => {
-    it("should pass down className and style", () => {
+    it("should pass down remainingProps", () => {
       const { container } = render(
         <NotFound
           packageName="foo"

@@ -15,8 +15,14 @@ const styles = {
   }
 };
 
-const Footer = ({ classes, fromFullYear, toFullYear, className, style }) => (
-  <footer className={classNames(classes.root, className)} style={style}>
+const Footer = ({
+  classes,
+  fromFullYear,
+  toFullYear,
+  className,
+  ...remainingProps
+}) => (
+  <footer className={classNames(classes.root, className)} {...remainingProps}>
     <p>
       ©{fromFullYear === toFullYear
         ? toFullYear
@@ -45,13 +51,11 @@ Footer.propTypes = {
   toFullYear: PropTypes.number,
   fromFullYear: PropTypes.number.isRequired,
   classes: PropTypes.object.isRequired,
-  className: PropTypes.string,
-  style: PropTypes.object
+  className: PropTypes.string
 };
 Footer.defaultProps = {
   toFullYear: new Date().getFullYear(),
-  className: undefined,
-  style: undefined
+  className: undefined
 };
 
 export default withStyles(styles)(Footer);

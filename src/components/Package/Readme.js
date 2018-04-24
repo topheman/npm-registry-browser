@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "material-ui/styles";
+import classNames from "classnames";
 
 import Markdown from "../Markdown";
 
@@ -45,22 +46,31 @@ const styles = theme => ({
   }
 });
 
-const Readme = ({ classes, source, repository }) => (
+const Readme = ({
+  classes,
+  source,
+  repository,
+  className,
+  ...remainingProps
+}) => (
   <Markdown
     source={source}
     repository={repository}
-    className={`Readme-markdown__root ${classes.markdown}`}
+    className={classNames("Readme-markdown__root", classes.markdown, className)}
+    {...remainingProps}
   />
 );
 
 Readme.propTypes = {
   classes: PropTypes.object.isRequired,
   source: PropTypes.string,
-  repository: PropTypes.object
+  repository: PropTypes.object,
+  className: PropTypes.string
 };
 Readme.defaultProps = {
   source: "",
-  repository: {}
+  repository: {},
+  className: undefined
 };
 
 export default withStyles(styles)(Readme);

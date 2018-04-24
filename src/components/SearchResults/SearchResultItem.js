@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { withStyles } from "material-ui/styles";
 import relativeDate from "relative-date";
+import classNames from "classnames";
 
 import KeywordsList from "../KeywordsList";
 import Gravatar from "../Gravatar";
@@ -41,8 +42,13 @@ const styles = {
   }
 };
 
-const SearchResultItem = ({ package: packageInfos, classes }) => (
-  <div className={classes.root}>
+const SearchResultItem = ({
+  package: packageInfos,
+  classes,
+  className,
+  ...remainingProps
+}) => (
+  <div className={classNames(classes.root, className)} {...remainingProps}>
     <span>
       <div className={classes.heading}>
         <Link
@@ -80,7 +86,11 @@ const SearchResultItem = ({ package: packageInfos, classes }) => (
 
 SearchResultItem.propTypes = {
   classes: PropTypes.object.isRequired,
-  package: PropTypes.object.isRequired
+  package: PropTypes.object.isRequired,
+  className: PropTypes.string
+};
+SearchResultItem.defaultProps = {
+  className: undefined
 };
 
 export default withStyles(styles)(SearchResultItem);

@@ -18,8 +18,6 @@ const styles = {
 class StatsContents extends Component {
   static propTypes = {
     downloads: PropTypes.object.isRequired,
-    className: PropTypes.string,
-    style: PropTypes.object,
     classes: PropTypes.object.isRequired,
     theme: PropTypes.object.isRequired
   };
@@ -54,11 +52,16 @@ class StatsContents extends Component {
   }
   render() {
     const data = yearDownloadsToWeaks(this.props.downloads.downloads);
-    const { className, style, theme, classes } = this.props;
+    const {
+      theme,
+      classes,
+      downloads: _omitDownloads, // remove this from props to prevent form flowing down
+      ...remainingProps
+    } = this.props;
     const { from, to, downloads } = this.state;
     const lastWeekDownloadsCount = data[data.length - 1].value;
     return (
-      <div className={className} style={style}>
+      <div {...remainingProps}>
         <div className={classes.root}>
           <Typography variant="subheading" className={classes.label}>
             {downloads

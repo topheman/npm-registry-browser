@@ -38,10 +38,10 @@ const styles = {
   }
 };
 
-const KeywordsList = ({ keywords, classes, className, style }) => {
+const KeywordsList = ({ keywords, classes, className, ...remainingProps }) => {
   if (keywords && keywords.length > 0) {
     return (
-      <div className={classNames(classes.root, className)} style={style}>
+      <div className={classNames(classes.root, className)} {...remainingProps}>
         <LocalOfferIcon />
         {keywords.map((keyword, index) => (
           <Link
@@ -60,14 +60,12 @@ const KeywordsList = ({ keywords, classes, className, style }) => {
 KeywordsList.propTypes = {
   classes: PropTypes.object.isRequired,
   keywords: PropTypes.array,
-  className: PropTypes.string,
-  style: PropTypes.object
+  className: PropTypes.string
 };
 
 KeywordsList.defaultProps = {
   keywords: [],
-  className: undefined,
-  style: undefined
+  className: undefined
 };
 
 export default withStyles(styles)(KeywordsList);

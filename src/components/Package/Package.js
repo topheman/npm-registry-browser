@@ -88,9 +88,9 @@ const Package = ({
   loadRegistryInfos,
   classes,
   className,
-  style
+  ...remainingProps
 }) => (
-  <section className={classNames(classes.root, className)} style={style}>
+  <section className={classNames(classes.root, className)} {...remainingProps}>
     <header className={`${classes.blocks} ${classes.areaHeader}`}>
       <Title
         scope={scope}
@@ -242,16 +242,14 @@ Package.propTypes = {
   loadApiInfos: PropTypes.func.isRequired,
   loadRegistryInfos: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
-  className: PropTypes.string,
-  style: PropTypes.object
+  className: PropTypes.string
 };
 Package.defaultProps = {
   scope: undefined,
   version: undefined,
   packageInfos: undefined,
   downloads: undefined,
-  className: undefined,
-  style: undefined
+  className: undefined
 };
 
 export default withStyles(styles)(Package);

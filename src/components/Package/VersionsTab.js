@@ -70,13 +70,12 @@ const VersionsTab = ({
   version: currentVersion,
   packageInfos,
   classes,
-  className,
-  style
+  ...remainingProps
 }) => {
   const distTags = Object.entries(packageInfos["dist-tags"]);
   const versions = Object.keys(packageInfos.versions).reverse();
   return (
-    <div className={className} style={style}>
+    <div {...remainingProps}>
       <ExpansionPanel>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
           <Typography className={classes.heading}>
@@ -150,14 +149,10 @@ VersionsTab.propTypes = {
   name: PropTypes.string.isRequired,
   version: PropTypes.string.isRequired,
   packageInfos: PropTypes.object.isRequired,
-  classes: PropTypes.object.isRequired,
-  className: PropTypes.string,
-  style: PropTypes.object
+  classes: PropTypes.object.isRequired
 };
 VersionsTab.defaultProps = {
-  scope: undefined,
-  className: undefined,
-  style: undefined
+  scope: undefined
 };
 
 export default withStyles(styles)(VersionsTab);

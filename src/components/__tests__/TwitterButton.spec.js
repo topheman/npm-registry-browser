@@ -35,12 +35,17 @@ describe("/components/TwitterButton", () => {
       );
       expect(toJSON(wrapper)).toMatchSnapshot();
     });
-    it("should pass down className and style", () => {
+    it("should pass down remainingProps", () => {
       const wrapper = mount(
-        <TwitterButton className="hello-world" style={{ color: "red" }} />
+        <TwitterButton
+          className="hello-world"
+          style={{ color: "red" }}
+          data-infos="Hello world"
+        />
       );
       expect(wrapper.find("iframe").prop("className")).toContain("hello-world");
       expect(wrapper.find("iframe").prop("style").color).toBe("red");
+      expect(wrapper.find("iframe").prop("data-infos")).toBe("Hello world");
     });
   });
 });

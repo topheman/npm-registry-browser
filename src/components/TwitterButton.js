@@ -28,8 +28,8 @@ const TwitterButton = props => {
     via,
     related,
     buttonTitle,
-    className,
-    style
+    style,
+    ...remainingProps
   } = props;
   const params = [
     `size=${size}`,
@@ -63,8 +63,8 @@ const TwitterButton = props => {
       title={buttonTitle}
       style={mergedStyles}
       scrolling="no"
-      className={className}
       src={`https://platform.twitter.com/widgets/tweet_button.html?${params}`}
+      {...remainingProps}
     />
   );
 };

@@ -40,7 +40,7 @@ CustomLoader.defaultProps = {
   message: "Loading"
 };
 
-const Loader = ({ message, classes, overrideClasses, ...props }) => {
+const Loader = ({ message, classes, overrideClasses, ...remainingProps }) => {
   const loaderClasses = {
     ...classes,
     ...overrideClasses
@@ -48,7 +48,7 @@ const Loader = ({ message, classes, overrideClasses, ...props }) => {
   return (
     <Waiting
       loader={<CustomLoader message={message} classes={loaderClasses} />}
-      {...props}
+      {...remainingProps}
     />
   );
 };
