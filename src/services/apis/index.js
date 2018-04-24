@@ -39,7 +39,7 @@ const decorateNpmRegistryApi = ({ client /* , cache, key */ }) => ({
       return {
         results: (results || []).map(result => ({
           ...result,
-          highlight: result.package.name.replace(value, `<em>${value}</em>`)
+          highlight: result.package.name.replace(value, `<em>${value}</em>`) // mimic the npms.io API
         })),
         ...remainingAttributes
       };
@@ -54,30 +54,69 @@ const decorateNpmApi = ({ client /* , cache, key */ }) => ({
   }
 });
 
+/**
+ * In case the npms.io API goes down, we tag the client as down and use directly
+ * the npmRegistry API as fallback (they have the same input / outputs).
+ *
+ * A downtime in npms.io won't even be noticed
+ */
 const decorateNpmsIoApi = ({ client /* , cache, key */ }) => ({
+  apiIsDown: false,
   /**
    * @param {String} value to search
    * @param {Object} [options]
    * @param {Number} [options.size] To limit the number of results
    */
-  search: (value, { size } = {}) => {
+  search: async (value, { size } = {}) => {
     const query = `/v2/search?q=${encodeURIComponent(value)}${
       size ? `&size=${size}` : ""
     }`;
     // return the same shape of object as npmRegistryApi#search (so that they could be interchangeable)
-    return client.get(query).then(({ data }) => data);
+    if (!this.apiIsDown) {
+      try {
+        return await client.get(query).then(({ data }) => data);
+      } catch (e) {
+        console.error(
+          "[apiManager](npmsIo) Might be down, switching back to npm registry",
+          e.message
+        );
+        this.apiIsDown = true;
+      }
+    }
+    // the npmsIo api is down, so we call the npm registry
+    console.info(
+      "[apiManager](npmsIo) DOWN /search - calling search with npmRegistry api"
+    );
+    // eslint-disable-next-line
+    return apiNpmRegistry().search(value, { size });
   },
   /**
    * @param {String} value to search
    * @param {Object} [options]
    * @param {Number} [options.size] To limit the number of results
    */
-  suggestions: (value, { size } = {}) => {
+  suggestions: async (value, { size } = {}) => {
     const query = `/v2/search/suggestions?q=${encodeURIComponent(value)}${
       size ? `&size=${size}` : ""
     }`;
     // return the same shape of object as npmRegistryApi#search (so that they could be interchangeable)
-    return client.get(query).then(({ data }) => ({ results: data }));
+    if (!this.apiIsDown) {
+      try {
+        return await client.get(query).then(({ data }) => ({ results: data }));
+      } catch (e) {
+        console.error(
+          "[apiManager](npmsIo) Might be down, switching back to npm registry",
+          e.message
+        );
+        this.apiIsDown = true;
+      }
+    }
+    // the npmsIo api is down, so we call the npm registry
+    console.info(
+      "[apiManager](npmsIo) DOWN /search/suggestions - calling search with npmRegistry api"
+    );
+    // eslint-disable-next-line
+    return apiNpmRegistry().search(value, { size });
   }
 });
 
