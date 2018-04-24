@@ -1,6 +1,6 @@
 {
   "extends": ["react-app", "airbnb", "prettier"],
-  "plugins": ["prettier"],
+  "plugins": ["prettier", "cypress"],
   "rules": {
     "prettier/prettier": "error",
     "no-console": "off",
@@ -24,6 +24,7 @@
     "cy": true
   },
   "env": {
-    "mocha": true
+    "mocha": true,
+    "cypress/globals": true
   }
 }
