@@ -15,9 +15,9 @@ class CodeBlock extends PureComponent {
     highlightBlock(this.codeEl);
   }
   render() {
-    const { value, language } = this.props;
+    const { value, language, ...remainingProps } = this.props;
     return (
-      <pre {...this.props}>
+      <pre {...remainingProps}>
         <code
           ref={ref => {
             this.codeEl = ref;
