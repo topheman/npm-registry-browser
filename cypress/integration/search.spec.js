@@ -1,6 +1,7 @@
 describe("Search", () => {
   before(() => {
-    cy.clearSWCache();
+    // make sure to clear the SW cache before starting the following tests
+    cy.prepareTestSuite();
   });
   it("autocomplete should display results, be usable with keyboard", () => {
     cy.visit("/#/");

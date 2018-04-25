@@ -1,6 +1,7 @@
 describe("SearchResults", () => {
   before(() => {
-    cy.clearSWCache();
+    // make sure to clear the SW cache before starting the following tests
+    cy.prepareTestSuite();
   });
   it("search should keep history", () => {
     cy

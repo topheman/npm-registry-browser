@@ -1,7 +1,7 @@
 describe("Home", () => {
   before(() => {
     // make sure to clear the SW cache before starting the following tests
-    cy.clearSWCache();
+    cy.prepareTestSuite();
   });
   beforeEach(() => {
     // make sure to start from a blank page for each test

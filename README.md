@@ -108,12 +108,15 @@ Check out [Error npm test on MacOs Sierra](NOTES.md#error-npm-test-on-macos-sier
 
 I'm using [cypress.io](https://www.cypress.io/) for the e2e tests. You will find them in [cypress/integration](cypress/integration).
 
-* `npm run test:cypress` : single run the e2e tests. It will:
+* `npm run test:cypress` : **single run the e2e tests**. It will:
   * build the project and serve it on [http://localhost:5000](http://localhost:5000) (that way, your tests reflect exactly what the end user would see in production)
   * run the tests in [cypress/integration](cypress/integration) folder
   * tear down once tests are passed (or failed)
-* `npm run test:cypress:dev` : use this one when you're coding your tests. It will:
+* `npm run test:cypress:dev` : use this one when you're **coding your tests**. It will:
   * spin up a dev server on [http://localhost:3000](http://localhost:3000) (so, you don't have to `npm start`)
+  * open the cypress client that will let you choose which tests you want to run
+* `npm run test:cypress:debug-build` : use this if your e2e tests only fail on a production bundle, to **debug the tests with the production version** of your app. It will:
+  * build the project and serve it on [http://localhost:5000](http://localhost:5000)
   * open the cypress client that will let you choose which tests you want to run
 
 ## Linter
