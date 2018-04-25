@@ -47,6 +47,7 @@ const KeywordsList = ({ keywords, classes, className, ...remainingProps }) => {
           <Link
             to={`/search?q=keywords:"${keyword}"`}
             key={`${keyword}-${index}`}
+            data-testid={`keyword-${keyword}`}
           >
             {keyword}
           </Link>

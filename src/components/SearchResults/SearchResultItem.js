@@ -60,7 +60,10 @@ const SearchResultItem = ({
         <span className={classes.version}>(v{packageInfos.version})</span>
       </div>
       <div className={classes.description}>{packageInfos.description}</div>
-      <KeywordsList keywords={packageInfos.keywords} />
+      <KeywordsList
+        keywords={packageInfos.keywords}
+        data-testid="keywords-list"
+      />
       <div className={classes.publishInfos}>
         <span>
           published <i>{relativeDate(new Date(packageInfos.date))}</i>
