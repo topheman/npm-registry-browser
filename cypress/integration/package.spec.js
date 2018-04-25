@@ -91,7 +91,7 @@ describe("Package", () => {
         .get(
           '[data-testid=list-version-choice] [href="#/package/react@15.4.2"]:first'
         ) // click on specific version
-        .click()
+        .click({ force: true }) // @todo try to use .scrollIntoView
         .should("not.exist") // make sure it disappeared
         .url()
         .should("contain", "/package/react@15.4.2");
