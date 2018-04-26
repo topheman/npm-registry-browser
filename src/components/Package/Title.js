@@ -119,7 +119,11 @@ class VersionList extends Component {
               ? MenuWrapper
               : DrawerWrapper;
           return (
-            <Wrapper anchorEl={anchorEl} handleClose={handleClose}>
+            <Wrapper
+              anchorEl={anchorEl}
+              handleClose={handleClose}
+              data-testid="list-version-choice"
+            >
               {packageInfos && (
                 <MenuList>
                   {Object.entries(packageInfos["dist-tags"]).map(
@@ -192,6 +196,7 @@ const Title = ({
       onClick={handleClick}
       className={classes.button}
       disabled={!packageInfos}
+      data-testid="button-version-choice"
     >
       {formatPackageString({ scope, name, version })}
       {packageInfos && <ExpandMoreIcon />}

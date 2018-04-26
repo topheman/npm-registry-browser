@@ -108,7 +108,10 @@ const Package = ({
         {packageInfos &&
           packageInfos.versions[version] &&
           packageInfos.versions[version].keywords && (
-            <KeywordsList keywords={packageInfos.versions[version].keywords} />
+            <KeywordsList
+              keywords={packageInfos.versions[version].keywords}
+              data-testid="keywords-list"
+            />
           )}
       </Fragment>
     </header>
@@ -204,6 +207,7 @@ const Package = ({
             packageInfos={packageInfos}
             className={`${classes.blocks} ${classes.blockDependencies}`}
             style={{ padding: 0 }}
+            data-testid="dependencies-tab"
           />
         )}
       {stateNpmRegistry === "loaded" &&
@@ -215,6 +219,7 @@ const Package = ({
             packageInfos={packageInfos}
             className={`${classes.blocks} ${classes.blockVersions}`}
             style={{ padding: 0 }}
+            data-testid="versions-tab"
           />
         )}
       {stateNpmRegistry === "loaded" &&
@@ -225,6 +230,7 @@ const Package = ({
             value={packageInfos.versions[version]}
             className={`${classes.blocks} ${classes.blockPackageJson}`}
             style={{ padding: 0 }}
+            data-testid="packageJson-tab"
           />
         )}
     </section>

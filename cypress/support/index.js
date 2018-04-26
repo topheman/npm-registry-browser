@@ -16,6 +16,9 @@
 // cypress lacks support for some method in `cypress open` mode (not same chrome version as in `cypress run`)
 import "babel-polyfill";
 
+// Import command from cypress-testing-library
+import "cypress-testing-library/add-commands";
+
 // Import commands.js using ES2015 syntax:
 import "./commands";
 

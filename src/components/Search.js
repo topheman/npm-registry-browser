@@ -285,7 +285,7 @@ class Search extends Component {
                 >
                   {items.map((item, index) => (
                     <li
-                      data-testid={`search-result-${index}`}
+                      data-testid={`search-result-${item.package.name}`}
                       key={item.package.name}
                       className={classes.item}
                       {...getItemProps({

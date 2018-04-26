@@ -85,7 +85,10 @@ class SearchResultsContainer extends Component {
     return (
       <Fragment>
         {loadingState === "loading" && (
-          <div className={classes.progressWrapper}>
+          <div
+            className={classes.progressWrapper}
+            data-testid="search-results-loading"
+          >
             <LinearProgress className={classes.progress} />
           </div>
         )}

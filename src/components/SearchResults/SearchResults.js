@@ -6,7 +6,11 @@ import SearchResultItem from "./SearchResultItem";
 const SearchResults = ({ results, total, ...remainingProps }) => (
   <div {...remainingProps}>
     {results.map(result => (
-      <SearchResultItem key={result.package.name} package={result.package} />
+      <SearchResultItem
+        key={result.package.name}
+        package={result.package}
+        data-testid={`search-result-item-${result.package.name}`}
+      />
     ))}
     {results.length === 0 && (
       <div style={{ textAlign: "center" }}>No Results</div>

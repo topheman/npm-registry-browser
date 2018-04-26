@@ -152,7 +152,7 @@ const Home = ({ classes }) => {
           📦
         </span>:
       </p>
-      <div className={classes.chipsWrapper}>
+      <div className={classes.chipsWrapper} data-testid="chip-wrapper">
         {packages.map(name => (
           <Chip
             key={name}

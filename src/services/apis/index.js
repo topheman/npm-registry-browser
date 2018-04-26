@@ -133,7 +133,6 @@ const decorateNpmsIoApi = ({ client /* , cache, key */ }) => ({
 const cypressStripBaseUrlFromCorsProxy = baseURL => {
   if (typeof window.Cypress !== "undefined") {
     const [, originalBaseURL] = baseURL.split("/https://");
-    console.log({ originalBaseURL });
     if (originalBaseURL) {
       return `https://${originalBaseURL}`;
     }

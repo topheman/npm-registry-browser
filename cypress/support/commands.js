@@ -38,6 +38,21 @@ Cypress.Commands.add("clearSWCache", () => {
       cacheNames.map(cacheName => {
         return window.caches.delete(cacheName);
       })
-    ).then(() => console.info("Service Worker cache flushed"));
+    ).then(() => {
+      console.info("Service Worker cache flushed");
+    });
   });
+});
+Cypress.Commands.add("prepareTestSuite", () => {
+  // set from env var CYPRESS_LAUNCH_MODE
+  if (Cypress.env("LAUNCH_MODE") === "debug-build") {
+    cy.log("Debug build mode");
+    cy.log("You are testing the production build");
+    cy.log(
+      `Reminder: Any changes to app sources won't be reflected until you re-build`
+    );
+    cy.log("Use npm run test:cypress:dev to develop your tests");
+  }
+  cy.log("clear ServiceWorker cache"); // can't put it in cy.clearSWCache() due to Promise management of Cypress ...
+  cy.clearSWCache();
 });

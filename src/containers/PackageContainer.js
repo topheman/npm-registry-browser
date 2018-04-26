@@ -85,7 +85,6 @@ class PackageContainer extends Component {
       const packageInfos = await apiNpmRegistry().packageInfos(
         formatPackageString({ scope, name })
       );
-      console.log(packageInfos.name, "packageInfos", packageInfos);
       const matched = this.redirectUntilMatchVersion(
         scope,
         name,
@@ -115,7 +114,6 @@ class PackageContainer extends Component {
         formatPackageString({ scope, name }),
         "last-year"
       );
-      console.log(formatPackageString({ scope, name }), "downloads", downloads);
       if (downloads) {
         this.setState({ downloads, stateNpmApi: "loaded" });
       }
