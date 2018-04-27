@@ -215,10 +215,6 @@ class Search extends Component {
         el.style.display = add ? "none" : "initial"; // eslint-disable-line
       });
   };
-  preventScrollOnBody = event => {
-    event.stopPropagation();
-    event.preventDefault();
-  };
   /**
    * On iOs, clicking out doesn't blur the search field (neither close the search dropdown)
    * This fixes it.
