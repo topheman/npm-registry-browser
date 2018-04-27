@@ -8,8 +8,9 @@ describe("Search", () => {
     cy
       .getByTestId("search-input")
       .type("react")
-      .getByTestId("search-loading-indicator")
-      .should("not.contain", "error")
+      // can't test for search indicator (only shows up if search-input has focus) - it seams, we loose the focus by getting an other selector ...
+      // .getByTestId("search-loading-indicator")
+      // .should("not.contain", "error")
       // wait for the results (and make sure it's correct)
       .getByTestId("search-result-react")
       .contains("react")
@@ -32,8 +33,9 @@ describe("Search", () => {
         .getByTestId("search-input")
         .type("redux", platform === "MOBILE" ? { force: true } : {}) // force: true necessary for `cypress run` ...
         .should("have.value", "redux")
-        .getByTestId("search-loading-indicator")
-        .should("not.contain", "error")
+        // can't test for search indicator (only shows up if search-input has focus) - it seams, we loose the focus by getting an other selector ...
+        // .getByTestId("search-loading-indicator")
+        // .should("not.contain", "error")
         // wait for the results (and make sure it's correct)
         .getByTestId("search-result-redux")
         .contains("redux")

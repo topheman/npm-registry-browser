@@ -368,31 +368,32 @@ class Search extends Component {
                 })}
               />
             </form>
-            {["loading", "error"].includes(state) && (
-              <ul className={classes.itemsWrapper} data-type="search-results">
-                <li
-                  data-testid="search-loading-indicator"
-                  className={classes.item}
-                  style={{
-                    paddingTop: "30px",
-                    backgroundColor: "white"
-                  }}
-                >
-                  {state === "loading" ? (
-                    <Loader
-                      message=""
-                      overrideClasses={{
-                        customLoaderMessage: classes.customLoaderMessage,
-                        customLoaderRoot: classes.customLoaderRoot,
-                        progress: classes.progress
-                      }}
-                    />
-                  ) : (
-                    "error"
-                  )}
-                </li>
-              </ul>
-            )}
+            {inputFocus &&
+              ["loading", "error"].includes(state) && (
+                <ul className={classes.itemsWrapper} data-type="search-results">
+                  <li
+                    data-testid="search-loading-indicator"
+                    className={classes.item}
+                    style={{
+                      paddingTop: "30px",
+                      backgroundColor: "white"
+                    }}
+                  >
+                    {state === "loading" ? (
+                      <Loader
+                        message=""
+                        overrideClasses={{
+                          customLoaderMessage: classes.customLoaderMessage,
+                          customLoaderRoot: classes.customLoaderRoot,
+                          progress: classes.progress
+                        }}
+                      />
+                    ) : (
+                      "error"
+                    )}
+                  </li>
+                </ul>
+              )}
             {isOpen &&
               state === "loaded" &&
               items &&
@@ -435,8 +436,6 @@ class Search extends Component {
               style={(inputFocus && { zIndex: 1331 }) || undefined}
               className={classes.backdrop}
               open={inputFocus}
-              onTouchMove={e => e.preventDefault()}
-              onClick={e => e.preventDefault()}
             />
           </div>
         )}
