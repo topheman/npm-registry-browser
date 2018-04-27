@@ -8,7 +8,7 @@ describe("Search", () => {
     cy
       .getByTestId("search-input")
       .type("react")
-      // can't test for search indicator (only shows up if search-input has focus) - it seams, we loose the focus by getting an other selector ...
+      // can't test for search indicator (only shows up if search-input has focus) - it seems, we loose the focus by getting an other selector ...
       // .getByTestId("search-loading-indicator")
       // .should("not.contain", "error")
       // wait for the results (and make sure it's correct)
