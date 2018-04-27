@@ -88,6 +88,10 @@ const styles = theme => ({
     right: 0,
     border: "1px solid rgba(34,36,38,.15)",
     boxShadow: theme.shadows[1],
+    [theme.breakpoints.up("sm")]: {
+      maxHeight: 450,
+      overflowY: "scroll"
+    },
     [theme.breakpoints.down("sm")]: {
       position: "fixed",
       top: 50,
@@ -170,17 +174,20 @@ class Search extends Component {
     if (this.state.searchQuery !== null) {
       this.updateInputeValueWithSearchQuery();
     }
-    // the snapshot from getSnapshotBeforeUpdate() tells us whether if we need to add or remove the styles on the body to prevent sroll
+    // the snapshot from getSnapshotBeforeUpdate() tells us whether if we need to hide or show content to prevent sroll
     if (snapshot && snapshot.backdrop) {
-      this.fixedScrollOnBody(true);
+      this.hideContentToPreventScroll(true);
     }
     if (snapshot && !snapshot.backdrop) {
-      this.fixedScrollOnBody(false);
+      this.hideContentToPreventScroll(false);
     }
   }
+  /**
+   * cleanup listeners / outside styles
+   */
   componentWillUnmount() {
     window.removeEventListener("touchstart", this.blurInputOnTouchOut);
-    this.fixedScrollOnBody(false);
+    this.hideContentToPreventScroll(false);
   }
   /**
    * Identify if there is a backdrop.
@@ -200,25 +207,13 @@ class Search extends Component {
       searchQuery: null
     });
   }
-  /**
-   * Due to weird iOs bug with fixed input and to prevent body from scrolling behind the backdrop
-   * Without: The input will loose focus
-   */
-  fixedScrollOnBody = (add = true) => {
-    const bodyStyles = {
-      "-webkit-overflow-scrolling": add ? "touch" : "initial",
-      overflow: add ? "hidden" : "initial",
-      height: add ? "100%" : "initial",
-      position: add ? "fixed" : "initial"
-    };
-    Object.entries(bodyStyles).forEach(([cssAttr, value]) => {
-      document.body.style[cssAttr] = value;
-    });
-    window.document.body[add ? "addEventListener" : "removeEventListener"](
-      "touchmove",
-      this.preventScrollOnBody,
-      false
-    );
+  hideContentToPreventScroll = (add = true) => {
+    // hide background content to avoid scrolling
+    document
+      .querySelectorAll("[data-section=content], [data-section=footer]")
+      .forEach(el => {
+        el.style.display = add ? "none" : "initial"; // eslint-disable-line
+      });
   };
   preventScrollOnBody = event => {
     event.stopPropagation();
@@ -226,7 +221,7 @@ class Search extends Component {
   };
   /**
    * On iOs, clicking out doesn't blur the search field (neither close the search dropdown)
-   * This fixes it
+   * This fixes it.
    */
   blurInputOnTouchOut = event => {
     // go up the DOM tree from the touch to check if we are in the dropdown
