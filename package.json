@@ -78,7 +78,8 @@
     "pretty": "npx prettier --write '**/*.{js,jsx,json,css,scss}'",
     "precommit": "lint-staged && npm run lint && npm run test:precommit",
     "proxy-apis-deprecated": "echo 'DEPRECATED' && node ./bin/cors-anywhere.js",
-    "record-http-mocks": "cross-env REACT_APP_NPM_REGISTRY_API_BASE_URL=https://registry.npmjs.org node ./bin/record-http-mocks.js"
+    "record-http-mocks": "cross-env REACT_APP_NPM_REGISTRY_API_BASE_URL=https://registry.npmjs.org node ./bin/record-http-mocks.js",
+    "generate-changelog": "./bin/generate-changelog.js"
   },
   "lint-staged": {
     "**/*.{js,jsx,json,css,scss}": [
@@ -88,6 +89,7 @@
   },
   "devDependencies": {
     "babel-polyfill": "^6.26.0",
+    "commander": "^2.15.1",
     "cors-anywhere": "^0.4.1",
     "cross-env": "^5.1.4",
     "cypress": "^2.1.0",
@@ -103,8 +105,10 @@
     "esm": "^3.0.14",
     "express": "^4.16.3",
     "fs-extra": "^5.0.0",
+    "generate-changelog": "^1.7.1",
     "gh-pages": "^1.1.0",
     "git-rev-sync": "^1.11.1",
+    "github-url-from-git": "^1.5.0",
     "http-proxy-middleware": "^0.18.0",
     "husky": "^0.14.3",
     "jest-dom": "^1.0.0",

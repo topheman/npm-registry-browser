@@ -179,6 +179,14 @@ To have uniform commit messages, I follow the [AngularJS git commit guidelines](
 
 It also makes it easier to generate changelogs.
 
+To generate changelog:
+
+```shell
+npm run generate-changelog -- v1.1.0 v1.2.0
+```
+
+Ready to be pasted to the github releases part.
+
 ## Advanced
 
 ### Mock mode
