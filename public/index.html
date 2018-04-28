@@ -42,7 +42,7 @@
   <script>
     // only run analytics in production
     (function (env) {
-      if (env === "production") {
+      if (env === "production" && location.hostname === "topheman.github.io") {
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
