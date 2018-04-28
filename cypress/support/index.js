@@ -24,3 +24,10 @@ import "./commands";
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
+
+// Execute / log some task before doing anything, like flushing service worker cache
+describe("Prepare test run ...", () => {
+  it("Starting ...", () => {
+    cy.prepareTestRun();
+  });
+});

@@ -1,10 +1,6 @@
 const VISIT_URL = "/#/package/react@16.3.0";
 
 describe("Package", () => {
-  before(() => {
-    // make sure to clear the SW cache before starting the following tests
-    cy.prepareTestSuite();
-  });
   it("should access specific version from url", () => {
     cy.visit(VISIT_URL); // direct visit
     cy.getByText("react@16.3.0").should("be.visible");
