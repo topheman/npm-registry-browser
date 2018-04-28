@@ -119,6 +119,8 @@ I'm using [cypress.io](https://www.cypress.io/) for the e2e tests. You will find
   * build the project and serve it on [http://localhost:5000](http://localhost:5000)
   * open the cypress client that will let you choose which tests you want to run
 
+<p align="center"><a href="https://twitter.com/topheman/status/989856595436867584"><img src="https://raw.githubusercontent.com/topheman/npm-registry-browser/master/public/cypress-screenshot-small.png" width="300" /></a></p>
+
 ## Linter
 
 I use eslint to check the coding style, with the following presets:
