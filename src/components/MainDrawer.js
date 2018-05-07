@@ -6,6 +6,7 @@ import Divider from "material-ui/Divider";
 import CloseIcon from "@material-ui/icons/Close";
 import HomeIcon from "@material-ui/icons/Home";
 import MuiDrawer from "material-ui/Drawer";
+import classNames from "classnames";
 
 import twitterIcon from "../assets/images/twitter-retina.png";
 import githubIcon from "../assets/images/github-retina.png";
@@ -26,6 +27,10 @@ const styles = {
   },
   horizontalList: {
     width: "auto"
+  },
+  listIcon: {
+    width: 24,
+    height: 24
   }
 };
 
@@ -53,7 +58,7 @@ const MainDrawer = ({ classes, anchor, open, onClose, ...remainingProps }) => {
           title="npm-registry-browser on github"
         >
           <ListItemIcon>
-            <img src={githubIcon} alt="github" />
+            <img src={githubIcon} className={classes.listIcon} alt="github" />
           </ListItemIcon>
           <ListItemText primary="Github" />
         </ListItem>
@@ -64,7 +69,7 @@ const MainDrawer = ({ classes, anchor, open, onClose, ...remainingProps }) => {
           title="@topheman on twitter"
         >
           <ListItemIcon>
-            <img src={twitterIcon} alt="twitter" />
+            <img src={twitterIcon} className={classes.listIcon} alt="twitter" />
           </ListItemIcon>
           <ListItemText primary="Twitter" />
         </ListItem>
@@ -76,7 +81,9 @@ const MainDrawer = ({ classes, anchor, open, onClose, ...remainingProps }) => {
           title="@topheman on twitter"
         >
           <ListItemIcon>
-            <HomeIcon className={classes.svgColor} />
+            <HomeIcon
+              className={classNames(classes.svgColor, classes.listIcon)}
+            />
           </ListItemIcon>
           <ListItemText primary="labs.topheman.com" />
         </ListItem>
