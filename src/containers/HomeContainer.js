@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { withStyles } from "material-ui/styles";
 import Chip from "material-ui/Chip";
+import qrcode from "../assets/images/qrcode.png";
 
 const styles = theme => ({
   root: {
@@ -51,6 +52,25 @@ const styles = theme => ({
         textOverflow: "ellipsis"
       }
     }
+  },
+  qrCodeWrapper: {
+    width: 150,
+    height: 170,
+    float: "right",
+    marginRight: "10vw",
+    position: "relative",
+    backgroundImage: `url(${qrcode})`,
+    backgroundRepeat: "no-repeat",
+    [theme.breakpoints.down("sm")]: {
+      display: "none"
+    },
+    "& > span": {
+      fontStyle: "italic",
+      position: "absolute",
+      bottom: 0,
+      textAlign: "center",
+      width: 150
+    }
   }
 });
 
@@ -89,6 +109,9 @@ const Home = ({ classes }) => {
           ) : null}
         </p>
       )}
+      <div className={classes.qrCodeWrapper} data-testid="qrcode">
+        <span>Visit on mobile</span>
+      </div>
       <p>
         There are lots of great resources on React out there. What might be
         missing is some projects mixing real-world constraints like:
