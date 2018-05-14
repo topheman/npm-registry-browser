@@ -1,12 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
-import ExpansionPanel, {
-  ExpansionPanelSummary,
-  ExpansionPanelDetails
-} from "material-ui/ExpansionPanel";
+import ExpansionPanel from "@material-ui/core/ExpansionPanel";
+import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
+import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import Typography from "material-ui/Typography";
-import { withStyles } from "material-ui/styles";
+import Typography from "@material-ui/core/Typography";
+import { withStyles } from "@material-ui/core/styles";
 import classNames from "classnames";
 
 import CodeBlock from "../CodeBlock";

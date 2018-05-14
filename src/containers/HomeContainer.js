@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import { withStyles } from "material-ui/styles";
-import Chip from "material-ui/Chip";
+import { withStyles } from "@material-ui/core/styles";
+import Chip from "@material-ui/core/Chip";
 import qrcode from "../assets/images/qrcode.png";
 
 const styles = theme => ({
@@ -89,7 +89,7 @@ const Home = ({ classes }) => {
     "jquery@1.8.3",
     "babel-core",
     "webpack",
-    "material-ui",
+    "@material-ui/core",
     "downshift"
   ];
   return (

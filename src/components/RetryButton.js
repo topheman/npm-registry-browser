@@ -2,8 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
-import { withStyles } from "material-ui/styles";
-import Button from "material-ui/Button";
+import { withStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
 import RefreshIcon from "@material-ui/icons/Refresh";
 
 const styles = theme => ({

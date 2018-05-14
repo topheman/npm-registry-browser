@@ -2,7 +2,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import { withStyles } from "material-ui/styles";
+import { withStyles } from "@material-ui/core/styles";
 import classNames from "classnames";
 
 import LocalOfferIcon from "@material-ui/icons/LocalOffer";

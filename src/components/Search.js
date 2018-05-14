@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { withStyles } from "material-ui/styles";
-import Typography from "material-ui/Typography";
-import Backdrop from "material-ui/Modal/Backdrop";
+import { withStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
+import Backdrop from "@material-ui/core/Backdrop";
 import Downshift from "downshift";
 import { compose } from "recompose";
 import classNames from "classnames";
