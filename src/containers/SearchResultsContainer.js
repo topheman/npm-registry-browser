@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
-import { LinearProgress } from "material-ui/Progress";
-import { withStyles } from "material-ui/styles";
+import { withStyles } from "@material-ui/core/styles";
+import LinearProgress from "@material-ui/core/LinearProgress";
 
 import { apiNpmsIo } from "../services/apis";
 import { parseQueryString } from "../utils/url";

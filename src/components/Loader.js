@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { LinearProgress } from "material-ui/Progress";
-import { withStyles } from "material-ui/styles";
+import LinearProgress from "@material-ui/core/LinearProgress";
+import { withStyles } from "@material-ui/core/styles";
 
 import Waiting from "./Waiting";
 
