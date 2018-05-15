@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
+import Icon from "@material-ui/core/Icon";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
@@ -10,9 +11,11 @@ import CloseIcon from "@material-ui/icons/Close";
 import HomeIcon from "@material-ui/icons/Home";
 import MuiDrawer from "@material-ui/core/Drawer";
 import classNames from "classnames";
+import { Link } from "react-router-dom";
 
 import twitterIcon from "../assets/images/twitter-retina.png";
 import githubIcon from "../assets/images/github-retina.png";
+import qrcode from "../assets/images/qrcode.png";
 
 const styles = {
   closeIcon: {
@@ -34,6 +37,11 @@ const styles = {
   listIcon: {
     width: 24,
     height: 24
+  },
+  qrcodeIcon: {
+    backgroundImage: `url(${qrcode})`,
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "100%"
   }
 };
 
@@ -89,6 +97,19 @@ const MainDrawer = ({ classes, anchor, open, onClose, ...remainingProps }) => {
             />
           </ListItemIcon>
           <ListItemText primary="labs.topheman.com" />
+        </ListItem>
+        <Divider style={{ marginTop: "50px" }} />
+        <ListItem
+          button
+          component={Link}
+          to="/qrcode"
+          title="Show Qrcode"
+          data-testid="link-to-qrcode"
+        >
+          <ListItemIcon>
+            <Icon className={classes.qrcodeIcon} />
+          </ListItemIcon>
+          <ListItemText primary="Show Qrcode" />
         </ListItem>
       </List>
     </div>
