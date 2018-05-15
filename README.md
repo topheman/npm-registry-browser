@@ -19,6 +19,25 @@ The hard part is often to be able to put all those together. This is the goal of
 
 📺 _[Watch the video of the talk 🇫🇷](http://dev.topheman.com/pourquoi-realiser-topheman-npm-registry-browser-video-talk/)_
 
+<details>
+
+<summary>🚀 Get started right away</summary>
+
+_"I'm a developer, I don't read docs, just give me the gist!"_
+
+```shell
+git clone https://github.com/topheman/npm-registry-browser.git
+cd npm-registry-browser
+npm install
+npm start
+```
+
+**It just works ...!**
+
+However, you should take a look a the rest of the docs (you will find explanations and advanced uses).
+
+</details>
+
 ## What this project is not
 
 1.  A simple boilerplate. It aims to be more than that: expose quality sample code that you could learn from, at a project level.
@@ -38,7 +57,7 @@ Here's a list of some of the technologies I'm using:
 * [Jest](https://facebook.github.io/jest/) / [Cypress.io](https://www.cypress.io/) - [enzyme](https://github.com/airbnb/enzyme) / [react-testing-library](https://github.com/kentcdodds/react-testing-library)
 * [Axios](https://github.com/axios/axios) / [nock](https://github.com/node-nock/nock)
 
-I took some notes along the way, they are available [here](NOTES.md).
+🗒 [Read the notes I took along the way](NOTES.md).
 
 ## Prerequisites
 
