@@ -184,7 +184,7 @@ npm run deploy
 
 [More infos](README.cra.md#github-pages)
 
-## CI
+## Continuous Integration (CI)
 
 Each `git push` triggers a test suite on [travis](https://travis-ci.org/topheman/npm-registry-browser). The following will be ran:
 
@@ -193,6 +193,12 @@ Each `git push` triggers a test suite on [travis](https://travis-ci.org/topheman
 * end to end test with cypress
 
 The end to end test sessions are recorded, you can check them [here](https://dashboard.cypress.io/#/projects/8r5nf4/runs).
+
+## Continuous deployment (CD)
+
+On each commit (or PR) pushed to `master`, if the tests are passing, the website will be automatically deployed from travis to a staging server: https://staging-npm-registry-browser.surge.sh/
+
+* [How to setup deployments with Travis CI](https://docs.travis-ci.com/user/deployment/surge/)
 
 ## Commit guidelines
 
