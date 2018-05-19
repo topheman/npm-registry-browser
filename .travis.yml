@@ -11,5 +11,3 @@ deploy:
   project: ./build/
   domain: staging-npm-registry-browser.surge.sh
   skip_cleanup: true
-  on:
-    all_branches: true
