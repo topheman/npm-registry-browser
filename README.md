@@ -204,8 +204,9 @@ On each commit (or PR) pushed to `master`, if the tests are passing, a version o
 
 On each tag pushed to `master`:
 
-* a mocked version will be automatically deployed to this server: https://mock-npm-registry-browser.surge.sh/ ([read more about mocks](#mock-mode))
-* the artefacts generated during build (the `build` folder) will be automatically uploaded to the related release, so that you could re-download it at any time (see [releases](https://github.com/topheman/npm-registry-browser/releases) section)
+* a new version will be deployed to the production server: https://topheman.github.io/npm-registry-browser/
+* a mocked version will be deployed to this server: https://mock-npm-registry-browser.surge.sh/ ([read more about mocks](#mock-mode))
+* the artefacts generated during build (the `build` folder) will be uploaded to the related release, so that you could re-download them at any time (see [releases](https://github.com/topheman/npm-registry-browser/releases) section)
 
 📔 Resources:
 
