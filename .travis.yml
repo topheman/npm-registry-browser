@@ -34,7 +34,7 @@ jobs:
           local_dir: build
           on:
             tags: true
-            branch: feature/continuous-deployment-to-gh-pages
+            branch: master
       after_deploy:
         - curl https://staging-npm-registry-browser.surge.sh
         - curl https://topheman.github.io/npm-registry-browser/
