@@ -2,12 +2,36 @@ sudo: false
 language: node_js
 node_js:
   - "8"
-install: npm install
-script:
-  - npm run lint
-  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && npm run test:travis || npm run test:travis:pr'
-deploy:
-  provider: surge
-  project: ./build/
-  domain: staging-npm-registry-browser.surge.sh
-  skip_cleanup: true
+jobs:
+  include:
+    - stage: Testing / Deploy (staging/production)
+      install: npm install
+      script:
+        - npm run lint
+        - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && npm run test:travis || npm run test:travis:pr' # don't record with cypress (don't have access to API key on PRs)
+      deploy: # Deploy to staging on each commit to master
+        provider: surge
+        project: ./build/
+        domain: staging-npm-registry-browser.surge.sh
+        skip_cleanup: true
+        on:
+          branch: master
+      after_deploy:
+        - curl https://staging-npm-registry-browser.surge.sh
+    - stage: Mocked version deployment
+      if: branch = master AND tag IS present # skip this stage if not a tag on branch master
+      install: npm install
+      script: skip # don't re-run the tests
+      before_deploy:
+        - echo "Building Mock version - see https://github.com/topheman/npm-registry-browser#make-a-build-with-mocks"
+        - npm run build:mock
+      deploy: # Deploy mock version server on each tag on master
+        provider: surge
+        project: ./build/
+        domain: mock-npm-registry-browser.surge.sh
+        skip_cleanup: true
+        on:
+          tags: true
+          branch: master
+      after_deploy:
+        - curl https://mock-npm-registry-browser.surge.sh

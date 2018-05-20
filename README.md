@@ -196,7 +196,17 @@ The end to end test sessions are recorded, you can check them [here](https://das
 
 ## Continuous deployment (CD)
 
-On each commit (or PR) pushed to `master`, if the tests are passing, the website will be automatically deployed from travis to a staging server: https://staging-npm-registry-browser.surge.sh/
+### Staging
+
+On each commit (or PR) pushed to `master`, if the tests are passing, a version of the website will be automatically deployed from travis to a staging server: https://staging-npm-registry-browser.surge.sh/ (that way, your QA team will be able to test your latest stable features before you release them)
+
+### Production
+
+On each tag pushed to `master`:
+
+* a mocked version will be automatically deployed to this server: https://mock-npm-registry-browser.surge.sh/ ([read more about mocks](#mock-mode))
+
+📔 Resources:
 
 * [How to setup deployments with Travis CI](https://docs.travis-ci.com/user/deployment/surge/)
 
