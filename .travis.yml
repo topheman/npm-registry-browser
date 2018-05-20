@@ -44,7 +44,7 @@ jobs:
         - curl https://staging-npm-registry-browser.surge.sh
         - curl https://topheman.github.io/npm-registry-browser/
     - stage: Mocked version deployment
-      if: branch = master AND tag IS present # skip this stage if not a tag on branch master
+      if: tag IS present # skip this stage if not a tag
       install: npm install
       script: skip # don't re-run the tests
       before_deploy:
