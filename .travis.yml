@@ -1,13 +1,12 @@
 sudo: false
 language: node_js
-node_js:
-  - "8"
-install: npm install
-script:
-  - npm run lint
-  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && npm run test:travis || npm run test:travis:pr'
 jobs:
   include:
+    - stage: Testing
+      node_js: "8"
+      script:
+        - npm run lint
+        - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && npm run test:travis || npm run test:travis:pr'
     - stage: Regular version deployment
       before_deploy:
         - echo "Using regular build for deployment"
@@ -18,8 +17,8 @@ jobs:
         skip_cleanup: true
         on:
           all_branches: true
-    - stage: Test staging
-      script: 'curl https://staging-npm-registry-browser.surge.sh'
+      after_deploy:
+        - curl https://staging-npm-registry-browser.surge.sh
     - stage: Mocked version deployment
       before_deploy:
         - echo "Building Mock version - see https://github.com/topheman/npm-registry-browser#make-a-build-with-mocks"
@@ -31,5 +30,5 @@ jobs:
         skip_cleanup: true
         on:
           all_branches: true
-    - stage: Test online mocked version
-      script: 'curl https://mock-npm-registry-browser.surge.sh'
+      after_deploy:
+        - curl https://mock-npm-registry-browser.surge.sh
