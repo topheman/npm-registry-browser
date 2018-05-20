@@ -15,7 +15,7 @@ jobs:
         domain: staging-npm-registry-browser.surge.sh
         skip_cleanup: true
         on:
-          all_branches: true
+          branch: master
       after_deploy:
         - curl https://staging-npm-registry-browser.surge.sh
     - stage: Mocked version deployment
@@ -24,12 +24,13 @@ jobs:
       before_deploy:
         - echo "Building Mock version - see https://github.com/topheman/npm-registry-browser#make-a-build-with-mocks"
         - npm run build:mock
-      deploy: # Deploy mock version server on each tag
+      deploy: # Deploy mock version server on each tag on master
         provider: surge
         project: ./build/
         domain: mock-npm-registry-browser.surge.sh
         skip_cleanup: true
         on:
-          all_branches: true
+          tags: true
+          branch: master
       after_deploy:
         - curl https://mock-npm-registry-browser.surge.sh
