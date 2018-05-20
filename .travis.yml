@@ -11,14 +11,14 @@ jobs:
         - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && npm run test:travis || npm run test:travis:pr' # don't record with cypress (don't have access to API key on PRs)
       before_deploy:
         - tar czvf build.tar.gz -C build .
-      deploy: # Deploy to staging on each commit to master
-        - provider: surge
+      deploy:
+        - provider: surge # Deploy to staging on each commit to master
           project: ./build/
           domain: staging-npm-registry-browser.surge.sh
           skip_cleanup: true
           on:
             branch: master
-        - provider: releases
+        - provider: releases # Upload build artefacts to github releases on each tag on master
           api_key:
             secure: i7v1KFG/fviiPx2g6QlFo4+56CdEbqj2FRgtRldVVMHAHlLizNxfFATeidWND3W9ydSKNddpCFN6CIr2CPhuzAbRnMPwsU3r7YxGJEINFubvlbxIvVu6XPSiGOiSEmZQ0kLhN7AS9f9gYP0Hklg70cEKdDGIxhsNCrXcGkS3aKADDvr3sTOkjnFcYZkIgCl/kTFKA+7HomfBxfmzu/bvbhEmKfDRmDzWSuKRVlYo1wVPCdmA//wvK8xzCBQd3payrcMTDcH0O8rNBarnQDJ1HlZKOmwyRAcYyAZHjIgqTQi+6czDRPVMJOZDoBEphYvVYTkJIZo8lhKfRmTi6OTuL3LJvh9Drd1IIuNaCtlMpjy+em+wrM/HsBnRniNdqWqc5jyTYPCSGSEVRUawMVHNTtnwLwhraDiubqDOsHatngGbAV6ESygamIIQB3A/EjvGSlCLARJdX4oiEIfexjDc5F0xXbHx8HoTZc62wNwP0H22T20NLG6+9prcLeLF3s3u/VDS6te39fEGu/vLPGPfJXjmhJUfLr51v/6xKmqscsjHDNI4j/rv+y+vNtbJjjPUOmmJ40YgzlcLRc2AqVOmW/qVR+pmhp/8QNKuj2w2B/uxdttDgQDAhllMLCQ7+byBRsdhFBltWq0XdH3upmTkQxTFYETGZ2aWleUaeJMUbXI=
           file: "./build.tar.gz"
@@ -26,8 +26,18 @@ jobs:
           on:
             tags: true
             branch: master
+        - provider: pages # Deploy to gh-pages on each tag on master
+          skip_cleanup: true
+          github_token:
+            secure: i7v1KFG/fviiPx2g6QlFo4+56CdEbqj2FRgtRldVVMHAHlLizNxfFATeidWND3W9ydSKNddpCFN6CIr2CPhuzAbRnMPwsU3r7YxGJEINFubvlbxIvVu6XPSiGOiSEmZQ0kLhN7AS9f9gYP0Hklg70cEKdDGIxhsNCrXcGkS3aKADDvr3sTOkjnFcYZkIgCl/kTFKA+7HomfBxfmzu/bvbhEmKfDRmDzWSuKRVlYo1wVPCdmA//wvK8xzCBQd3payrcMTDcH0O8rNBarnQDJ1HlZKOmwyRAcYyAZHjIgqTQi+6czDRPVMJOZDoBEphYvVYTkJIZo8lhKfRmTi6OTuL3LJvh9Drd1IIuNaCtlMpjy+em+wrM/HsBnRniNdqWqc5jyTYPCSGSEVRUawMVHNTtnwLwhraDiubqDOsHatngGbAV6ESygamIIQB3A/EjvGSlCLARJdX4oiEIfexjDc5F0xXbHx8HoTZc62wNwP0H22T20NLG6+9prcLeLF3s3u/VDS6te39fEGu/vLPGPfJXjmhJUfLr51v/6xKmqscsjHDNI4j/rv+y+vNtbJjjPUOmmJ40YgzlcLRc2AqVOmW/qVR+pmhp/8QNKuj2w2B/uxdttDgQDAhllMLCQ7+byBRsdhFBltWq0XdH3upmTkQxTFYETGZ2aWleUaeJMUbXI=
+          keep_history: true
+          local_dir: build
+          on:
+            tags: true
+            branch: master
       after_deploy:
         - curl https://staging-npm-registry-browser.surge.sh
+        - curl https://topheman.github.io/npm-registry-browser/
     - stage: Mocked version deployment
       if: branch = master AND tag IS present # skip this stage if not a tag on branch master
       install: npm install

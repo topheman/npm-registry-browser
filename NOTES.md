@@ -11,6 +11,7 @@ Bellow, you will find some notes I took along the way.
 * [Miscellaneous](#miscellaneous)
   * [Eslint and Prettier](#eslint-and-prettier)
   * [Cypress with cross-origin](#cypress-with-cross-origin)
+  * [Continuous deployment with Travis](#continuous-deployment-with-travis)
   * [Cypress record on CI with pull requests from a fork](#cypress-record-on-ci-with-pull-requests-from-a-fork)
   * [Api fallback](#api-fallback)
   * [CORS anywhere development proxy](#cors-anywhere-development-proxy)
@@ -136,6 +137,8 @@ Also, when the app is ran inside cypress, the calls to outside are proxied by cy
 You can't manually set this header, you'll have the following error: `Refused to set unsafe header "Origin"`
 
 Since the CORS proxies used in production ask for this origin header and it's missing when ran in cypress, we don't run through the CORS proxy when running tests in cypress with a production build - see [src/services/apis/index.js](src/services/apis/index.js).
+
+### Continuous deployment with Travis
 
 ### Cypress record on CI with pull requests from a fork
 
