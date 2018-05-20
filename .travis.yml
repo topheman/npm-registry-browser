@@ -5,6 +5,7 @@ node_js:
 jobs:
   include:
     - stage: Testing
+      install: npm install
       script:
         - npm run lint
         - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && npm run test:travis || npm run test:travis:pr' # don't record with cypress (don't have access to API key on PRs)
