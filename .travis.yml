@@ -4,16 +4,12 @@ node_js:
   - "8"
 jobs:
   include:
-    - stage: Testing
+    - stage: Testing / Deploy (staging/production)
       install: npm install
       script:
         - npm run lint
         - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && npm run test:travis || npm run test:travis:pr' # don't record with cypress (don't have access to API key on PRs)
-    - stage: Regular version deployment
-      script: skip # don't re-run the tests
-      before_deploy:
-        - echo "Using regular build for deployment"
-      deploy:
+      deploy: # Deploy to staging on each commit to master
         provider: surge
         project: ./build/
         domain: staging-npm-registry-browser.surge.sh
