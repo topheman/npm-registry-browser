@@ -140,6 +140,97 @@ Since the CORS proxies used in production ask for this origin header and it's mi
 
 ### Continuous deployment with Travis
 
+This project applies multiple CI (Continuous Integration) good practices such as:
+
+* Linting / Formatting of the source code
+* Unit tests
+* End to end tests
+
+We can rely on them when going through [Travis CI](https://travis-ci.org/topheman/npm-registry-browser) to automate the deployment on multiple environments, such as:
+
+* staging: https://staging-npm-registry-browser.surge.sh
+* production: https://topheman.github.io/npm-registry-browser/
+* mocked version: https://mock-npm-registry-browser.surge.sh/
+* upload build artefacts to github releases: https://github.com/topheman/npm-registry-browser/releases
+
+I am using github-pages and surge.sh for hosting, you will see that [Travis CI supports a lot of providers out of the box](https://docs.travis-ci.com/user/deployment/).
+
+Here are some example of use of providers. If you want multiple ones at a time ([Mutiple Provider](https://docs.travis-ci.com/user/deployment/#Deploying-to-Multiple-Providers)), you can take a look at my [`.travis.yml`](.env) file.
+
+#### Deploy to surge
+
+Add the 2 following env vars to the travis settings of your repo:
+
+* `SURGE_LOGIN`: Set it to the email address you use with Surge
+* `SURGE_TOKEN`: Set it to your login token (get it by running `surge token`)
+
+Update your `.travis.yml` with:
+
+```yaml
+deploy:
+  provider: surge
+  project: ./static/
+  domain: example.surge.sh
+```
+
+📂 [Checkout the PR where I implemented it](https://github.com/topheman/npm-registry-browser/pull/20/files)
+
+📔 [Travis Docs](https://docs.travis-ci.com/user/deployment/surge/)
+
+#### Deploy artefacts to github releases
+
+You might want to archive the builds you deployed for multiple reasons, for example:
+
+* expose them internally to your team to ease re-deployment
+* keep them to download the exact same release when someone files an issue on a specific version
+
+To do that, we compress the `build` folder and upload it to github via its API, using the `release` provider from Travis CI.
+
+Follow the steps:
+
+* [Install travis-cli](https://github.com/travis-ci/travis.rb#installation)
+* Log into travis on the terminal inside your project folder [travis login](https://github.com/travis-ci/travis.rb#login)
+* Run `travis setup releases` [sources](https://docs.travis-ci.com/user/deployment/releases/)
+
+This will ask for a few credentials and add the necessary configuration in your `.travis.yml` file. You will end up with a config like that:
+
+```yaml
+# add this step to compress the build folder
+before_deploy:
+  - tar czvf build.tar.gz -C build .
+deploy:
+  provider: releases
+  api_key: "GITHUB OAUTH TOKEN"
+  file: "build.tar.gz"
+  skip_cleanup: true
+  on:
+    tags: true
+```
+
+📂 [Checkout the PR where I implemented it](https://github.com/topheman/npm-registry-browser/pull/22/files)
+
+📔 [Travis Docs](https://docs.travis-ci.com/user/deployment/releases/)
+
+#### Deploy to github pages
+
+If you use github-pages as hosting, you can automate the deployment. You'll need a github token (you can generate it from [here](https://github.com/settings/tokens) with the `public_repo` scope).
+
+Then add the following to your `.travis.yml`:
+
+```yaml
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
+  keep-history: true
+  on:
+    branch: master
+```
+
+📂 [Checkout the PR where I implemented it](https://github.com/topheman/npm-registry-browser/pull/23/files)
+
+📔 [Travis Docs](https://docs.travis-ci.com/user/deployment/pages/)
+
 ### Cypress record on CI with pull requests from a fork
 
 > A pull request sent from a fork of the upstream repository could be manipulated to expose environment variables.
