@@ -6,8 +6,30 @@ install: npm install
 script:
   - npm run lint
   - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && npm run test:travis || npm run test:travis:pr'
-deploy:
-  provider: surge
-  project: ./build/
-  domain: staging-npm-registry-browser.surge.sh
-  skip_cleanup: true
+jobs:
+  include:
+    - stage: Regular version deployment
+      before_deploy:
+        - echo "Using regular build for deployment"
+      deploy:
+        provider: surge
+        project: ./build/
+        domain: staging-npm-registry-browser.surge.sh
+        skip_cleanup: true
+        on:
+          all_branches: true
+    - stage: Test staging
+      script: 'curl https://staging-npm-registry-browser.surge.sh'
+    - stage: Mocked version deployment
+      before_deploy:
+        - echo "Building Mock version - see https://github.com/topheman/npm-registry-browser#make-a-build-with-mocks"
+        - npm run build:mock
+      deploy:
+        provider: surge
+        project: ./build/
+        domain: mock-npm-registry-browser.surge.sh
+        skip_cleanup: true
+        on:
+          all_branches: true
+    - stage: Test online mocked version
+      script: 'curl https://mock-npm-registry-browser.surge.sh'
