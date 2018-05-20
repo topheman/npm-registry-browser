@@ -155,7 +155,7 @@ We can rely on them when going through [Travis CI](https://travis-ci.org/tophema
 
 I am using github-pages and surge.sh for hosting, you will see that [Travis CI supports a lot of providers out of the box](https://docs.travis-ci.com/user/deployment/).
 
-Here are some example of use of providers. If you want multiple ones at a time ([Mutiple Provider](https://docs.travis-ci.com/user/deployment/#Deploying-to-Multiple-Providers)), you can take a look at my [`.travis.yml`](.env) file.
+Here are some example of use of providers. If you want multiple ones at a time ([Mutiple Provider](https://docs.travis-ci.com/user/deployment/#Deploying-to-Multiple-Providers)), you can take a look at my [`.travis.yml`](.travis.yml) file.
 
 #### Deploy to surge
 
