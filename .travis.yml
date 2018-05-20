@@ -19,11 +19,12 @@ jobs:
       after_deploy:
         - curl https://staging-npm-registry-browser.surge.sh
     - stage: Mocked version deployment
+      install: npm install
       script: skip # don't re-run the tests
       before_deploy:
         - echo "Building Mock version - see https://github.com/topheman/npm-registry-browser#make-a-build-with-mocks"
         - npm run build:mock
-      deploy:
+      deploy: # Deploy mock version server on each tag
         provider: surge
         project: ./build/
         domain: mock-npm-registry-browser.surge.sh
