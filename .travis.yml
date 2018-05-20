@@ -19,6 +19,7 @@ jobs:
       after_deploy:
         - curl https://staging-npm-registry-browser.surge.sh
     - stage: Mocked version deployment
+      if: branch = master AND tag IS present # skip this stage if not a tag on branch master
       install: npm install
       script: skip # don't re-run the tests
       before_deploy:
