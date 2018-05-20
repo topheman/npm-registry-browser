@@ -208,9 +208,7 @@ On each tag pushed to `master`:
 * a mocked version will be deployed to this server: https://mock-npm-registry-browser.surge.sh/ ([read more about mocks](#mock-mode))
 * the artefacts generated during build (the `build` folder) will be uploaded to the related release, so that you could re-download them at any time (see [releases](https://github.com/topheman/npm-registry-browser/releases) section)
 
-📔 Resources:
-
-* [How to setup deployments with Travis CI](https://docs.travis-ci.com/user/deployment/surge/)
+🚚 [More infos about Continuous Deployment](NOTES.md#continuous-deployment-with-travis)
 
 ## Commit guidelines
 

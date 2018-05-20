@@ -1,3 +1,8 @@
+# This file handles both CI and CD (Continuous Deployment)
+# If you don't need the deployment part, use .travis.simple.yml
+# Also take a look at:
+# * https://github.com/topheman/npm-registry-browser#continuous-integration-ci
+# * https://github.com/topheman/npm-registry-browser/blob/master/NOTES.md#continuous-deployment-with-travis
 sudo: false
 language: node_js
 node_js:
