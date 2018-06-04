@@ -147,14 +147,21 @@ class Search extends Component {
    * Track props.searchQuery and update our internal state.searchQuery
    * that way, if we have state.searchQuery in componentDidUpdate,
    * we need to update the state.inputValue
+   *
+   * Same approach as https://reactjs.org/blog/2018/05/23/react-v-16-4.html#2-compare-incoming-props-to-previous-props-when-computing-controlled-values
    */
   static getDerivedStateFromProps(nextProps, prevState) {
-    if (nextProps.searchQuery !== prevState.searchQuery) {
-      return {
-        searchQuery: nextProps.searchQuery
-      };
-    }
-    return null; // the new props do not require state updates
+    const { prevProps = {} } = prevState;
+    // Compare the incoming prop to previous prop
+    const searchQuery =
+      prevProps.searchQuery !== nextProps.searchQuery
+        ? nextProps.searchQuery
+        : prevState.searchQuery;
+    return {
+      // Store the previous props in state
+      prevProps: nextProps,
+      searchQuery
+    };
   }
   constructor(props) {
     super(props);
@@ -168,11 +175,15 @@ class Search extends Component {
   }
   componentDidMount() {
     window.addEventListener("touchstart", this.blurInputOnTouchOut, false);
+    // update state.inputValue if it has been initialized (via getDerivedStateFromProps)
+    if (this.state.searchQuery) {
+      this.updateInputValueWithSearchQuery();
+    }
   }
   componentDidUpdate(_prevProps, _prevState, snapshot) {
     // update state.inputValue when props.searchQuery changes (see getDerivedStateFromProps above)
-    if (this.state.searchQuery !== null) {
-      this.updateInputeValueWithSearchQuery();
+    if (_prevState.searchQuery !== this.state.searchQuery) {
+      this.updateInputValueWithSearchQuery();
     }
     // the snapshot from getSnapshotBeforeUpdate() tells us whether if we need to hide or show content to prevent sroll
     if (snapshot && snapshot.backdrop) {
@@ -201,11 +212,10 @@ class Search extends Component {
     }
     return null;
   }
-  updateInputeValueWithSearchQuery() {
-    this.setState({
-      inputValue: this.state.searchQuery,
-      searchQuery: null
-    });
+  updateInputValueWithSearchQuery() {
+    this.setState(state => ({
+      inputValue: state.searchQuery
+    }));
   }
   hideContentToPreventScroll = (add = true) => {
     // hide background content to avoid scrolling
