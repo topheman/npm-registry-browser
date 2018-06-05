@@ -67,6 +67,7 @@
     "test:cypress:dev": "npm-run-all --parallel --race start 'cy:open -- --config baseUrl=http://localhost:3000'",
     "test:cypress:debug-build": "npm run build && cross-env CYPRESS_LAUNCH_MODE=debug-build npm-run-all --parallel --race serve cy:open",
     "cy:open": "cypress open",
+    "precy:run": "node cypress/support/precyrun.js",
     "cy:run": "cypress run",
     "cy:run:travis": "npm run cy:run -- --record --config video=true",
     "cy:start-server-and-test": "npx start-server-and-test serve :5000 cy:run",

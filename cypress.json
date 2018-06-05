@@ -2,5 +2,6 @@
   "baseUrl": "http://localhost:5000",
   "video": false,
   "chromeWebSecurity": false,
-  "projectId": "8r5nf4"
+  "projectId": "8r5nf4",
+  "testFiles": "**/index.spec.js"
 }
