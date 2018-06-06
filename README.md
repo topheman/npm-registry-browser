@@ -140,6 +140,19 @@ I'm using [cypress.io](https://www.cypress.io/) for the e2e tests. You will find
 
 <p align="center"><a href="https://twitter.com/topheman/status/989856595436867584"><img src="https://raw.githubusercontent.com/topheman/npm-registry-browser/master/public/cypress-screenshot-small.png" width="300" /></a></p>
 
+When you add a spec file, reference it in [cypress/integration/index.spec.js](cypress/integration/index.spec.js) (specific to my [cypress.json](cypress.json) config, explained bellow).
+
+#### Cypress@3.x.x upgrade
+
+Since `cypress@3.x.x`, each spec file runs in isolation. The tests took much longer to run.
+
+To speed them up, I decided to run all the files in the same spec (tests don't rely on state of previous state - they could be ran in isolation if needed).
+
+[A message is output](cypress/support/precyrun.js) to explain how to run them in a regular way:
+
+* remove [cypress/integration/index.spec.js](cypress/integration/index.spec.js)
+* update [cypress.json](cypress.json), remove the `testFiles` entry.
+
 ## Linter
 
 I use eslint to check the coding style, with the following presets:
