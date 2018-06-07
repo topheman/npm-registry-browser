@@ -20,7 +20,7 @@ describe("Package", () => {
     cy.visit(VISIT_URL); // direct visit
     cy
       .getByTestId("dependencies-tab")
-      .getByText("Dependencies (")
+      .getByText(/Dependencies \(/)
       .click(); // open tab
     cy
       .getByTestId("dependencies-tab")
@@ -36,7 +36,7 @@ describe("Package", () => {
     cy.visit(VISIT_URL); // direct visit
     cy
       .getByTestId("versions-tab")
-      .getByText("Versions (")
+      .getByText(/Versions \(/)
       .click(); // open tab
     cy
       .getByTestId("versions-tab")
@@ -48,7 +48,7 @@ describe("Package", () => {
     cy.visit(VISIT_URL); // direct visit
     cy
       .getByTestId("packageJson-tab")
-      .getByText("package.json (")
+      .getByText(/package.json \(/)
       .click() // open tab
       .get("[data-testid=packageJson-tab] pre")
       .should("be.visible");
