@@ -78,7 +78,7 @@ describe("SearchResults", () => {
       .wait(0) // history.go('back') on front router -> cypress timeout is messed up (doesn't wait for next items to be ready)
       .getByTestId("search-input")
       .should("have.value", 'keywords:"react"')
-      .getByTestId("search-result-item-react")
+      .getByTestId("search-result-item-react-redux")
       .should("exist")
       .url()
       .then(url => {
