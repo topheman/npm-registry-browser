@@ -1,6 +1,6 @@
 // inspired by https://github.com/topheman/d3-react-experiments/blob/master/src/components/WindowInfos/Provider.js
 
-import React, { Component, createContext } from "react";
+import React, { Component, createContext, forwardRef } from "react";
 import PropTypes from "prop-types";
 import hoistNonReactStatics from "hoist-non-react-statics";
 
@@ -74,12 +74,12 @@ ConnectedWindowInfos.propTypes = {
 /** Higher Order Component (HOC) part */
 
 export const withWindowInfos = () => Comp => {
-  function Wrapper(props) {
-    const { innerRef, ...remainingProps } = props;
+  // second argument `ref` injected via `forwardRef`
+  function Wrapper(props, ref) {
     return (
       <ConnectedWindowInfos
         render={windowInfos => (
-          <Comp {...remainingProps} windowInfos={windowInfos} ref={innerRef} />
+          <Comp {...props} windowInfos={windowInfos} ref={ref} />
         )}
       />
     );
@@ -87,12 +87,8 @@ export const withWindowInfos = () => Comp => {
   Wrapper.displayName = `withWindowInfos(${Comp.displayName ||
     Comp.name ||
     "Component"})`;
-  Wrapper.propTypes = {
-    innerRef: PropTypes.func
-  };
-  Wrapper.defaultProps = {
-    innerRef: undefined
-  };
-  Wrapper.WrappedComponent = Comp;
-  return hoistNonReactStatics(Wrapper, Comp);
+  const WrapperWithRef = forwardRef(Wrapper);
+  hoistNonReactStatics(WrapperWithRef, Comp);
+  WrapperWithRef.WrappedComponent = Comp;
+  return WrapperWithRef;
 };
