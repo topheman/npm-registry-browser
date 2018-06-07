@@ -89,7 +89,25 @@ describe("/components/WindowInfos", () => {
       const CustomComponentWithWindowInfos = withWindowInfos()(CustomComponent);
       expect(CustomComponentWithWindowInfos.myStaticProperty).toBe(true);
     });
-    // @todo check innerRef
+    it("should forward ref", () => {
+      /* eslint-disable */
+      class CustomComponent extends Component {
+        render() {
+          return <div />;
+        }
+      }
+      /* eslint-enable */
+      let testRef = null;
+      const CustomComponentWithWindowInfos = withWindowInfos()(CustomComponent);
+      renderWithProvider(
+        <CustomComponentWithWindowInfos
+          ref={ref => {
+            testRef = ref;
+          }}
+        />
+      );
+      expect(testRef).not.toBeNull();
+    });
   });
   describe("ConnectedWindowInfos/render", () => {
     it("render prop should render with defaults", () => {
