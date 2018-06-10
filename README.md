@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/topheman/npm-registry-browser.svg?branch=master)](https://travis-ci.org/topheman/npm-registry-browser)
 [![Cypress](https://img.shields.io/badge/cypress-dashboard-brightgreen.svg)](https://dashboard.cypress.io/#/projects/8r5nf4/runs)
-[![Demo](https://img.shields.io/badge/demo-online-blue.svg)](https://topheman.github.io/npm-registry-browser)
+[![Demo](https://img.shields.io/badge/demo-online-blue.svg)](https://topheman.github.io/npm-registry-browser/)
 
 There are lots of great resources on React out there. What might be missing is some projects mixing real world constraints like:
 
@@ -52,7 +52,7 @@ The whole README from `create-react-app` is available [here](README.cra.md).
 Here's a list of some of the technologies I'm using:
 
 * [React](https://github.com/facebook/react) / [React Router](https://github.com/reactjs/react-router)
-* [material-ui](https://material-ui-next.com/) / [Downshift](https://github.com/paypal/downshift)
+* [material-ui](https://material-ui.com/) / [Downshift](https://github.com/paypal/downshift)
 * [Eslint](http://eslint.org/) (with [eslint-config-airbnb](https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb)) / [Prettier](https://github.com/prettier/prettier)
 * [Jest](https://facebook.github.io/jest/) / [Cypress.io](https://www.cypress.io/) - [enzyme](https://github.com/airbnb/enzyme) / [react-testing-library](https://github.com/kentcdodds/react-testing-library)
 * [Axios](https://github.com/axios/axios) / [nock](https://github.com/node-nock/nock)
@@ -187,7 +187,7 @@ More on [prettier](NOTES.md#eslint-and-prettier).
 
 ## Deploy
 
-The demo is hosted on [github-pages](https://topheman.github.io/npm-registry-browser). A simple way to publish your app is to use the [gh-pages](https://www.npmjs.com/package/gh-pages) package that will create a `gh-pages` orphan branch on which it will commit and push.
+The demo is hosted on [github-pages](https://topheman.github.io/npm-registry-browser/). A simple way to publish your app is to use the [gh-pages](https://www.npmjs.com/package/gh-pages) package that will create a `gh-pages` orphan branch on which it will commit and push.
 
 The following script will build then publish your app on your github pages:
 
@@ -321,7 +321,7 @@ Maybe in further versions, I will add redux while adding other features.
 
 ### Why use Material UI ?
 
-In every enterprise app, you're using some kind of UI Kit (whether it is homemade or based on libraries like [material-ui](https://material-ui-next.com/), [semantic-ui](https://react.semantic-ui.com) or [bootstrap](https://react-bootstrap.github.io/)).
+In every enterprise app, you're using some kind of UI Kit (whether it is homemade or based on libraries like [material-ui](https://material-ui.com/), [semantic-ui](https://react.semantic-ui.com) or [bootstrap](https://react-bootstrap.github.io/)).
 
 Working with such a library was part of the constraints I set.
 
@@ -337,12 +337,9 @@ I had never used `material-ui`, it was the opportunity of testing it (and also t
 
 This project is a work in progress, here are some of the next features I'll be working on:
 
-* Test pluging an other `css-in-js` library to [`material-ui`](https://material-ui-next.com/) (default one is [jss](https://material-ui-next.com/customization/css-in-js/#jss))
+* Test pluging an other `css-in-js` library to [`material-ui`](https://material-ui.com/) (default one is [jss](https://material-ui.com/customization/css-in-js/#jss))
 * Form management use case (to show a more advanced way of state management - maybe using redux ?)
 * Add some i18n (since the content of the app is all in english, first find some adapted feature to apply it)
-* Use latest React 16.3 apis such as:
-  * New lifecycles such as [`getDerivedStateFromProps`](https://reactjs.org/docs/react-component.html#static-getderivedstatefromprops) / [`getSnapshotBeforeUpdate`](https://reactjs.org/docs/react-component.html#getsnapshotbeforeupdate)
-* More unit tests and e2e tests
 * Add prettier git-hook on travis
 * Try out [React Suspense](https://www.youtube.com/watch?v=6g3g0Q_XVb4) (next versions of React)
 * Upgrade `react-scripts` / use webpack 4 ?
