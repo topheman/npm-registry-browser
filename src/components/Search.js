@@ -57,19 +57,36 @@ const styles = theme => ({
   input: {
     width: "100%",
     backgroundColor: "#ececec",
-    border: 0,
+    border: "1px solid #c9c9c9",
+    backgroundImage: `url('data:image/svg+xml;utf-8,<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24"><g><path fill="gray" d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path></g></svg>')`,
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "40px 40px",
     padding: 16,
     fontSize: "1.1rem",
     fontWeight: 500,
     fontFamily: `"Roboto", "Arial", sans-serif`,
     borderRadius: "5px",
     outline: "none",
-    "-webkit-appearance": "none" // remove weird border radius on iOs devices
+    "-webkit-appearance": "none", // remove weird border radius on iOs devices
+    // search icon on the left on regular screens
+    backgroundPosition: "top 5px left 5px",
+    paddingLeft: 50,
+    paddingRight: 16,
+    // search icon on the right on small screens
+    [theme.breakpoints.down("sm")]: {
+      backgroundPosition: "top 5px right 5px",
+      paddingLeft: 16,
+      paddingRight: 50
+    }
   },
   inputFocus: {
     [theme.breakpoints.down("sm")]: {
       "&:focus": {
+        // adjust search icon position
+        backgroundPosition: "top 8px right 58px",
+        paddingRight: 110,
         zIndex: 1332,
+        border: 0,
         borderRadius: 0,
         position: "fixed",
         top: 0,
@@ -312,7 +329,7 @@ class Search extends Component {
                   disabled: inputDisabled, // when blur out to prevent refocusing right away if clicking at the same place
                   type: "search",
                   value: inputValue,
-                  placeholder: "Search packages",
+                  placeholder: "Search packages ...",
                   onKeyDown: event => {
                     // when type enter inside text input : go to search results and close menu
                     if (event.key === "Enter" && highlightedIndex === null) {
