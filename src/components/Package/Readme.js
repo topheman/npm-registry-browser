@@ -17,7 +17,7 @@ const styles = theme => ({
     marginRight: "8px"
   },
   markdown: {
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("xs")]: {
       // on small screens, limit the maxWidth to 80% of the width of the window (vw unit)
       // so that <pre> tags in readme have specific width to overflow: scroll when
       // piece of code exemple is to wide

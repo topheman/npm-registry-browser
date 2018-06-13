@@ -34,7 +34,7 @@ const styles = theme => ({
     textDecoration: "none",
     fontWeight: 500,
     flex: 1,
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("xs")]: {
       fontSize: "100%"
     },
     [theme.breakpoints.up("sm")]: {
@@ -46,7 +46,7 @@ const styles = theme => ({
   },
   menuButton: {
     marginLeft: -12,
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("xs")]: {
       marginRight: 0
     },
     [theme.breakpoints.up("sm")]: {

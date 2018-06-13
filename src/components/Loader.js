@@ -9,7 +9,7 @@ import Waiting from "./Waiting";
 const styles = theme => ({
   customLoaderRoot: {
     verticalAlign: "center",
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("xs")]: {
       padding: "10px 10px"
     },
     [theme.breakpoints.up("sm")]: {

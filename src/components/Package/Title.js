@@ -18,7 +18,7 @@ const styles = theme => ({
     textTransform: "none",
     marginLeft: -16,
     color: theme.palette.primary.main,
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("xs")]: {
       fontSize: theme.typography.pxToRem(20)
     },
     [theme.breakpoints.up("sm")]: {

@@ -9,7 +9,7 @@ import RefreshIcon from "@material-ui/icons/Refresh";
 const styles = theme => ({
   root: {
     textAlign: "center",
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("xs")]: {
       padding: "10px 10px"
     },
     [theme.breakpoints.up("sm")]: {

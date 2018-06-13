@@ -25,7 +25,7 @@ const styles = theme => ({
   rootWrapper: {
     position: "relative",
     display: "block",
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("xs")]: {
       width: "90vw"
     },
     [theme.breakpoints.up("sm")]: {
@@ -109,7 +109,7 @@ const styles = theme => ({
       maxHeight: 450,
       overflowY: "scroll"
     },
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("xs")]: {
       position: "fixed",
       top: 50,
       zIndex: 1332
@@ -336,6 +336,10 @@ class Search extends Component {
                       event.preventDefault(); // prevent submitting the form
                       // only go to search results if any value is set
                       if (event.target.value !== "") {
+                        // prevent loader to display while unfinished request comes back (wont be processed)
+                        this.setState({
+                          state: "loaded"
+                        });
                         if (smallScreen) {
                           event.target.blur(); // trigger blur to remove backdrop on small screen
                         }
@@ -391,32 +395,31 @@ class Search extends Component {
                 })}
               />
             </form>
-            {inputFocus &&
-              ["loading", "error"].includes(state) && (
-                <ul className={classes.itemsWrapper} data-type="search-results">
-                  <li
-                    data-testid="search-loading-indicator"
-                    className={classes.item}
-                    style={{
-                      paddingTop: "30px",
-                      backgroundColor: "white"
-                    }}
-                  >
-                    {state === "loading" ? (
-                      <Loader
-                        message=""
-                        overrideClasses={{
-                          customLoaderMessage: classes.customLoaderMessage,
-                          customLoaderRoot: classes.customLoaderRoot,
-                          progress: classes.progress
-                        }}
-                      />
-                    ) : (
-                      "error"
-                    )}
-                  </li>
-                </ul>
-              )}
+            {["loading", "error"].includes(state) && (
+              <ul className={classes.itemsWrapper} data-type="search-results">
+                <li
+                  data-testid="search-loading-indicator"
+                  className={classes.item}
+                  style={{
+                    paddingTop: "30px",
+                    backgroundColor: "white"
+                  }}
+                >
+                  {state === "loading" ? (
+                    <Loader
+                      message=""
+                      overrideClasses={{
+                        customLoaderMessage: classes.customLoaderMessage,
+                        customLoaderRoot: classes.customLoaderRoot,
+                        progress: classes.progress
+                      }}
+                    />
+                  ) : (
+                    "error"
+                  )}
+                </li>
+              </ul>
+            )}
             {isOpen &&
               state === "loaded" &&
               items &&

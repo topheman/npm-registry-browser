@@ -12,7 +12,7 @@ const styles = theme => ({
       [theme.breakpoints.up("sm")]: {
         maxWidth: "70vw"
       },
-      [theme.breakpoints.down("sm")]: {
+      [theme.breakpoints.down("xs")]: {
         maxWidth: "90vw"
       }
     }

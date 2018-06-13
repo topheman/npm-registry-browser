@@ -31,7 +31,7 @@ const styles = theme => ({
   root: {
     display: "grid",
     gridGap: "10px",
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("xs")]: {
       gridTemplateColumns: "90vw",
       gridTemplateAreas: `"header"
       "section"
