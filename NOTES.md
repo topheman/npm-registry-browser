@@ -169,8 +169,9 @@ Update your `.travis.yml` with:
 ```yaml
 deploy:
   provider: surge
-  project: ./static/
+  project: ./build/
   domain: example.surge.sh
+  skip_cleanup: true
 ```
 
 📂 [Checkout the PR where I implemented it](https://github.com/topheman/npm-registry-browser/pull/20/files)
