@@ -9,6 +9,8 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Divider from "@material-ui/core/Divider";
 import CloseIcon from "@material-ui/icons/Close";
 import HomeIcon from "@material-ui/icons/Home";
+import InfoIcon from "@material-ui/icons/Info";
+import WifiIcon from "@material-ui/icons/Wifi";
 import MuiDrawer from "@material-ui/core/Drawer";
 import classNames from "classnames";
 import { Link } from "react-router-dom";
@@ -33,6 +35,10 @@ const styles = {
   },
   horizontalList: {
     width: "auto"
+  },
+  listItem: {
+    paddingTop: 8,
+    paddingBottom: 8
   },
   listIcon: {
     width: 24,
@@ -59,10 +65,58 @@ const MainDrawer = ({ classes, anchor, open, onClose, ...remainingProps }) => {
           <CloseIcon className={classes.closeIcon} aria-label="Close" />
         </ListItem>
         <ListItem>
-          <ListItemText primary="npm-registry-browser" />
+          <ListItemText primary="MENU" />
         </ListItem>
-        <Divider />
         <ListItem
+          className={classes.listItem}
+          button
+          component={Link}
+          to="/"
+          title="Home"
+          data-testid="link-to-home"
+        >
+          <ListItemIcon>
+            <HomeIcon
+              className={classNames(classes.svgColor, classes.listIcon)}
+            />
+          </ListItemIcon>
+          <ListItemText primary="Home" />
+        </ListItem>
+        <ListItem
+          className={classes.listItem}
+          button
+          component={Link}
+          to="/about"
+          title="About"
+          data-testid="link-to-about"
+        >
+          <ListItemIcon>
+            <InfoIcon
+              className={classNames(classes.svgColor, classes.listIcon)}
+            />
+          </ListItemIcon>
+          <ListItemText primary="About" />
+        </ListItem>
+        <ListItem
+          className={classes.listItem}
+          button
+          component={Link}
+          to="/qrcode"
+          title="Show Qrcode"
+          data-testid="link-to-qrcode"
+        >
+          <ListItemIcon>
+            <Icon className={classes.qrcodeIcon} />
+          </ListItemIcon>
+          <ListItemText primary="Show Qrcode" />
+        </ListItem>
+        <Divider style={{ marginTop: "30px" }} />
+        <ListItem>
+          <ListItemText primary="EXTERNAL" />
+        </ListItem>
+
+        <ListItem
+          className={classes.listItem}
           button
           component="a"
           href="https://github.com/topheman/npm-registry-browser"
@@ -74,6 +128,7 @@ const MainDrawer = ({ classes, anchor, open, onClose, ...remainingProps }) => {
           <ListItemText primary="Github" />
         </ListItem>
         <ListItem
+          className={classes.listItem}
           button
           component="a"
           href="https://twitter.com/topheman"
@@ -84,32 +139,19 @@ const MainDrawer = ({ classes, anchor, open, onClose, ...remainingProps }) => {
           </ListItemIcon>
           <ListItemText primary="Twitter" />
         </ListItem>
-        <Divider />
         <ListItem
+          className={classes.listItem}
           button
           component="a"
           href="http://labs.topheman.com"
           title="@topheman on twitter"
         >
           <ListItemIcon>
-            <HomeIcon
+            <WifiIcon
               className={classNames(classes.svgColor, classes.listIcon)}
             />
           </ListItemIcon>
           <ListItemText primary="labs.topheman.com" />
-        </ListItem>
-        <Divider style={{ marginTop: "50px" }} />
-        <ListItem
-          button
-          component={Link}
-          to="/qrcode"
-          title="Show Qrcode"
-          data-testid="link-to-qrcode"
-        >
-          <ListItemIcon>
-            <Icon className={classes.qrcodeIcon} />
-          </ListItemIcon>
-          <ListItemText primary="Show Qrcode" />
         </ListItem>
       </List>
     </div>

@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
+import HomeIcon from "@material-ui/icons/Home";
 import qrcode from "../assets/images/qrcode.png";
 
 const styles = {
@@ -24,7 +25,15 @@ const styles = {
 const QrcodeContainer = ({ classes }) => (
   <div className={classes.root}>
     <p>
-      <Link to="/">Back to Home page</Link>
+      <Link to="/" data-testid="link-back-home">
+        <HomeIcon
+          style={{
+            display: "inline-block",
+            marginBottom: -7
+          }}
+        />{" "}
+        Back to Home page
+      </Link>
     </p>
     <div
       className={classes.qrCodeWrapper}

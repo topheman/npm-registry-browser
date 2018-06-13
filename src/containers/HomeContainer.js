@@ -3,11 +3,9 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Chip from "@material-ui/core/Chip";
-import qrcode from "../assets/images/qrcode.png";
 
 const styles = theme => ({
   root: {
-    paddingTop: 10,
     "& > p, & > ul": {
       marginLeft: "auto",
       marginRight: "auto",
@@ -52,25 +50,6 @@ const styles = theme => ({
         textOverflow: "ellipsis"
       }
     }
-  },
-  qrCodeWrapper: {
-    width: 150,
-    height: 170,
-    float: "right",
-    marginRight: "10vw",
-    position: "relative",
-    backgroundImage: `url(${qrcode})`,
-    backgroundRepeat: "no-repeat",
-    [theme.breakpoints.down("sm")]: {
-      display: "none"
-    },
-    "& > span": {
-      fontStyle: "italic",
-      position: "absolute",
-      bottom: 0,
-      textAlign: "center",
-      width: 150
-    }
   }
 });
 
@@ -109,71 +88,8 @@ const Home = ({ classes }) => {
           ) : null}
         </p>
       )}
-      <div className={classes.qrCodeWrapper} data-testid="qrcode">
-        <span>Visit on mobile</span>
-      </div>
-      <p>
-        There are lots of great resources on React out there. What might be
-        missing is some projects mixing real-world constraints like:
-      </p>
-      <ul>
-        <li>API calls / frontend router</li>
-        <li>using external libraries (UI kits, http clients ...)</li>
-        <li>
-          code quality good practices (linting, testing, git hooks, cis ...)
-        </li>
-        <li>automation / dev pipeline</li>
-        <li>and more ...</li>
-      </ul>
-      <p>
-        The hard part is often to be able to put all those together. This is the
-        goal of this project: provide a well-documented example of a front-end
-        app with real-world features and constraints.
-      </p>
-      <p>
-        All the source code is open and documented for you to read. It&#39;s
-        available on{" "}
-        <a
-          href="https://github.com/topheman/npm-registry-browser"
-          title="topheman/npm-registry-browser sources on github"
-        >
-          github
-        </a>.
-      </p>
-      <p>
-        <span role="img" aria-label="Notebook">
-          📔
-        </span>{" "}
-        <a
-          href="http://dev.topheman.com/project-to-help-getting-into-making-react-apps/"
-          title="Why I made this project"
-        >
-          Read the blog post where I explain why I made the project
-        </a>.
-      </p>
-      <p>
-        <span role="img" aria-label="TV">
-          📺
-        </span>{" "}
-        <a
-          href="http://dev.topheman.com/pourquoi-realiser-topheman-npm-registry-browser-video-talk/"
-          title="Video of the talk about why I made this project"
-        >
-          Watch the video of the talk{" "}
-          <span role="img" aria-label="FR">
-            🇫🇷
-          </span>
-        </a>.
-      </p>
       <p className={classes.explainChips}>
-        Use the search engine to find a package{" "}
-        <span role="img" aria-label="look up">
-          👆
-        </span>
-        or click on one of the sample links bellow{" "}
-        <span role="img" aria-label="package">
-          📦
-        </span>:
+        No idea what to search for ? Pick a package bellow.
       </p>
       <div className={classes.chipsWrapper} data-testid="chip-wrapper">
         {packages.map(name => (
@@ -187,6 +103,9 @@ const Home = ({ classes }) => {
           />
         ))}
       </div>
+      <p className={classes.explainChips}>
+        <Link to="/about">About</Link>
+      </p>
     </div>
   );
 };

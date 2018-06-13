@@ -8,6 +8,7 @@ import HomeContainer from "./containers/HomeContainer";
 import PackageContainer from "./containers/PackageContainer";
 import SearchResultsContainer from "./containers/SearchResultsContainer";
 import QrcodeContainer from "./containers/QrcodeContainer";
+import AboutContainer from "./containers/AboutContainer";
 
 /**
  * Compiles a render method to pass to a Route that will redirect to "latest" version
@@ -36,6 +37,7 @@ const Routes = () => (
       <Switch>
         <Route exact path="/" component={HomeContainer} />
         <Route exact path="/qrcode" component={QrcodeContainer} />
+        <Route exact path="/about" component={AboutContainer} />
         <Route
           exact
           path="/package/@:scope/:name@:version"

@@ -4,6 +4,11 @@ describe("Qrcode", () => {
     cy.url().should("contain", "/qrcode");
     cy.getByTestId("qrcode-standalone").should("be.visible");
   });
+  it("back Home link should work from QrCode page", () => {
+    cy.visit("/#/qrcode");
+    cy.getByTestId("link-back-home").click();
+    cy.hash().should("equal", "#/");
+  });
   it("should load /qrcode page from MainDrawer", () => {
     cy.visit("/#/");
     cy
