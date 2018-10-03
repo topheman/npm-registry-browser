@@ -300,7 +300,8 @@ class Search extends Component {
           }
           goToPackage(item.package.name);
         }}
-        render={({
+      >
+        {({
           selectedItem,
           getInputProps,
           getItemProps,
@@ -465,7 +466,7 @@ class Search extends Component {
             />
           </div>
         )}
-      />
+      </Downshift>
     );
   }
 }
