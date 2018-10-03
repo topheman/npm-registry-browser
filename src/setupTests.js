@@ -12,7 +12,7 @@ import Adapter from "enzyme-adapter-react-16";
 
 /**
  * Gives access to the following jest custom matchers:
- * - toBeInTheDOM
+ * - toContainElement
  * - toHaveTextContent
  * - toHaveAttribute
  * - toHaveClass

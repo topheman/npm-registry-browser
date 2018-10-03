@@ -42,7 +42,7 @@ describe("/components/Footer", () => {
         />
       );
       expect(getByAltText("avatar").src).toBe(
-        "https://s.gravatar.com/avatar/4aa426e56a82cdab72b0c3a11cfa3982?s=30"
+        "https://s.gravatar.com/avatar/4aa426e56a82cdab72b0c3a11cfa3982"
       );
     });
   });
