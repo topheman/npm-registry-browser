@@ -24,8 +24,8 @@
   "license": "MIT",
   "dependencies": {
     "@fnando/sparkline": "^0.3.10",
-    "@material-ui/core": "^1.5.1",
-    "@material-ui/icons": "^2.0.3",
+    "@material-ui/core": "^3.1.2",
+    "@material-ui/icons": "^3.0.1",
     "animated-scrollto": "^1.1.0",
     "axios": "^0.18.0",
     "axios-cache-adapter": "^2.1.1",

@@ -23,6 +23,8 @@ const styles = theme => ({
     flexGrow: 1
   },
   logo: {
+    width: 48,
+    height: 48,
     backgroundImage: `url(${npmLogo})`,
     backgroundSize: 45,
     backgroundPosition: "2px 2px",
