@@ -68,20 +68,19 @@ const SearchResultItem = ({
         <span>
           published <i>{relativeDate(new Date(packageInfos.date))}</i>
         </span>
-        {packageInfos.publisher &&
-          packageInfos.publisher.username && (
-            <span>
-              {" "}
-              by <em>{packageInfos.publisher.username}</em>
-              {packageInfos.publisher.email && (
-                <Gravatar
-                  size={30}
-                  email={packageInfos.publisher.email}
-                  className={classes.gravatar}
-                />
-              )}
-            </span>
-          )}
+        {packageInfos.publisher && packageInfos.publisher.username && (
+          <span>
+            {" "}
+            by <em>{packageInfos.publisher.username}</em>
+            {packageInfos.publisher.email && (
+              <Gravatar
+                size={30}
+                email={packageInfos.publisher.email}
+                className={classes.gravatar}
+              />
+            )}
+          </span>
+        )}
       </div>
     </span>
   </div>

@@ -56,9 +56,7 @@ export const makeMockedClient = (
       : mock.rawHeaders
   }));
   console.warn(
-    `[Mock][init](${key}) Following requests will be mocked on ${
-      axiosConfig.baseURL
-    }`,
+    `[Mock][init](${key}) Following requests will be mocked on ${axiosConfig.baseURL}`,
     mocks.map(mock => `${mock.method.toUpperCase()}: ${mock.path}`)
   );
   const mockedAxios = new MockAdapter(makeClient(axiosConfig));

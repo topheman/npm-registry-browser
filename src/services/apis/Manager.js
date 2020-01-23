@@ -45,14 +45,10 @@ export default class Manager {
     }
     if (mocks) {
       console.warn(
-        `[Api][Manager](${
-          this.key
-        }) Mocking API. Requests will be intercepted and served. The files containing the mocks are in src/services/mocks. To generate those files, run: npm run record-http-mocks.`
+        `[Api][Manager](${this.key}) Mocking API. Requests will be intercepted and served. The files containing the mocks are in src/services/mocks. To generate those files, run: npm run record-http-mocks.`
       );
       console.warn(
-        `[Api][Manager](${
-          this.key
-        }) Unmocked requests will pass through and will be logged.`
+        `[Api][Manager](${this.key}) Unmocked requests will pass through and will be logged.`
       );
       this.client = makeMockedClient(
         axiosConfig,

@@ -48,7 +48,8 @@ const QrcodeContainer = ({ classes }) => (
         title="topheman/npm-registry-browser sources on github"
       >
         github
-      </a>.
+      </a>
+      .
     </p>
     <p>
       <span role="img" aria-label="Notebook">
@@ -59,7 +60,8 @@ const QrcodeContainer = ({ classes }) => (
         title="Why I made this project"
       >
         Read the blog post where I explain why I made the project
-      </a>.
+      </a>
+      .
     </p>
     <p>
       <span role="img" aria-label="TV">
@@ -73,7 +75,8 @@ const QrcodeContainer = ({ classes }) => (
         <span role="img" aria-label="FR">
           🇫🇷
         </span>
-      </a>.
+      </a>
+      .
     </p>
     <p style={{ textAlign: "center" }}>
       <Link to="/" data-testid="link-back-home">

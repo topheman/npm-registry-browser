@@ -1,8 +1,7 @@
 describe("Search", () => {
   it("autocomplete should display results, be usable with keyboard", () => {
     cy.visit("/#/");
-    cy
-      .getByTestId("search-input")
+    cy.getByTestId("search-input")
       .type("react")
       // can't test for search indicator (only shows up if search-input has focus) - it seems, we loose the focus by getting an other selector ...
       // .getByTestId("search-loading-indicator")
@@ -22,8 +21,7 @@ describe("Search", () => {
         cy.viewport("iphone-6");
       }
       cy.visit("/#/");
-      cy
-        .getByTestId("search-input")
+      cy.getByTestId("search-input")
         .click()
         .wait(0) // on mobile, the backdrop will be over, wait next tick
         .getByTestId("search-input")
@@ -45,8 +43,7 @@ describe("Search", () => {
         cy.viewport("iphone-6");
       }
       cy.visit("/#/");
-      cy
-        .getByTestId("search-input")
+      cy.getByTestId("search-input")
         .click()
         .wait(0) // on mobile, the backdrop will be over, wait next tick
         .getByTestId("search-input")

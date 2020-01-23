@@ -11,8 +11,7 @@ describe("Qrcode", () => {
   });
   it("should load /qrcode page from MainDrawer", () => {
     cy.visit("/#/");
-    cy
-      .get("[aria-label=Menu]")
+    cy.get("[aria-label=Menu]")
       .click()
       .getByTestId("link-to-qrcode")
       .click();

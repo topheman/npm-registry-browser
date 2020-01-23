@@ -18,7 +18,7 @@ export const removeLeadingDays = downloads =>
 export const yearDownloadsToWeaks = downloads =>
   removeLeadingDays(downloads).reduce((acc, cur, index) => {
     // we will only create a new entry in the accumulator each 7 loop
-    const indexStep7 = (index - index % 7) / 7;
+    const indexStep7 = (index - (index % 7)) / 7;
     // init accumulator
     acc[indexStep7] = acc[indexStep7] || { value: 0 };
     // add from value every 7 loops
