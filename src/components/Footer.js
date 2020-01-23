@@ -24,7 +24,8 @@ const Footer = ({
 }) => (
   <footer className={classNames(classes.root, className)} {...remainingProps}>
     <p>
-      ©{fromFullYear === toFullYear
+      ©
+      {fromFullYear === toFullYear
         ? toFullYear
         : `${fromFullYear}-${toFullYear}`}{" "}
       <a href="http://labs.topheman.com/">labs.topheman.com</a> - Christophe

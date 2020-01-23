@@ -421,44 +421,39 @@ class Search extends Component {
                 </li>
               </ul>
             )}
-            {isOpen &&
-              state === "loaded" &&
-              items &&
-              items.length > 0 && (
-                <ul className={classes.itemsWrapper} data-type="search-results">
-                  {items.map((item, index) => (
-                    <li
-                      data-testid={`search-result-${item.package.name}`}
-                      key={item.package.name}
-                      className={classes.item}
-                      {...getItemProps({
-                        item,
-                        style: {
-                          backgroundColor:
-                            highlightedIndex === index ? "#ececec" : "white",
-                          fontWeight: selectedItem === item ? "bold" : "normal"
-                        }
-                      })}
+            {isOpen && state === "loaded" && items && items.length > 0 && (
+              <ul className={classes.itemsWrapper} data-type="search-results">
+                {items.map((item, index) => (
+                  <li
+                    data-testid={`search-result-${item.package.name}`}
+                    key={item.package.name}
+                    className={classes.item}
+                    {...getItemProps({
+                      item,
+                      style: {
+                        backgroundColor:
+                          highlightedIndex === index ? "#ececec" : "white",
+                        fontWeight: selectedItem === item ? "bold" : "normal"
+                      }
+                    })}
+                  >
+                    <Typography
+                      variant="subheading"
+                      className={`${classes.itemName} ${classes.safeItem}`}
+                      dangerouslySetInnerHTML={{ __html: item.highlight }}
+                    />
+                    <Typography
+                      className={`${classes.itemDescription} ${classes.safeItem}`}
                     >
-                      <Typography
-                        variant="subheading"
-                        className={`${classes.itemName} ${classes.safeItem}`}
-                        dangerouslySetInnerHTML={{ __html: item.highlight }}
-                      />
-                      <Typography
-                        className={`${classes.itemDescription} ${
-                          classes.safeItem
-                        }`}
-                      >
-                        {item.package.description}
-                      </Typography>
-                      <Typography className={classes.itemVersion}>
-                        {item.package.version}
-                      </Typography>
-                    </li>
-                  ))}
-                </ul>
-              )}
+                      {item.package.description}
+                    </Typography>
+                    <Typography className={classes.itemVersion}>
+                      {item.package.version}
+                    </Typography>
+                  </li>
+                ))}
+              </ul>
+            )}
             <Backdrop
               style={(inputFocus && { zIndex: 1331 }) || undefined}
               className={classes.backdrop}

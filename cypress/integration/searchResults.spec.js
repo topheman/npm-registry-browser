@@ -1,7 +1,6 @@
 describe("SearchResults", () => {
   it("search should keep history", () => {
-    cy
-      .visit("/#/")
+    cy.visit("/#/")
       // search a package / assert it has results and that the url has changed
       .getByTestId("search-input")
       .clear()
@@ -40,8 +39,7 @@ describe("SearchResults", () => {
       .should("contain", "/#/search?q=react");
   });
   it("search keywords and navigate history", () => {
-    cy
-      .visit("/#/")
+    cy.visit("/#/")
       // search package click on some keyword
       .getByTestId("search-input")
       .clear()

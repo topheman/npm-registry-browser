@@ -11,8 +11,7 @@ describe("About", () => {
   });
   it("should load /about page from MainDrawer", () => {
     cy.visit("/#/");
-    cy
-      .get("[aria-label=Menu]")
+    cy.get("[aria-label=Menu]")
       .click()
       .getByTestId("link-to-about")
       .click();

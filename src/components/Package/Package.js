@@ -200,28 +200,26 @@ const Package = ({
           }}
         />
       </Paper>
-      {stateNpmRegistry === "loaded" &&
-        packageInfos && (
-          <DependenciesTab
-            version={version}
-            packageInfos={packageInfos}
-            className={`${classes.blocks} ${classes.blockDependencies}`}
-            style={{ padding: 0 }}
-            data-testid="dependencies-tab"
-          />
-        )}
-      {stateNpmRegistry === "loaded" &&
-        packageInfos && (
-          <VersionsTab
-            scope={scope}
-            name={name}
-            version={version}
-            packageInfos={packageInfos}
-            className={`${classes.blocks} ${classes.blockVersions}`}
-            style={{ padding: 0 }}
-            data-testid="versions-tab"
-          />
-        )}
+      {stateNpmRegistry === "loaded" && packageInfos && (
+        <DependenciesTab
+          version={version}
+          packageInfos={packageInfos}
+          className={`${classes.blocks} ${classes.blockDependencies}`}
+          style={{ padding: 0 }}
+          data-testid="dependencies-tab"
+        />
+      )}
+      {stateNpmRegistry === "loaded" && packageInfos && (
+        <VersionsTab
+          scope={scope}
+          name={name}
+          version={version}
+          packageInfos={packageInfos}
+          className={`${classes.blocks} ${classes.blockVersions}`}
+          style={{ padding: 0 }}
+          data-testid="versions-tab"
+        />
+      )}
       {stateNpmRegistry === "loaded" &&
         packageInfos &&
         packageInfos.versions &&
