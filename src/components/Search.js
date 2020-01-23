@@ -454,11 +454,9 @@ class Search extends Component {
                 ))}
               </ul>
             )}
-            <Backdrop
-              style={(inputFocus && { zIndex: 1331 }) || undefined}
-              className={classes.backdrop}
-              open={inputFocus}
-            />
+            {inputFocus && (
+              <Backdrop className={classes.backdrop} open={inputFocus} />
+            )}
           </div>
         )}
       </Downshift>
